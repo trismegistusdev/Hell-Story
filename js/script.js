@@ -531,7 +531,7 @@ monogatari.script({
     'Night1Ending': [
         'y I put my phone on the charger.',
         'y Darkness takes me as I close my eyes.',
-        'THIS IS WHERE YOU GET THE TEXT FROM THE DEVIL'
+        'THIS IS WHERE YOU GET THE TEXT FROM THE DEVIL',
         'centered Day 1 Complete',
         'end'
     ]
