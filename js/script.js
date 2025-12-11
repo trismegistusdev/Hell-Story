@@ -36,7 +36,8 @@ monogatari.storage({
     // Track which activities have been done today
     didGymToday: false,
     didReadToday: false,
-    didChillToday: false
+    didChillToday: false,
+    didWorkToday: false
 });
 /* CHARACTERS =================================================================================================================================================*/
 monogatari.characters({
@@ -99,6 +100,7 @@ function resetDailyActivities() {
                 storage.didGymToday = false;
                 storage.didReadToday = false;
                 storage.didChillToday = false;
+                storage.didWorkToday = false;
                 storage.dayStamina = 3;
                 monogatari.storage(storage);
                 return true;
@@ -420,57 +422,46 @@ monogatari.script({
             'Conditional': {
                 'Condition': function() {
                     const s = monogatari.storage();
-                    return !s.didGymToday && !s.didReadToday && !s.didChillToday;
+                    return !s.didGymToday && !s.didReadToday && !s.didChillToday && !s.didWorkToday;
                 },
                 'True': 'jump DayChoice_All',
-                'False': {
-                    'Conditional': {
-                        'Condition': function() {
-                            const s = monogatari.storage();
-                            return s.didGymToday && !s.didReadToday && !s.didChillToday;
-                        },
-                        'True': 'jump DayChoice_NoGym',
-                        'False': {
-                            'Conditional': {
-                                'Condition': function() {
-                                    const s = monogatari.storage();
-                                    return !s.didGymToday && s.didReadToday && !s.didChillToday;
-                                },
-                                'True': 'jump DayChoice_NoRead',
-                                'False': {
-                                    'Conditional': {
-                                        'Condition': function() {
-                                            const s = monogatari.storage();
-                                            return !s.didGymToday && !s.didReadToday && s.didChillToday;
-                                        },
-                                        'True': 'jump DayChoice_NoChill',
-                                        'False': {
-                                            'Conditional': {
-                                                'Condition': function() {
-                                                    const s = monogatari.storage();
-                                                    return s.didGymToday && s.didReadToday && !s.didChillToday;
-                                                },
-                                                'True': 'jump DayChoice_OnlyChill',
-                                                'False': {
-                                                    'Conditional': {
-                                                        'Condition': function() {
-                                                            const s = monogatari.storage();
-                                                            return s.didGymToday && !s.didReadToday && s.didChillToday;
-                                                        },
-                                                        'True': 'jump DayChoice_OnlyRead',
-                                                        'False': 'jump DayChoice_OnlyGym'
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                'False': 'jump DayChoice_Filtered'
             }
         }
+    ],
+
+    'DayChoice_Filtered': [
+        {
+            'Function': {
+                'Apply': function() {
+                    const s = monogatari.storage();
+                    const choices = {
+                        Dialog: 'What do you want to do today?'
+                    };
+                    
+                    if (!s.didGymToday) {
+                        choices.Gym = { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' };
+                    }
+                    if (!s.didReadToday) {
+                        choices.Read = { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' };
+                    }
+                    if (!s.didChillToday) {
+                        choices.Chill = { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' };
+                    }
+                    if (!s.didWorkToday) {
+                        choices.Work = { Text: 'Work at the Shop (Earn Money)', Do: 'jump DayWork' };
+                    }
+                    choices.CheckHPhone = { Text: 'Check H-Phone', Do: 'jump HPhone' };
+                    
+                    monogatari.script()['DayChoice_Dynamic'] = [{ Choice: choices }];
+                    return true;
+                },
+                'Reverse': function() {
+                    return true;
+                }
+            }
+        },
+        'jump DayChoice_Dynamic'
     ],
 
     'DayChoice_All': [
@@ -480,69 +471,7 @@ monogatari.script({
                 Gym: { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' },
                 Read: { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' },
                 Chill: { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' },
-                CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
-            }
-        }
-    ],
-
-    'DayChoice_NoGym': [
-        {
-            Choice: {
-                Dialog: 'What do you want to do today?',
-                Read: { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' },
-                Chill: { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' },
-                CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
-            }
-        }
-    ],
-
-    'DayChoice_NoRead': [
-        {
-            Choice: {
-                Dialog: 'What do you want to do today?',
-                Gym: { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' },
-                Chill: { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' },
-                CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
-            }
-        }
-    ],
-
-    'DayChoice_NoChill': [
-        {
-            Choice: {
-                Dialog: 'What do you want to do today?',
-                Gym: { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' },
-                Read: { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' },
-                CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
-            }
-        }
-    ],
-
-    'DayChoice_OnlyChill': [
-        {
-            Choice: {
-                Dialog: 'What do you want to do today?',
-                Chill: { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' },
-                CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
-            }
-        }
-    ],
-
-    'DayChoice_OnlyRead': [
-        {
-            Choice: {
-                Dialog: 'What do you want to do today?',
-                Read: { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' },
-                CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
-            }
-        }
-    ],
-
-    'DayChoice_OnlyGym': [
-        {
-            Choice: {
-                Dialog: 'What do you want to do today?',
-                Gym: { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' },
+                Work: { Text: 'Work at the Shop (Earn Money)', Do: 'jump DayWork' },
                 CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
             }
         }
@@ -564,11 +493,82 @@ monogatari.script({
     'HPhoneMessages': [ 'li You check your messages... nothing new.', 'jump DayNext' ],
     'HPhoneSocials': [ 'lu You check social media... same old stuff.', 'jump DayNext' ],
 
+    'DayWork': [
+        'show scene #f5deb3 with fadeIn',
+        'y You head to the Hell Gift Shop for your shift.',
+        setVar('didWorkToday', true),
+        {
+            'Function': {
+                'Apply': function() {
+                    const earnings = Math.floor(Math.random() * 5) + 1;
+                    const storage = monogatari.storage();
+                    storage._workEarnings = earnings;
+                    storage.money += earnings;
+                    monogatari.storage(storage);
+                    return true;
+                },
+                'Reverse': function() {
+                    return true;
+                }
+            }
+        },
+        'y You work your shift and earn {{_workEarnings}} money.',
+        'y Not bad for a day of work!',
+        'clear',
+        'y (Stamina reduced, Money earned)',
+        changeVar('dayStamina', -1),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage().dayStamina <= 0;
+                },
+                'True': 'jump Night1Texting',
+                'False': 'jump DayNext'
+            }
+        }
+    ],
+
     'DayGym': [
-        'li You head to the gym and work up a sweat.',
+        'show scene #ffcccc with fadeIn',
+        'y You head to the gym and work up a sweat.',
         setVar('didGymToday', true),
-        'STATIC NON-RANDOM EVENT WITH BINARY VAGUE CHOICE FOR STAT ALTERATION GOES HERE',
-        'y (Stamina reduced)',
+        'y As you finish your workout you notice someone familiar.',
+        's Oh hey! Did not expect to see you here.',
+        's Want to spot me on bench press?',
+        {
+            Choice: {
+                Dialog: 'What do you say?',
+                Good: { Text: 'Sure I would be happy to help! (STR) (+1)', Do: 'jump GymGoodReply' },
+                Bad: { Text: 'Nah I am too tired. (-1)', Do: 'jump GymBadReply' }
+            }
+        }
+    ],
+
+    'GymGoodReply': [
+        changeVar('samAffection', 1),
+        changeVar('STRENGTH', 1),
+        's Thanks! You are pretty strong yourself.',
+        's We should work out together more often.',
+        'clear',
+        'y (Stamina reduced, Strength increased)',
+        changeVar('dayStamina', -1),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage().dayStamina <= 0;
+                },
+                'True': 'jump Night1Texting',
+                'False': 'jump DayNext'
+            }
+        }
+    ],
+
+    'GymBadReply': [
+        changeVar('samAffection', -1),
+        changeVar('STRENGTH', 1),
+        's Oh... alright then. See you around.',
+        'clear',
+        'y (Stamina reduced, Strength increased)',
         changeVar('dayStamina', -1),
         {
             'Conditional': {
@@ -582,10 +582,48 @@ monogatari.script({
     ],
 
     'DayRead': [
-        'li You spend time reading and expanding your mind.',
+        'show scene #e8dcc4 with fadeIn',
+        'y You head to the library and browse the shelves.',
         setVar('didReadToday', true),
-        'STATIC NON-RANDOM EVENT WITH BINARY VAGUE CHOICE FOR STAT ALTERATION GOES HERE',
-        'y (Stamina reduced)',
+        'y As you reach for a book, someone else reaches for the same one.',
+        'b Oh! Sorry, were you going for this one?',
+        'b It is a book on ancient Hell mythology. Pretty fascinating stuff!',
+        {
+            Choice: {
+                Dialog: 'What do you say?',
+                Good: { Text: 'We could read it together? (INT Check) (+1)', Do: 'jump ReadGoodReply' },
+                Bad: { Text: 'I saw it first. (-1)', Do: 'jump ReadBadReply' }
+            }
+        }
+    ],
+
+    'ReadGoodReply': [
+        changeVar('belleAffection', 1),
+        changeVar('INTELLIGENCE', 1),
+        'b Really? That would be wonderful!',
+        'b I love discussing books with someone who appreciates them.',
+        'y You spend the next hour reading and chatting with Belle.',
+        'clear',
+        'y (Stamina reduced, Intelligence increased)',
+        changeVar('dayStamina', -1),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage().dayStamina <= 0;
+                },
+                'True': 'jump Night1Texting',
+                'False': 'jump DayNext'
+            }
+        }
+    ],
+
+    'ReadBadReply': [
+        changeVar('belleAffection', -1),
+        changeVar('INTELLIGENCE', 1),
+        'b Oh... okay. Sorry about that.',
+        'b I will just... find something else.',
+        'clear',
+        'y (Stamina reduced, Intelligence increased)',
         changeVar('dayStamina', -1),
         {
             'Conditional': {
@@ -599,10 +637,48 @@ monogatari.script({
     ],
 
     'DayChill': [
-        'li You relax at home and unwind.',
+        'show scene #c8e6c9 with fadeIn',
+        'y You decide to relax at home and unwind.',
         setVar('didChillToday', true),
-        'STATIC NON-RANDOM EVENT WITH BINARY VAGUE CHOICE FOR STAT ALTERATION GOES HERE',
-        'y (Stamina reduced)',
+        'y As you settle in on the couch, you hear a knock at the door.',
+        'm Hi! I was in the neighborhood and thought I would stop by!',
+        'm Want to watch a movie together?',
+        {
+            Choice: {
+                Dialog: 'What do you say?',
+                Good: { Text: 'That sounds perfect! (WIS Check) (+1)', Do: 'jump ChillGoodReply' },
+                Bad: { Text: 'I kind of wanted to be alone. (-1)', Do: 'jump ChillBadReply' }
+            }
+        }
+    ],
+
+    'ChillGoodReply': [
+        changeVar('mollyAffection', 1),
+        changeVar('WISDOM', 1),
+        'm Yay! I brought popcorn!',
+        'm This is so nice. I really enjoy spending time with you.',
+        'y You spend a relaxing afternoon watching movies with Molly.',
+        'clear',
+        'y (Stamina reduced, Wisdom increased)',
+        changeVar('dayStamina', -1),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage().dayStamina <= 0;
+                },
+                'True': 'jump Night1Texting',
+                'False': 'jump DayNext'
+            }
+        }
+    ],
+
+    'ChillBadReply': [
+        changeVar('mollyAffection', -1),
+        changeVar('WISDOM', 1),
+        'm Oh... I understand.',
+        'm Sorry for bothering you. I will go.',
+        'clear',
+        'y (Stamina reduced, Wisdom increased)',
         changeVar('dayStamina', -1),
         {
             'Conditional': {
