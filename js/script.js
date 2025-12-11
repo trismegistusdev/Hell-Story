@@ -258,9 +258,10 @@ monogatari.script({
     ],
 
     'Intro': [
-        'show scene #f7f6f6 with fadeIn',
+        'show scene #add8e6 with fadeIn',
         'y THIS IS WHERE THE INTRO WITH THE CAR CHASE AND BANANA PEEL GAG GOES',
         'li Your Strength is {{STRENGTH}}, Dexterity is {{DEXTERITY}}, and Rizz is {{RIZZ}}.',
+        'show scene #880808 with fadeIn',
         'lu Here is your H Phone!',
         setVar('receivedHPhone', true),
         {
@@ -284,7 +285,7 @@ monogatari.script({
 
     'Scene0': [
         'clear',
-        'show scene #f7f6f6 with fadeIn',
+        'show scene #ff9a9a with fadeIn',
         'THIS IS WHERE THE INTRO WHERE YOU CRASH INTO THE ANNOUNCERS TABLE AND THEY SHOW YOU AROUND HELL AND TAKE YOU TO THE HELLIDAY INN',
         'lu Now choose who to text tonight.',
         {
