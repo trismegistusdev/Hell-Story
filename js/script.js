@@ -31,12 +31,17 @@ monogatari.storage({
     INTELLIGENCE: 1,
     WISDOM: 1,
     RIZZ: 1,
-    dayStamina: 3
+    dayStamina: 3,
+    money: 0
 });
 /* CHARACTERS =================================================================================================================================================*/
 monogatari.characters({
     y: { name: 'You' },
-    li: { name: 'Lily' },
+    li: { name: 'Lily',
+            sprites: {
+            normal: 'lily.png', // The file name of the sprite
+            happy: 'notafileyet.png' //dont have one yet
+		}},
     lu: { name: 'Lucy' },
     b: { name: 'Belle' },
     s: { name: 'Sam' },
@@ -258,15 +263,15 @@ monogatari.script({
     ],
 
     'Intro': [
-        'show scene #add8e6 with fadeIn',
-        'y THIS IS WHERE THE INTRO WITH THE CAR CHASE AND BANANA PEEL GAG GOES',
+        'show character li normal at center with fadeIn scale 4',
         'li Your Strength is {{STRENGTH}}, Dexterity is {{DEXTERITY}}, and Rizz is {{RIZZ}}.',
+        'show scene #add8e6 with fadeIn',
+        'y THIS IS WHERE THE INTRO WITH THE CAR CHASE AND BANANA PEEL GAG GOES HERE THE PC DIES',
         'show scene #880808 with fadeIn',
-        'lu Here is your H Phone!',
-        setVar('receivedHPhone', true),
+        'THIS IS WHERE THE INTRO WHERE YOU CRASH INTO THE ANNOUNCERS TABLE AND THEY SHOW YOU AROUND HELL AND TAKE YOU TO THE HELLIDAY INN',
         {
             Choice: {
-                Dialog: 'li Are you ready for hell?',
+                Dialog: 'li Welcoem to Hell! Are you ready>',
                 Yes: { Text: 'Yes', Do: 'jump YesBranch' },
                 No: { Text: 'No', Do: 'jump NoBranch' }
             }
@@ -286,7 +291,8 @@ monogatari.script({
     'Scene0': [
         'clear',
         'show scene #ff9a9a with fadeIn',
-        'THIS IS WHERE THE INTRO WHERE YOU CRASH INTO THE ANNOUNCERS TABLE AND THEY SHOW YOU AROUND HELL AND TAKE YOU TO THE HELLIDAY INN',
+        'lu Welcome to Hell! Here is your H Phone!',
+        setVar('receivedHPhone', true),
         'lu Now choose who to text tonight.',
         {
             Choice: {
