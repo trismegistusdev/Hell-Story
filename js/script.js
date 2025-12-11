@@ -407,61 +407,142 @@ monogatari.script({
         'li The next day begins...',
         'y I wake up to the sound of my alarm. Time to decide how to spend the day.',
         'li The sun is shining brightly.',
+        'jump DayChoiceRouter'
+    ],
+
+    'DayNext': [
+        'y You have {{dayStamina}} stamina left.',
+        'jump DayChoiceRouter'
+    ],
+
+    'DayChoiceRouter': [
+        {
+            'Conditional': {
+                'Condition': function() {
+                    const s = monogatari.storage();
+                    return !s.didGymToday && !s.didReadToday && !s.didChillToday;
+                },
+                'True': 'jump DayChoice_All',
+                'False': {
+                    'Conditional': {
+                        'Condition': function() {
+                            const s = monogatari.storage();
+                            return s.didGymToday && !s.didReadToday && !s.didChillToday;
+                        },
+                        'True': 'jump DayChoice_NoGym',
+                        'False': {
+                            'Conditional': {
+                                'Condition': function() {
+                                    const s = monogatari.storage();
+                                    return !s.didGymToday && s.didReadToday && !s.didChillToday;
+                                },
+                                'True': 'jump DayChoice_NoRead',
+                                'False': {
+                                    'Conditional': {
+                                        'Condition': function() {
+                                            const s = monogatari.storage();
+                                            return !s.didGymToday && !s.didReadToday && s.didChillToday;
+                                        },
+                                        'True': 'jump DayChoice_NoChill',
+                                        'False': {
+                                            'Conditional': {
+                                                'Condition': function() {
+                                                    const s = monogatari.storage();
+                                                    return s.didGymToday && s.didReadToday && !s.didChillToday;
+                                                },
+                                                'True': 'jump DayChoice_OnlyChill',
+                                                'False': {
+                                                    'Conditional': {
+                                                        'Condition': function() {
+                                                            const s = monogatari.storage();
+                                                            return s.didGymToday && !s.didReadToday && s.didChillToday;
+                                                        },
+                                                        'True': 'jump DayChoice_OnlyRead',
+                                                        'False': 'jump DayChoice_OnlyGym'
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ],
+
+    'DayChoice_All': [
         {
             Choice: {
                 Dialog: 'What do you want to do today?',
-                Gym: { 
-                    Text: 'Go to the Gym (Fitness Check)', 
-                    Do: 'jump DayGym',
-                    onChosen: function() {
-                        return !monogatari.storage().didGymToday;
-                    }
-                },
-                Read: { 
-                    Text: 'Stay in and Read (Knowledge Check)', 
-                    Do: 'jump DayRead',
-                    onChosen: function() {
-                        return !monogatari.storage().didReadToday;
-                    }
-                },
-                Chill: { 
-                    Text: 'Chill at Home (Relaxation Check)', 
-                    Do: 'jump DayChill',
-                    onChosen: function() {
-                        return !monogatari.storage().didChillToday;
-                    }
-                },
+                Gym: { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' },
+                Read: { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' },
+                Chill: { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' },
                 CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
             }
         }
     ],
 
-    'DayNext': [
-        'y You have {{dayStamina}} stamina left.',
+    'DayChoice_NoGym': [
         {
             Choice: {
                 Dialog: 'What do you want to do today?',
-                Gym: { 
-                    Text: 'Go to the Gym (Fitness Check)', 
-                    Do: 'jump DayGym',
-                    onChosen: function() {
-                        return !monogatari.storage().didGymToday;
-                    }
-                },
-                Read: { 
-                    Text: 'Stay in and Read (Knowledge Check)', 
-                    Do: 'jump DayRead',
-                    onChosen: function() {
-                        return !monogatari.storage().didReadToday;
-                    }
-                },
-                Chill: { 
-                    Text: 'Chill at Home (Relaxation Check)', 
-                    Do: 'jump DayChill',
-                    onChosen: function() {
-                        return !monogatari.storage().didChillToday;
-                    }
-                },
+                Read: { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' },
+                Chill: { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' },
+                CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
+            }
+        }
+    ],
+
+    'DayChoice_NoRead': [
+        {
+            Choice: {
+                Dialog: 'What do you want to do today?',
+                Gym: { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' },
+                Chill: { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' },
+                CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
+            }
+        }
+    ],
+
+    'DayChoice_NoChill': [
+        {
+            Choice: {
+                Dialog: 'What do you want to do today?',
+                Gym: { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' },
+                Read: { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' },
+                CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
+            }
+        }
+    ],
+
+    'DayChoice_OnlyChill': [
+        {
+            Choice: {
+                Dialog: 'What do you want to do today?',
+                Chill: { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' },
+                CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
+            }
+        }
+    ],
+
+    'DayChoice_OnlyRead': [
+        {
+            Choice: {
+                Dialog: 'What do you want to do today?',
+                Read: { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' },
+                CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
+            }
+        }
+    ],
+
+    'DayChoice_OnlyGym': [
+        {
+            Choice: {
+                Dialog: 'What do you want to do today?',
+                Gym: { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' },
                 CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
             }
         }
