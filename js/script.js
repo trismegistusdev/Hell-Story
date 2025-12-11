@@ -32,7 +32,11 @@ monogatari.storage({
     WISDOM: 1,
     RIZZ: 1,
     dayStamina: 3,
-    money: 0
+    money: 0,
+    // Track which activities have been done today
+    didGymToday: false,
+    didReadToday: false,
+    didChillToday: false
 });
 /* CHARACTERS =================================================================================================================================================*/
 monogatari.characters({
@@ -86,6 +90,26 @@ function setVar(varName, value) {
         }
     };
 }
+
+function resetDailyActivities() {
+    return {
+        'Function': {
+            'Apply': function() {
+                const storage = monogatari.storage();
+                storage.didGymToday = false;
+                storage.didReadToday = false;
+                storage.didChillToday = false;
+                storage.dayStamina = 3;
+                monogatari.storage(storage);
+                return true;
+            },
+            'Reverse': function() {
+                return true;
+            }
+        }
+    };
+}
+
 function showStatAllocation() {
     return {
         'Function': {
@@ -312,11 +336,6 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'Choose your reply.',
-                //
-                //
-                //   THIS IS WHERE THE "DICE ROLL" PLUS YOUR STAT FOR THE STAT IT TELLLS YOU THE VAGUE HINT OF
-                //
-                //
                 Good: { Text: 'Hope you have sweet dreams! (+1)', Do: 'jump LilyGoodReply' },
                 Bad: { Text: 'Did you miss me yet? (-1)', Do: 'jump LilyBadReply' }
             }
@@ -329,11 +348,6 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'Choose your reply.',
-                //
-                //
-                //   THIS IS WHERE THE "DICE ROLL" PLUS YOUR STAT FOR THE STAT IT TELLLS YOU THE VAGUE HINT OF
-                //
-                //
                 Good: { Text: 'Ask if she needs anything (+1)', Do: 'jump LucyGoodReply' },
                 Bad: { Text: "Just go back to sleep, I'm busy. (-1)", Do: 'jump LucyBadReply' }
             }
@@ -346,11 +360,6 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'Choose your reply.',
-                //
-                //
-                //   THIS IS WHERE THE "DICE ROLL" PLUS YOUR STAT FOR THE STAT IT TELLLS YOU THE VAGUE HINT OF
-                //
-                //
                 Good: { Text: 'Yeah, this place is interesting! (+1)', Do: 'jump BelleGoodReply' },
                 Bad: { Text: 'This place sucks. (-1)', Do: 'jump BelleBadReply' }
             }
@@ -363,11 +372,6 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'Choose your reply.',
-                //
-                //
-                //   THIS IS WHERE THE "DICE ROLL" PLUS YOUR STAT FOR THE STAT IT TELLLS YOU THE VAGUE HINT OF
-                //
-                //
                 Good: { Text: "Yeah, what's up? (+1)", Do: 'jump SamGoodReply' },
                 Bad: { Text: "I'm tired. (-1)", Do: 'jump SamBadReply' }
             }
@@ -380,11 +384,6 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'Choose your reply.',
-                //
-                //
-                //   THIS IS WHERE THE "DICE ROLL" PLUS YOUR STAT FOR THE STAT IT TELLLS YOU THE VAGUE HINT OF
-                //
-                //
                 Good: { Text: 'Ask what she wanted to say (+1)', Do: 'jump MollyGoodReply' },
                 Bad: { Text: "I am not interested, Molly. (-1)", Do: 'jump MollyBadReply' }
             }
@@ -411,9 +410,27 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'What do you want to do today?',
-                Gym: { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' },
-                Read: { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' },
-                Chill: { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' },
+                Gym: { 
+                    Text: 'Go to the Gym (Fitness Check)', 
+                    Do: 'jump DayGym',
+                    onChosen: function() {
+                        return !monogatari.storage().didGymToday;
+                    }
+                },
+                Read: { 
+                    Text: 'Stay in and Read (Knowledge Check)', 
+                    Do: 'jump DayRead',
+                    onChosen: function() {
+                        return !monogatari.storage().didReadToday;
+                    }
+                },
+                Chill: { 
+                    Text: 'Chill at Home (Relaxation Check)', 
+                    Do: 'jump DayChill',
+                    onChosen: function() {
+                        return !monogatari.storage().didChillToday;
+                    }
+                },
                 CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
             }
         }
@@ -424,9 +441,27 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'What do you want to do today?',
-                Gym: { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' },
-                Read: { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' },
-                Chill: { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' },
+                Gym: { 
+                    Text: 'Go to the Gym (Fitness Check)', 
+                    Do: 'jump DayGym',
+                    onChosen: function() {
+                        return !monogatari.storage().didGymToday;
+                    }
+                },
+                Read: { 
+                    Text: 'Stay in and Read (Knowledge Check)', 
+                    Do: 'jump DayRead',
+                    onChosen: function() {
+                        return !monogatari.storage().didReadToday;
+                    }
+                },
+                Chill: { 
+                    Text: 'Chill at Home (Relaxation Check)', 
+                    Do: 'jump DayChill',
+                    onChosen: function() {
+                        return !monogatari.storage().didChillToday;
+                    }
+                },
                 CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
             }
         }
@@ -450,11 +485,8 @@ monogatari.script({
 
     'DayGym': [
         'li You head to the gym and work up a sweat.',
-        //////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////
+        setVar('didGymToday', true),
         'STATIC NON-RANDOM EVENT WITH BINARY VAGUE CHOICE FOR STAT ALTERATION GOES HERE',
-        //////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////
         'y (Stamina reduced)',
         changeVar('dayStamina', -1),
         {
@@ -470,11 +502,8 @@ monogatari.script({
 
     'DayRead': [
         'li You spend time reading and expanding your mind.',
-        //////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////
+        setVar('didReadToday', true),
         'STATIC NON-RANDOM EVENT WITH BINARY VAGUE CHOICE FOR STAT ALTERATION GOES HERE',
-        //////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////
         'y (Stamina reduced)',
         changeVar('dayStamina', -1),
         {
@@ -490,11 +519,8 @@ monogatari.script({
 
     'DayChill': [
         'li You relax at home and unwind.',
-        //////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////
+        setVar('didChillToday', true),
         'STATIC NON-RANDOM EVENT WITH BINARY VAGUE CHOICE FOR STAT ALTERATION GOES HERE',
-        //////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////
         'y (Stamina reduced)',
         changeVar('dayStamina', -1),
         {
@@ -524,11 +550,7 @@ monogatari.script({
             }
         }
     ],
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
-    // NEED BINARY REPLAY OPTIONS FOR STAT CHANGE HERE FOR EACH 
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
+
     'TextLily1': [ 'y Hey Lily, thanks for the welcome today.', 'li Of course! I hope you sleep well!', 'li See you tomorrow! <3', 'jump Night1Ending' ],
     'TextLucy1': [ 'y Hey Lucy. You awake?', 'lu Yeah. Just scrolling. You need something?', 'y Just saying goodnight.', 'lu Oh. Night.', 'jump Night1Ending' ],
     'TextSam1': [ 'y Yo Sam.', 's Yo. What is up?', 'y Just heading to bed. Long day.', 's Tell me about it. Catch you later.', 'jump Night1Ending' ],
@@ -540,6 +562,7 @@ monogatari.script({
         'y Darkness takes me as I close my eyes.',
         'THIS IS WHERE YOU GET THE TEXT FROM THE DEVIL',
         'centered Day 1 Complete',
+        resetDailyActivities(),
         'end'
     ]
 });
