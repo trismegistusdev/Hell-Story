@@ -8,7 +8,6 @@ monogatari.action('Notification').notifications({
         icon: ''
     }
 });
-
 /*-------------------------------------------------------------------- MESSAGES -------------------------------------------------------------------------------------------------------------------*/
 monogatari.action('Message').messages({
     'Help': {
@@ -17,7 +16,6 @@ monogatari.action('Message').messages({
         body: 'This game says: "You should read the documentation!"'
     }
 });
-
 /* -----------------------------------------------------------------STORAGE -------------------------------------------------------------------------------------------------------------------*/
 monogatari.storage({
     player: { name: '' },
@@ -35,7 +33,6 @@ monogatari.storage({
     RIZZ: 1,
     dayStamina: 3
 });
-
 /* CHARACTERS =================================================================================================================================================*/
 monogatari.characters({
     y: { name: 'You' },
@@ -45,7 +42,6 @@ monogatari.characters({
     s: { name: 'Sam' },
     m: { name: 'Molly' }
 });
-
 // --- HELPER FUNCTIONS ---
 function changeVar(varName, amount) {
     return {
@@ -66,7 +62,6 @@ function changeVar(varName, amount) {
         }
     };
 }
-
 function setVar(varName, value) {
     return {
         'Function': {
@@ -86,7 +81,6 @@ function setVar(varName, value) {
         }
     };
 }
-
 function showStatAllocation() {
     return {
         'Function': {
@@ -239,7 +233,7 @@ function showStatAllocation() {
 monogatari.script({
     'Start': [
         'show scene #000000 with fadeIn',
-        'y Welcome to the game! This is where the intro goes.',
+        'y THIS IS WHERE THE INTRO WITH THE WORK INTRO GOES',
         'jump AskName'
     ],
 
@@ -265,7 +259,7 @@ monogatari.script({
 
     'Intro': [
         'show scene #f7f6f6 with fadeIn',
-        'li Welcome to Hell Story!',
+        'y THIS IS WHERE THE INTRO WITH THE CAR CHASE AND BANANA PEEL GAG GOES',
         'li Your Strength is {{STRENGTH}}, Dexterity is {{DEXTERITY}}, and Rizz is {{RIZZ}}.',
         'lu Here is your H Phone!',
         setVar('receivedHPhone', true),
@@ -280,22 +274,18 @@ monogatari.script({
 
     'YesBranch': [
         'lu Awesome!',
-        'm Then you are ready to go!',
-        'b I cannot wait to see what story you will tell!',
         'jump Scene0'
     ],
 
     'NoBranch': [
         'li Too bad!',
-        'm I cannot wait to see you in Hell!',
         'jump Scene0'
     ],
 
     'Scene0': [
         'clear',
         'show scene #f7f6f6 with fadeIn',
-        'b This is where the intro story goes.',
-        'li Welcome to Hell, {{player.name}}!',
+        'THIS IS WHERE THE INTRO WHERE YOU CRASH INTO THE ANNOUNCERS TABLE AND THEY SHOW YOU AROUND HELL AND TAKE YOU TO THE HELLIDAY INN',
         'lu Now choose who to text tonight.',
         {
             Choice: {
@@ -315,6 +305,11 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'Choose your reply.',
+                //
+                //
+                //   THIS IS WHERE THE "DICE ROLL" PLUS YOUR STAT FOR THE STAT IT TELLLS YOU THE VAGUE HINT OF
+                //
+                //
                 Good: { Text: 'Hope you have sweet dreams! (+1)', Do: 'jump LilyGoodReply' },
                 Bad: { Text: 'Did you miss me yet? (-1)', Do: 'jump LilyBadReply' }
             }
@@ -327,6 +322,11 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'Choose your reply.',
+                //
+                //
+                //   THIS IS WHERE THE "DICE ROLL" PLUS YOUR STAT FOR THE STAT IT TELLLS YOU THE VAGUE HINT OF
+                //
+                //
                 Good: { Text: 'Ask if she needs anything (+1)', Do: 'jump LucyGoodReply' },
                 Bad: { Text: "Just go back to sleep, I'm busy. (-1)", Do: 'jump LucyBadReply' }
             }
@@ -339,6 +339,11 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'Choose your reply.',
+                //
+                //
+                //   THIS IS WHERE THE "DICE ROLL" PLUS YOUR STAT FOR THE STAT IT TELLLS YOU THE VAGUE HINT OF
+                //
+                //
                 Good: { Text: 'Yeah, this place is interesting! (+1)', Do: 'jump BelleGoodReply' },
                 Bad: { Text: 'This place sucks. (-1)', Do: 'jump BelleBadReply' }
             }
@@ -351,6 +356,11 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'Choose your reply.',
+                //
+                //
+                //   THIS IS WHERE THE "DICE ROLL" PLUS YOUR STAT FOR THE STAT IT TELLLS YOU THE VAGUE HINT OF
+                //
+                //
                 Good: { Text: "Yeah, what's up? (+1)", Do: 'jump SamGoodReply' },
                 Bad: { Text: "I'm tired. (-1)", Do: 'jump SamBadReply' }
             }
@@ -363,6 +373,11 @@ monogatari.script({
         {
             Choice: {
                 Dialog: 'Choose your reply.',
+                //
+                //
+                //   THIS IS WHERE THE "DICE ROLL" PLUS YOUR STAT FOR THE STAT IT TELLLS YOU THE VAGUE HINT OF
+                //
+                //
                 Good: { Text: 'Ask what she wanted to say (+1)', Do: 'jump MollyGoodReply' },
                 Bad: { Text: "I am not interested, Molly. (-1)", Do: 'jump MollyBadReply' }
             }
@@ -428,6 +443,11 @@ monogatari.script({
 
     'DayGym': [
         'li You head to the gym and work up a sweat.',
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////
+        'STATIC NON-RANDOM EVENT WITH BINARY VAGUE CHOICE FOR STAT ALTERATION GOES HERE',
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////
         'y (Stamina reduced)',
         changeVar('dayStamina', -1),
         {
@@ -443,6 +463,11 @@ monogatari.script({
 
     'DayRead': [
         'li You spend time reading and expanding your mind.',
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////
+        'STATIC NON-RANDOM EVENT WITH BINARY VAGUE CHOICE FOR STAT ALTERATION GOES HERE',
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////
         'y (Stamina reduced)',
         changeVar('dayStamina', -1),
         {
@@ -458,6 +483,11 @@ monogatari.script({
 
     'DayChill': [
         'li You relax at home and unwind.',
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////
+        'STATIC NON-RANDOM EVENT WITH BINARY VAGUE CHOICE FOR STAT ALTERATION GOES HERE',
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////
         'y (Stamina reduced)',
         changeVar('dayStamina', -1),
         {
@@ -487,7 +517,11 @@ monogatari.script({
             }
         }
     ],
-
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+    // NEED BINARY REPLAY OPTIONS FOR STAT CHANGE HERE FOR EACH 
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
     'TextLily1': [ 'y Hey Lily, thanks for the welcome today.', 'li Of course! I hope you sleep well!', 'li See you tomorrow! <3', 'jump Night1Ending' ],
     'TextLucy1': [ 'y Hey Lucy. You awake?', 'lu Yeah. Just scrolling. You need something?', 'y Just saying goodnight.', 'lu Oh. Night.', 'jump Night1Ending' ],
     'TextSam1': [ 'y Yo Sam.', 's Yo. What is up?', 'y Just heading to bed. Long day.', 's Tell me about it. Catch you later.', 'jump Night1Ending' ],
@@ -497,6 +531,7 @@ monogatari.script({
     'Night1Ending': [
         'y I put my phone on the charger.',
         'y Darkness takes me as I close my eyes.',
+        'THIS IS WHERE YOU GET THE TEXT FROM THE DEVIL'
         'centered Day 1 Complete',
         'end'
     ]
