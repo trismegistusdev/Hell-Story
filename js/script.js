@@ -22,12 +22,12 @@ monogatari.storage({
 
 /* ===== CHARACTERS ===== */
 monogatari.characters({
-    y: { name: 'You' },
+    y: { name: 'You'},
     li: { name: 'Lily', sprites: { normal: 'lily.png', happy: 'notafileyet.png' }},
-    lu: { name: 'Lucy' },
-    b: { name: 'Belle' },
-    s: { name: 'Sam' },
-    m: { name: 'Molly' }
+    lu: { name: 'Lucy', sprites: { normal: 'lucy.png', happy: 'notafileyet.png' } },
+    b: { name: 'Belle', sprites: { normal: 'belle.png', happy: 'notafileyet.png' } },
+    s: { name: 'Sam', sprites: { normal: 'sam.png', happy: 'notafileyet.png' } },
+    m: { name: 'Molly', sprites: { normal: 'molly.png', happy: 'notafileyet.png' } }
 });
 
 /* ===== HELPER FUNCTIONS ===== */
@@ -263,7 +263,7 @@ monogatari.script({
     'StatAllocation_Screen': [showStatAllocation(), 'jump Intro'],
 
     'Intro': [
-        'show character li normal at center with fadeIn scale 4',
+        'show character li normal at bigLeft with fadeIn',
         'li STR: {{STRENGTH}}, DEX: {{DEXTERITY}}, RIZZ: {{RIZZ}}',
         'show scene #880808 with fadeIn',
         'li Welcome to Hell!',
