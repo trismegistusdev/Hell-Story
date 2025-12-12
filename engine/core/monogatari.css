@@ -12050,7 +12050,8 @@ td,th {
     width: 100%;
     height: 100%;
     position: absolute;
-    transition: all .5s
+    transition: all .5s;
+    left: 0;
 }
 
 .modal--active {
@@ -13334,7 +13335,7 @@ audio,canvas,video {
 }
 
 .modal {
-    top: 0
+    top: 0;
 }
 
 .modal .modal__content {
@@ -13360,6 +13361,9 @@ audio,canvas,video {
     display: inline;
     width: 100%;
     color: #FF0000;
+}
+#monogatari > visual-novel > alert-modal {
+    width:100%;
 }
 
 [data-content=wrapper] {
@@ -13673,7 +13677,7 @@ choice-container {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    position: absolute
+    position: absolute;
 }
 
 [mode=nvl] choice-container {
@@ -13688,15 +13692,13 @@ choice-container {
 }
 
 choice-container [data-content=wrapper] {
-    display: flex;
-    flex-direction: column
+    display: inline-flex;
 }
 
 choice-container button {
     margin: 1em;
-    padding: .5em;
+    padding: 0.5em;
     border-radius: .5em;
-    width: auto;
     height: auto;
     color: #fff
 }
@@ -13807,6 +13809,11 @@ game-screen {
 game-screen img {
     position: absolute;
     max-height: 90%
+}
+#monogatari > visual-novel > game-screen > div > img {
+    position: relative;
+    bottom 10px;
+    bottom: 901px;
 }
 
 game-screen [data-image] {
@@ -14239,7 +14246,9 @@ slot-container {
     display: block;
     width: 100%;
     margin: 0;
-    padding: .5rem 1rem
+    padding: .5rem 1rem;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
 [data-content=dialog],[data-ui=say] {
@@ -14257,18 +14266,23 @@ text-box {
     -ms-grid-columns: auto minmax(70%,1fr);
     grid-template-columns: auto minmax(70%,1fr);
     -ms-grid-rows: auto 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas: "header header" "side-image text";
-    background-color: var(--main-color);
+    grid-template-areas:
+        "header header"
+        "side-image text";
+    background-color: #000000;
     min-height: 25%;
     max-height: 25%;
     overflow: hidden;
-    width: 100%;
     z-index: 10;
-    text-align: left;
     position: absolute;
     bottom: 0;
-    color: #fff
+    color: #fff;
+    margin: 1em;
+    border: red solid 5px;
+    border-radius: 1em;
+}
+#monogatari > visual-novel > game-screen > text-box {
+    width: 97.5%;
 }
 
 text-box:after {
@@ -14350,7 +14364,8 @@ text-box.rtl>[data-content=text] {
 }
 
 text-box [data-content=dialog] {
-    padding: 0 1rem
+    padding: 0 1rem;
+    color: #FFF;
 }
 
 text-box [data-content=side-image] {
@@ -14394,14 +14409,14 @@ text-box.side-image--unconstrained [data-content=side-image] {
 
 @media screen and (min-width: 37.56255em) {
     text-box,text-box:after {
-        bottom:2.5rem
+        bottom:2.5rem;
     }
 }
 
 @media screen and (min-width: 48em) {
     text-box {
         -ms-grid-columns:auto minmax(80%,1fr);
-        grid-template-columns: auto minmax(80%,1fr)
+        grid-template-columns: auto minmax(80%,1fr);
     }
 
     text-box.rtl {
