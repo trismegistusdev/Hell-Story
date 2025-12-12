@@ -32,20 +32,23 @@ monogatari.storage({
     WISDOM: 1,
     RIZZ: 1,
     dayStamina: 3,
-    money: 0,
-    // Track which activities have been done today
+    money: 10,
     didGymToday: false,
     didReadToday: false,
     didChillToday: false,
-    didWorkToday: false
+    didWorkToday: false,
+    boughtItemToday: false,
+    activeItemName: '',
+    activeItemBuffs: {},
+    dailyShopItems: []
 });
 /* CHARACTERS =================================================================================================================================================*/
 monogatari.characters({
     y: { name: 'You' },
     li: { name: 'Lily',
             sprites: {
-            normal: 'lily.png', // The file name of the sprite
-            happy: 'notafileyet.png' //dont have one yet
+            normal: 'lily.png',
+            happy: 'notafileyet.png'
 		}},
     lu: { name: 'Lucy' },
     b: { name: 'Belle' },
@@ -67,6 +70,33 @@ function changeVar(varName, amount) {
                 const storage = monogatari.storage();
                 storage[varName] = this._oldValue;
                 monogatari.storage(storage);
+                return true;
+            }
+        }
+    };
+}
+
+function statCheck(statName, difficulty) {
+    return {
+        'Function': {
+            'Apply': function() {
+                const storage = monogatari.storage();
+                const statValue = storage[statName] || 1;
+                const roll = Math.floor(Math.random() * 5) + 1;
+                const total = statValue + roll;
+                const success = total >= difficulty;
+                
+                storage._lastRoll = roll;
+                storage._lastStat = statValue;
+                storage._lastTotal = total;
+                storage._lastDifficulty = difficulty;
+                storage._lastSuccess = success;
+                storage._lastStatName = statName;
+                
+                monogatari.storage(storage);
+                return true;
+            },
+            'Reverse': function() {
                 return true;
             }
         }
@@ -102,6 +132,10 @@ function resetDailyActivities() {
                 storage.didChillToday = false;
                 storage.didWorkToday = false;
                 storage.dayStamina = 3;
+                storage.boughtItemToday = false;
+                storage.activeItemName = '';
+                storage.activeItemBuffs = {};
+                generateDailyShopItems();
                 monogatari.storage(storage);
                 return true;
             },
@@ -110,6 +144,40 @@ function resetDailyActivities() {
             }
         }
     };
+}
+
+// ===============================================================================================================================================
+// HELL-MAZON SHOP SYSTEM
+// ===============================================================================================================================================
+
+const SHOP_ITEMS = [
+    { name: 'Expired Hellfire Energy Drink', price: 3, buffs: { STRENGTH: 1, CONSTITUTION: 1 }, debuffs: { WISDOM: -1 }, desc: '+1 STR, +1 CON, -1 WIS' },
+    { name: 'Demonic Brain Pills', price: 4, buffs: { INTELLIGENCE: 2 }, debuffs: { STRENGTH: -1 }, desc: '+2 INT, -1 STR' },
+    { name: 'Cursed Protein Powder', price: 4, buffs: { STRENGTH: 2 }, debuffs: { INTELLIGENCE: -1 }, desc: '+2 STR, -1 INT' },
+    { name: 'Suspicious Love Potion', price: 5, buffs: { RIZZ: 2 }, debuffs: { CONSTITUTION: -1 }, desc: '+2 RIZZ, -1 CON' },
+    { name: 'Meditation Incense (Slightly Toxic)', price: 3, buffs: { WISDOM: 1, RIZZ: 1 }, debuffs: { DEXTERITY: -1 }, desc: '+1 WIS, +1 RIZZ, -1 DEX' },
+    { name: 'Shady Coffee from the 9th Circle', price: 3, buffs: { DEXTERITY: 1, INTELLIGENCE: 1 }, debuffs: { RIZZ: -1 }, desc: '+1 DEX, +1 INT, -1 RIZZ' },
+    { name: 'Blessed Demon Steroids', price: 6, buffs: { STRENGTH: 2, CONSTITUTION: 1 }, debuffs: { WISDOM: -1, RIZZ: -1 }, desc: '+2 STR, +1 CON, -1 WIS, -1 RIZZ' },
+    { name: 'Ancient Wisdom Scrolls', price: 7, buffs: { WISDOM: 2, INTELLIGENCE: 1 }, debuffs: { STRENGTH: -1, DEXTERITY: -1 }, desc: '+2 WIS, +1 INT, -1 STR, -1 DEX' },
+    { name: 'Charm School Graduation Certificate', price: 8, buffs: { RIZZ: 3 }, debuffs: { CONSTITUTION: -1, STRENGTH: -1 }, desc: '+3 RIZZ, -1 CON, -1 STR' },
+    { name: 'Parkour Training Manual', price: 6, buffs: { DEXTERITY: 2, STRENGTH: 1 }, debuffs: { INTELLIGENCE: -1, WISDOM: -1 }, desc: '+2 DEX, +1 STR, -1 INT, -1 WIS' },
+    { name: 'IQ Boosting Headband', price: 7, buffs: { INTELLIGENCE: 3 }, debuffs: { RIZZ: -1, DEXTERITY: -1 }, desc: '+3 INT, -1 RIZZ, -1 DEX' },
+    { name: 'Balanced Breakfast from Hell', price: 6, buffs: { STRENGTH: 1, DEXTERITY: 1, CONSTITUTION: 1 }, debuffs: { INTELLIGENCE: -1, WISDOM: -1 }, desc: '+1 STR, +1 DEX, +1 CON, -1 INT, -1 WIS' },
+    { name: 'Divine Elixir of Power', price: 10, buffs: { STRENGTH: 3, CONSTITUTION: 2 }, debuffs: { INTELLIGENCE: -2, RIZZ: -1 }, desc: '+3 STR, +2 CON, -2 INT, -1 RIZZ' },
+    { name: 'Philosopher\'s Stone Fragment', price: 12, buffs: { INTELLIGENCE: 3, WISDOM: 2 }, debuffs: { STRENGTH: -2, CONSTITUTION: -1 }, desc: '+3 INT, +2 WIS, -2 STR, -1 CON' },
+    { name: 'Succubus Training Course', price: 11, buffs: { RIZZ: 4, WISDOM: 1 }, debuffs: { STRENGTH: -2, CONSTITUTION: -1 }, desc: '+4 RIZZ, +1 WIS, -2 STR, -1 CON' },
+    { name: 'Ninja Reflexes Serum', price: 10, buffs: { DEXTERITY: 4 }, debuffs: { CONSTITUTION: -2, WISDOM: -1 }, desc: '+4 DEX, -2 CON, -1 WIS' },
+    { name: 'Fortitude Tonic of the Damned', price: 9, buffs: { CONSTITUTION: 4, STRENGTH: 1 }, debuffs: { DEXTERITY: -2, RIZZ: -1 }, desc: '+4 CON, +1 STR, -2 DEX, -1 RIZZ' },
+    { name: 'Mystery Box from Satan', price: 5, buffs: { STRENGTH: 3, INTELLIGENCE: 3 }, debuffs: { CONSTITUTION: -3, WISDOM: -2 }, desc: '+3 STR, +3 INT, -3 CON, -2 WIS (RISKY!)' },
+    { name: 'All-Stats Energy Bar', price: 15, buffs: { STRENGTH: 2, DEXTERITY: 2, CONSTITUTION: 2, INTELLIGENCE: 2, WISDOM: 2, RIZZ: 2 }, debuffs: {}, desc: '+2 ALL STATS (NO DEBUFFS!)' },
+    { name: 'Cursed Monkey Paw', price: 1, buffs: { RIZZ: 5 }, debuffs: { STRENGTH: -2, DEXTERITY: -2, CONSTITUTION: -2 }, desc: '+5 RIZZ, -2 STR/DEX/CON (CURSED!)' }
+];
+
+function generateDailyShopItems() {
+    const storage = monogatari.storage();
+    const shuffled = [...SHOP_ITEMS].sort(() => Math.random() - 0.5);
+    storage.dailyShopItems = shuffled.slice(0, 2);
+    monogatari.storage(storage);
 }
 
 function showStatAllocation() {
@@ -264,7 +332,7 @@ function showStatAllocation() {
 monogatari.script({
     'Start': [
         'show scene #000000 with fadeIn',
-        'y THIS IS WHERE THE INTRO WITH THE WORK INTRO GOES',
+        'y [INTRO PLACEHOLDER]',
         'jump AskName'
     ],
 
@@ -290,130 +358,144 @@ monogatari.script({
 
     'Intro': [
         'show character li normal at center with fadeIn scale 4',
-        'li Your Strength is {{STRENGTH}}, Dexterity is {{DEXTERITY}}, and Rizz is {{RIZZ}}.',
-        'show scene #add8e6 with fadeIn',
-        'y THIS IS WHERE THE INTRO WITH THE CAR CHASE AND BANANA PEEL GAG GOES HERE THE PC DIES',
+        'li STR: {{STRENGTH}}, DEX: {{DEXTERITY}}, RIZZ: {{RIZZ}}',
         'show scene #880808 with fadeIn',
-        'THIS IS WHERE THE INTRO WHERE YOU CRASH INTO THE ANNOUNCERS TABLE AND THEY SHOW YOU AROUND HELL AND TAKE YOU TO THE HELLIDAY INN',
+        'li Welcome to Hell!',
         {
             Choice: {
-                Dialog: 'li Welcoem to Hell! Are you ready>',
-                Yes: { Text: 'Yes', Do: 'jump YesBranch' },
-                No: { Text: 'No', Do: 'jump NoBranch' }
+                Dialog: 'li Ready?',
+                Yes: { Text: 'Yes', Do: 'jump Scene0' },
+                No: { Text: 'No', Do: 'jump Scene0' }
             }
         }
-    ],
-
-    'YesBranch': [
-        'lu Awesome!',
-        'jump Scene0'
-    ],
-
-    'NoBranch': [
-        'li Too bad!',
-        'jump Scene0'
     ],
 
     'Scene0': [
         'clear',
         'show scene #ff9a9a with fadeIn',
-        'lu Welcome to Hell! Here is your H Phone!',
+        'lu Here is your H-Phone!',
         setVar('receivedHPhone', true),
-        'lu Now choose who to text tonight.',
+        'y Added to: HELL SQUAD 😈',
+        'jump GroupChatNight0'
+    ],
+
+    'GroupChatNight0': [
+        'show scene #1a1a1a with fadeIn',
+        'li Hey {{player.name}}!',
+        'm Hi!! 💕',
+        'b Hello!',
+        's yo',
         {
             Choice: {
-                Dialog: 'Who do you text?',
-                Lily: { Text: 'Lily', Do: 'jump LilyNight0' },
-                Lucy: { Text: 'Lucy', Do: 'jump LucyNight0' },
-                Belle: { Text: 'Belle', Do: 'jump BelleNight0' },
-                Sam: { Text: 'Sam', Do: 'jump SamNight0' },
-                Molly: { Text: 'Molly', Do: 'jump MollyNight0' }
+                Dialog: 'What do you say?',
+                Good: { Text: 'Hey everyone!', Do: 'jump GC_Good1' },
+                Bad: { Text: 'Uh... hi?', Do: 'jump GC_Bad1' }
             }
         }
     ],
 
-    'LilyNight0': [
-        'li Hey, it is me. I was just about to go to sleep.',
-        'y What do I say to her?',
+    'GC_Good1': [
+        changeVar('lilyAffection', 1),
+        'li Great attitude! 💖',
+        's not bad',
+        'jump GC_Scene2'
+    ],
+
+    'GC_Bad1': [
+        changeVar('lucyAffection', 1),
+        'lu lol awkward much',
+        'jump GC_Scene2'
+    ],
+
+    'GC_Scene2': [
+        'm How do you like Hell?',
         {
             Choice: {
-                Dialog: 'Choose your reply.',
-                Good: { Text: 'Hope you have sweet dreams! (+1)', Do: 'jump LilyGoodReply' },
-                Bad: { Text: 'Did you miss me yet? (-1)', Do: 'jump LilyBadReply' }
+                Dialog: 'Response?',
+                Good: { Text: 'You all seem cool!', Do: 'jump GC_Good2' },
+                Bad: { Text: 'Still processing...', Do: 'jump GC_Bad2' }
             }
         }
     ],
 
-    'LucyNight0': [
-        'lu Hey, are you awake?',
-        'y What do I say to her?',
+    'GC_Good2': [
+        changeVar('lilyAffection', 1),
+        changeVar('mollyAffection', 1),
+        'm Aww! 🥺',
+        'jump GC_Scene3'
+    ],
+
+    'GC_Bad2': [
+        changeVar('samAffection', 1),
+        's fair',
+        'jump GC_Scene3'
+    ],
+
+    'GC_Scene3': [
+        'lu wanna hit the cafe tomorrow?',
+        'm YES!',
         {
             Choice: {
-                Dialog: 'Choose your reply.',
-                Good: { Text: 'Ask if she needs anything (+1)', Do: 'jump LucyGoodReply' },
-                Bad: { Text: "Just go back to sleep, I'm busy. (-1)", Do: 'jump LucyBadReply' }
+                Dialog: 'Join them?',
+                Good: { Text: 'I am in!', Do: 'jump GC_Good3' },
+                Bad: { Text: 'Maybe...', Do: 'jump GC_Bad3' }
             }
         }
     ],
 
-    'BelleNight0': [
-        'b Hey! You settling in okay?',
-        'y What do I say to her?',
+    'GC_Good3': [
+        changeVar('lucyAffection', 1),
+        changeVar('mollyAffection', 1),
+        'lu nice 😎',
+        'jump GC_Scene4'
+    ],
+
+    'GC_Bad3': [
+        'm Oh... okay!',
+        'jump GC_Scene4'
+    ],
+
+    'GC_Scene4': [
+        's gotta bounce',
+        's night',
+        'b Goodnight!',
+        'jump GC_Scene5'
+    ],
+
+    'GC_Scene5': [
+        'lu yo {{player.name}}',
+        'lu we got your back',
         {
             Choice: {
-                Dialog: 'Choose your reply.',
-                Good: { Text: 'Yeah, this place is interesting! (+1)', Do: 'jump BelleGoodReply' },
-                Bad: { Text: 'This place sucks. (-1)', Do: 'jump BelleBadReply' }
+                Dialog: 'Final message:',
+                Good: { Text: 'Thanks everyone', Do: 'jump GC_GoodEnd' },
+                Bad: { Text: 'Cool', Do: 'jump GC_BadEnd' }
             }
         }
     ],
 
-    'SamNight0': [
-        's Hey. You awake?',
-        'y What do I say to him?',
-        {
-            Choice: {
-                Dialog: 'Choose your reply.',
-                Good: { Text: "Yeah, what's up? (+1)", Do: 'jump SamGoodReply' },
-                Bad: { Text: "I'm tired. (-1)", Do: 'jump SamBadReply' }
-            }
-        }
+    'GC_GoodEnd': [
+        changeVar('lucyAffection', 1),
+        changeVar('lilyAffection', 1),
+        'lu anytime 🤜🤛',
+        'li Goodnight! 😊',
+        'jump NextMorning'
     ],
 
-    'MollyNight0': [
-        'm Hey, it is me! I wanted to tell you something.',
-        'y What do I say to her?',
-        {
-            Choice: {
-                Dialog: 'Choose your reply.',
-                Good: { Text: 'Ask what she wanted to say (+1)', Do: 'jump MollyGoodReply' },
-                Bad: { Text: "I am not interested, Molly. (-1)", Do: 'jump MollyBadReply' }
-            }
-        }
+    'GC_BadEnd': [
+        'lu night',
+        'jump NextMorning'
     ],
-
-    'LilyGoodReply': [ changeVar('lilyAffection', 1), 'li Thanks! That means a lot to me.', 'jump NextMorning' ],
-    'LilyBadReply': [ changeVar('lilyAffection', -1), 'li Oh... okay then.', 'jump NextMorning' ],
-    'LucyGoodReply': [ changeVar('lucyAffection', 1), 'lu You are so thoughtful!', 'jump NextMorning' ],
-    'LucyBadReply': [ changeVar('lucyAffection', -1), 'lu Fine, whatever.', 'jump NextMorning' ],
-    'BelleGoodReply': [ changeVar('belleAffection', 1), 'b That is the spirit!', 'jump NextMorning' ],
-    'BelleBadReply': [ changeVar('belleAffection', -1), 'b Well, that is a bummer...', 'jump NextMorning' ],
-    'SamGoodReply': [ changeVar('samAffection', 1), 's Cool, just wanted to chat.', 'jump NextMorning' ],
-    'SamBadReply': [ changeVar('samAffection', -1), 's Alright, see you tomorrow.', 'jump NextMorning' ],
-    'MollyGoodReply': [ changeVar('mollyAffection', 1), 'm Oh! I knew you would want to hear!', 'jump NextMorning' ],
-    'MollyBadReply': [ changeVar('mollyAffection', -1), 'm Oh... okay. Sorry.', 'jump NextMorning' ],
 
     'NextMorning': [
         'clear',
         'show scene #f7f6f6 with fadeIn',
-        'li The next day begins...',
-        'y I wake up to the sound of my alarm. Time to decide how to spend the day.',
-        'li The sun is shining brightly.',
+        'y New day. Stamina: {{dayStamina}}',
         'jump DayChoiceRouter'
     ],
 
     'DayNext': [
-        'y You have {{dayStamina}} stamina left.',
+        'y Stamina: {{dayStamina}}',
         'jump DayChoiceRouter'
     ],
 
@@ -436,20 +518,20 @@ monogatari.script({
                 'Apply': function() {
                     const s = monogatari.storage();
                     const choices = {
-                        Dialog: 'What do you want to do today?'
+                        Dialog: 'What do you want to do?'
                     };
                     
                     if (!s.didGymToday) {
-                        choices.Gym = { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' };
+                        choices.Gym = { Text: 'Gym (STR Check)', Do: 'jump DayGym' };
                     }
                     if (!s.didReadToday) {
-                        choices.Read = { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' };
+                        choices.Read = { Text: 'Read (INT Check)', Do: 'jump DayRead' };
                     }
                     if (!s.didChillToday) {
-                        choices.Chill = { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' };
+                        choices.Chill = { Text: 'Chill (WIS Check)', Do: 'jump DayChill' };
                     }
                     if (!s.didWorkToday) {
-                        choices.Work = { Text: 'Work at the Shop (Earn Money)', Do: 'jump DayWork' };
+                        choices.Work = { Text: 'Work (Earn Money)', Do: 'jump DayWork' };
                     }
                     choices.CheckHPhone = { Text: 'Check H-Phone', Do: 'jump HPhone' };
                     
@@ -467,40 +549,250 @@ monogatari.script({
     'DayChoice_All': [
         {
             Choice: {
-                Dialog: 'What do you want to do today?',
-                Gym: { Text: 'Go to the Gym (Fitness Check)', Do: 'jump DayGym' },
-                Read: { Text: 'Stay in and Read (Knowledge Check)', Do: 'jump DayRead' },
-                Chill: { Text: 'Chill at Home (Relaxation Check)', Do: 'jump DayChill' },
-                Work: { Text: 'Work at the Shop (Earn Money)', Do: 'jump DayWork' },
+                Dialog: 'What do you want to do?',
+                Gym: { Text: 'Gym (STR Check)', Do: 'jump DayGym' },
+                Read: { Text: 'Read (INT Check)', Do: 'jump DayRead' },
+                Chill: { Text: 'Chill (WIS Check)', Do: 'jump DayChill' },
+                Work: { Text: 'Work (Earn Money)', Do: 'jump DayWork' },
                 CheckHPhone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
             }
         }
     ],
 
     'HPhone': [
-        'li You open your H-Phone. There are a few unread notifications.',
-        'li The time is 9:00 AM.',
+        'y Money: {{money}} souls',
         {
-            Choice: {
-                Dialog: 'What do you want to check?',
-                App1: { Text: 'View Messages', Do: 'jump HPhoneMessages' },
-                App2: { Text: 'Check Socials', Do: 'jump HPhoneSocials' },
-                Return: { Text: 'Put Phone Away (Return to Day)', Do: 'jump DayNext' }
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage().activeItemName !== '';
+                },
+                'True': 'jump HPhone_WithItem',
+                'False': 'jump HPhone_NoItem'
             }
         }
     ],
 
-    'HPhoneMessages': [ 'li You check your messages... nothing new.', 'jump DayNext' ],
-    'HPhoneSocials': [ 'lu You check social media... same old stuff.', 'jump DayNext' ],
+    'HPhone_WithItem': [
+        'y Active Item: {{activeItemName}}',
+        {
+            Choice: {
+                Dialog: 'H-Phone Menu',
+                Shop: { Text: 'Browse Hell-Mazon', Do: 'jump HellMazon' },
+                Messages: { Text: 'Check Messages', Do: 'jump HPhoneMessages' },
+                Socials: { Text: 'Check Socials', Do: 'jump HPhoneSocials' },
+                Return: { Text: 'Put Phone Away', Do: 'jump DayNext' }
+            }
+        }
+    ],
+
+    'HPhone_NoItem': [
+        {
+            Choice: {
+                Dialog: 'H-Phone Menu',
+                Shop: { Text: 'Browse Hell-Mazon', Do: 'jump HellMazon' },
+                Messages: { Text: 'Check Messages', Do: 'jump HPhoneMessages' },
+                Socials: { Text: 'Check Socials', Do: 'jump HPhoneSocials' },
+                Return: { Text: 'Put Phone Away', Do: 'jump DayNext' }
+            }
+        }
+    ],
+
+    'HPhoneMessages': [ 
+        'y Nothing new.',
+        'jump HPhone' 
+    ],
+    
+    'HPhoneSocials': [ 
+        'y Same old stuff.',
+        'jump HPhone' 
+    ],
+
+    'HellMazon': [
+        'show scene #ff4500 with fadeIn',
+        'y Hell-Mazon!',
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage().boughtItemToday;
+                },
+                'True': 'jump HellMazon_AlreadyBought',
+                'False': 'jump HellMazon_Shop'
+            }
+        }
+    ],
+
+    'HellMazon_AlreadyBought': [
+        'y Already bought today!',
+        'jump HPhone'
+    ],
+
+    'HellMazon_Shop': [
+        'y Money: {{money}} souls',
+        {
+            'Function': {
+                'Apply': function() {
+                    const storage = monogatari.storage();
+                    
+                    if (!storage.dailyShopItems || storage.dailyShopItems.length === 0) {
+                        const shuffled = [...SHOP_ITEMS].sort(() => Math.random() - 0.5);
+                        storage.dailyShopItems = shuffled.slice(0, 2);
+                        monogatari.storage(storage);
+                    }
+                    
+                    const item1 = storage.dailyShopItems[0];
+                    const item2 = storage.dailyShopItems[1];
+                    
+                    const choices = {
+                        Dialog: 'Today\'s Deals'
+                    };
+                    
+                    if (storage.money >= item1.price) {
+                        choices.Item1 = { 
+                            Text: `${item1.name} - ${item1.price} (${item1.desc})`, 
+                            Do: 'jump BuyItem1' 
+                        };
+                    } else {
+                        choices.Item1Locked = { 
+                            Text: `${item1.name} - ${item1.price} (TOO EXPENSIVE)`, 
+                            Do: 'jump CantAfford' 
+                        };
+                    }
+                    
+                    if (storage.money >= item2.price) {
+                        choices.Item2 = { 
+                            Text: `${item2.name} - ${item2.price} (${item2.desc})`, 
+                            Do: 'jump BuyItem2' 
+                        };
+                    } else {
+                        choices.Item2Locked = { 
+                            Text: `${item2.name} - ${item2.price} (TOO EXPENSIVE)`, 
+                            Do: 'jump CantAfford' 
+                        };
+                    }
+                    
+                    choices.Exit = { Text: 'Close', Do: 'jump HPhone' };
+                    
+                    monogatari.script()['HellMazon_Dynamic'] = [{ Choice: choices }];
+                    return true;
+                },
+                'Reverse': function() {
+                    return true;
+                }
+            }
+        },
+        'jump HellMazon_Dynamic'
+    ],
+
+    'CantAfford': [
+        'y Cannot afford it!',
+        'jump HellMazon_Shop'
+    ],
+
+    'BuyItem1': [
+        {
+            'Function': {
+                'Apply': function() {
+                    const storage = monogatari.storage();
+                    const item = storage.dailyShopItems[0];
+                    storage._purchasedItem = item;
+                    monogatari.storage(storage);
+                    return true;
+                },
+                'Reverse': function() {
+                    return true;
+                }
+            }
+        },
+        'jump ProcessPurchase'
+    ],
+
+    'BuyItem2': [
+        {
+            'Function': {
+                'Apply': function() {
+                    const storage = monogatari.storage();
+                    const item = storage.dailyShopItems[1];
+                    storage._purchasedItem = item;
+                    monogatari.storage(storage);
+                    return true;
+                },
+                'Reverse': function() {
+                    return true;
+                }
+            }
+        },
+        'jump ProcessPurchase'
+    ],
+
+    'ProcessPurchase': [
+        {
+            'Function': {
+                'Apply': function() {
+                    const storage = monogatari.storage();
+                    const item = storage._purchasedItem;
+                    
+                    storage.activeItemName = item.name;
+                    storage.activeItemBuffs = { buffs: item.buffs, debuffs: item.debuffs };
+                    
+                    Object.keys(item.buffs).forEach(stat => {
+                        storage[stat] += item.buffs[stat];
+                    });
+                    
+                    Object.keys(item.debuffs).forEach(stat => {
+                        storage[stat] += item.debuffs[stat];
+                    });
+                    
+                    storage.boughtItemToday = true;
+                    storage.money -= item.price;
+                    
+                    monogatari.storage(storage);
+                    return true;
+                },
+                'Reverse': function() {
+                    return true;
+                }
+            }
+        },
+        'show scene #8b0000 with fadeIn',
+        'y PURCHASED!',
+        'y Consumed: {{_purchasedItem.name}}',
+        {
+            'Function': {
+                'Apply': function() {
+                    const storage = monogatari.storage();
+                    const item = storage._purchasedItem;
+                    
+                    let effectText = '';
+                    
+                    Object.keys(item.buffs).forEach(stat => {
+                        effectText += `${stat} +${item.buffs[stat]}, `;
+                    });
+                    
+                    Object.keys(item.debuffs).forEach(stat => {
+                        effectText += `${stat} ${item.debuffs[stat]}, `;
+                    });
+                    
+                    storage._effectText = effectText.slice(0, -2);
+                    monogatari.storage(storage);
+                    return true;
+                },
+                'Reverse': function() {
+                    return true;
+                }
+            }
+        },
+        'y {{_effectText}}',
+        'y Money: {{money}}',
+        'jump DayNext'
+    ],
 
     'DayWork': [
         'show scene #f5deb3 with fadeIn',
-        'y You head to the Hell Gift Shop for your shift.',
         setVar('didWorkToday', true),
         {
             'Function': {
                 'Apply': function() {
-                    const earnings = Math.floor(Math.random() * 5) + 1;
+                    const earnings = Math.floor(Math.random() * 4) + 3;
                     const storage = monogatari.storage();
                     storage._workEarnings = earnings;
                     storage.money += earnings;
@@ -512,10 +804,7 @@ monogatari.script({
                 }
             }
         },
-        'y You work your shift and earn {{_workEarnings}} money.',
-        'y Not bad for a day of work!',
-        'clear',
-        'y (Stamina reduced, Money earned)',
+        'y Earned {{_workEarnings}} souls!',
         changeVar('dayStamina', -1),
         {
             'Conditional': {
@@ -530,27 +819,35 @@ monogatari.script({
 
     'DayGym': [
         'show scene #ffcccc with fadeIn',
-        'y You head to the gym and work up a sweat.',
         setVar('didGymToday', true),
-        'y As you finish your workout you notice someone familiar.',
-        's Oh hey! Did not expect to see you here.',
-        's Want to spot me on bench press?',
+        's Spot me?',
         {
             Choice: {
-                Dialog: 'What do you say?',
-                Good: { Text: 'Sure I would be happy to help! (STR) (+1)', Do: 'jump GymGoodReply' },
-                Bad: { Text: 'Nah I am too tired. (-1)', Do: 'jump GymBadReply' }
+                Dialog: 'Help Sam?',
+                Good: { Text: 'Sure! (STR)', Do: 'jump GymCheck' },
+                Bad: { Text: 'Too tired (-1)', Do: 'jump GymBad' }
             }
         }
     ],
 
-    'GymGoodReply': [
-        changeVar('samAffection', 1),
+    'GymCheck': [
+        statCheck('STRENGTH', 5),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump GymGood',
+                'False': 'jump GymFail'
+            }
+        }
+    ],
+
+    'GymGood': [
+        changeVar('samAffection', 2),
         changeVar('STRENGTH', 1),
-        's Thanks! You are pretty strong yourself.',
-        's We should work out together more often.',
-        'clear',
-        'y (Stamina reduced, Strength increased)',
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        's Damn! Nice work!',
         changeVar('dayStamina', -1),
         {
             'Conditional': {
@@ -563,12 +860,26 @@ monogatari.script({
         }
     ],
 
-    'GymBadReply': [
+    'GymFail': [
+        changeVar('STRENGTH', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        's Whoa! I got it.',
+        changeVar('dayStamina', -1),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage().dayStamina <= 0;
+                },
+                'True': 'jump Night1Texting',
+                'False': 'jump DayNext'
+            }
+        }
+    ],
+
+    'GymBad': [
         changeVar('samAffection', -1),
         changeVar('STRENGTH', 1),
-        's Oh... alright then. See you around.',
-        'clear',
-        'y (Stamina reduced, Strength increased)',
+        's Alright...',
         changeVar('dayStamina', -1),
         {
             'Conditional': {
@@ -583,28 +894,35 @@ monogatari.script({
 
     'DayRead': [
         'show scene #e8dcc4 with fadeIn',
-        'y You head to the library and browse the shelves.',
         setVar('didReadToday', true),
-        'y As you reach for a book, someone else reaches for the same one.',
-        'b Oh! Sorry, were you going for this one?',
-        'b It is a book on ancient Hell mythology. Pretty fascinating stuff!',
+        'b Read together?',
         {
             Choice: {
-                Dialog: 'What do you say?',
-                Good: { Text: 'We could read it together? (INT Check) (+1)', Do: 'jump ReadGoodReply' },
-                Bad: { Text: 'I saw it first. (-1)', Do: 'jump ReadBadReply' }
+                Dialog: 'Join Belle?',
+                Good: { Text: 'Sure! (INT)', Do: 'jump ReadCheck' },
+                Bad: { Text: 'I saw it first (-1)', Do: 'jump ReadBad' }
             }
         }
     ],
 
-    'ReadGoodReply': [
-        changeVar('belleAffection', 1),
+    'ReadCheck': [
+        statCheck('INTELLIGENCE', 4),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump ReadGood',
+                'False': 'jump ReadFail'
+            }
+        }
+    ],
+
+    'ReadGood': [
+        changeVar('belleAffection', 2),
         changeVar('INTELLIGENCE', 1),
-        'b Really? That would be wonderful!',
-        'b I love discussing books with someone who appreciates them.',
-        'y You spend the next hour reading and chatting with Belle.',
-        'clear',
-        'y (Stamina reduced, Intelligence increased)',
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'b Your insights are remarkable!',
         changeVar('dayStamina', -1),
         {
             'Conditional': {
@@ -617,13 +935,27 @@ monogatari.script({
         }
     ],
 
-    'ReadBadReply': [
+    'ReadFail': [
+        changeVar('belleAffection', 1),
+        changeVar('INTELLIGENCE', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'b These topics are dense!',
+        changeVar('dayStamina', -1),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage().dayStamina <= 0;
+                },
+                'True': 'jump Night1Texting',
+                'False': 'jump DayNext'
+            }
+        }
+    ],
+
+    'ReadBad': [
         changeVar('belleAffection', -1),
         changeVar('INTELLIGENCE', 1),
-        'b Oh... okay. Sorry about that.',
-        'b I will just... find something else.',
-        'clear',
-        'y (Stamina reduced, Intelligence increased)',
+        'b Oh... okay.',
         changeVar('dayStamina', -1),
         {
             'Conditional': {
@@ -638,28 +970,35 @@ monogatari.script({
 
     'DayChill': [
         'show scene #c8e6c9 with fadeIn',
-        'y You decide to relax at home and unwind.',
         setVar('didChillToday', true),
-        'y As you settle in on the couch, you hear a knock at the door.',
-        'm Hi! I was in the neighborhood and thought I would stop by!',
-        'm Want to watch a movie together?',
+        'm Movie together?',
         {
             Choice: {
-                Dialog: 'What do you say?',
-                Good: { Text: 'That sounds perfect! (WIS Check) (+1)', Do: 'jump ChillGoodReply' },
-                Bad: { Text: 'I kind of wanted to be alone. (-1)', Do: 'jump ChillBadReply' }
+                Dialog: 'Watch with Molly?',
+                Good: { Text: 'Sounds perfect! (WIS)', Do: 'jump ChillCheck' },
+                Bad: { Text: 'Want to be alone (-1)', Do: 'jump ChillBad' }
             }
         }
     ],
 
-    'ChillGoodReply': [
-        changeVar('mollyAffection', 1),
+    'ChillCheck': [
+        statCheck('WISDOM', 4),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump ChillGood',
+                'False': 'jump ChillFail'
+            }
+        }
+    ],
+
+    'ChillGood': [
+        changeVar('mollyAffection', 2),
         changeVar('WISDOM', 1),
-        'm Yay! I brought popcorn!',
-        'm This is so nice. I really enjoy spending time with you.',
-        'y You spend a relaxing afternoon watching movies with Molly.',
-        'clear',
-        'y (Stamina reduced, Wisdom increased)',
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'm You really get it! So nice!',
         changeVar('dayStamina', -1),
         {
             'Conditional': {
@@ -672,13 +1011,27 @@ monogatari.script({
         }
     ],
 
-    'ChillBadReply': [
+    'ChillFail': [
+        changeVar('mollyAffection', 1),
+        changeVar('WISDOM', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'm Oh... yeah?',
+        changeVar('dayStamina', -1),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage().dayStamina <= 0;
+                },
+                'True': 'jump Night1Texting',
+                'False': 'jump DayNext'
+            }
+        }
+    ],
+
+    'ChillBad': [
         changeVar('mollyAffection', -1),
         changeVar('WISDOM', 1),
-        'm Oh... I understand.',
-        'm Sorry for bothering you. I will go.',
-        'clear',
-        'y (Stamina reduced, Wisdom increased)',
+        'm Oh... okay.',
         changeVar('dayStamina', -1),
         {
             'Conditional': {
@@ -694,30 +1047,502 @@ monogatari.script({
     'Night1Texting': [
         'clear',
         'show scene #111111 with fadeIn',
-        'y It is getting late. I am too tired to do anything else today.',
-        'y The sun has set. I have just enough energy to send one text before bed.',
+        'y Phone buzzing!',
+        'y Everyone wants to hang out!',
         {
             Choice: {
-                Dialog: 'Who do you want to text?',
-                Lily: { Text: 'Text Lily', Do: 'jump TextLily1' },
-                Lucy: { Text: 'Text Lucy', Do: 'jump TextLucy1' },
-                Sam: { Text: 'Text Sam', Do: 'jump TextSam1' },
-                Belle: { Text: 'Text Belle', Do: 'jump TextBelle1' },
-                Molly: { Text: 'Text Molly', Do: 'jump TextMolly1' }
+                Dialog: 'Pick a date:',
+                Lily: { Text: 'Lily (Cafe)', Do: 'jump DateLily1' },
+                Lucy: { Text: 'Lucy (Bar)', Do: 'jump DateLucy1' },
+                Sam: { Text: 'Sam (Arena)', Do: 'jump DateSam1' },
+                Belle: { Text: 'Belle (Museum)', Do: 'jump DateBelle1' },
+                Molly: { Text: 'Molly (Movies)', Do: 'jump DateMolly1' }
             }
         }
     ],
 
-    'TextLily1': [ 'y Hey Lily, thanks for the welcome today.', 'li Of course! I hope you sleep well!', 'li See you tomorrow! <3', 'jump Night1Ending' ],
-    'TextLucy1': [ 'y Hey Lucy. You awake?', 'lu Yeah. Just scrolling. You need something?', 'y Just saying goodnight.', 'lu Oh. Night.', 'jump Night1Ending' ],
-    'TextSam1': [ 'y Yo Sam.', 's Yo. What is up?', 'y Just heading to bed. Long day.', 's Tell me about it. Catch you later.', 'jump Night1Ending' ],
-    'TextBelle1': [ 'y Hi Belle!', 'b Hiiii! Enjoying your first night?', 'y Yeah, it is interesting here.', 'b Glad to hear it! Sweet dreams!', 'jump Night1Ending' ],
-    'TextMolly1': [ 'y Hey Molly.', 'm Oh! You texted me!', 'm I was just thinking about you!', 'm Sleep tight, okay?', 'jump Night1Ending' ],
+    'DateLily1': [
+        'clear',
+        'show scene #ff6b6b with fadeIn',
+        'li You made it!',
+        'li Truth or dare?',
+        {
+            Choice: {
+                Dialog: 'Choose:',
+                Truth: { Text: 'Truth (WIS)', Do: 'jump LilyTruth' },
+                Dare: { Text: 'Dare (RIZZ)', Do: 'jump LilyDare' }
+            }
+        }
+    ],
 
-    'Night1Ending': [
-        'y I put my phone on the charger.',
-        'y Darkness takes me as I close my eyes.',
-        'THIS IS WHERE YOU GET THE TEXT FROM THE DEVIL',
+    'LilyTruth': [
+        statCheck('WISDOM', 5),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump LilyTruthGood',
+                'False': 'jump LilyTruthBad'
+            }
+        }
+    ],
+
+    'LilyTruthGood': [
+        changeVar('lilyAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'li Wow... that was honest.',
+        'jump LilyDate2'
+    ],
+
+    'LilyTruthBad': [
+        changeVar('lilyAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'li Oh... okay.',
+        'jump LilyDate2'
+    ],
+
+    'LilyDare': [
+        statCheck('RIZZ', 5),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump LilyDareGood',
+                'False': 'jump LilyDareBad'
+            }
+        }
+    ],
+
+    'LilyDareGood': [
+        changeVar('lilyAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'li You actually did it! Amazing!',
+        'jump LilyDate2'
+    ],
+
+    'LilyDareBad': [
+        changeVar('lilyAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'li Points for trying!',
+        'jump LilyDate2'
+    ],
+
+    'LilyDate2': [
+        'li Share dessert?',
+        {
+            Choice: {
+                Dialog: 'Share?',
+                Yes: { Text: 'Share (RIZZ)', Do: 'jump LilyDessert' },
+                No: { Text: 'Too full', Do: 'jump LilyEnd' }
+            }
+        }
+    ],
+
+    'LilyDessert': [
+        statCheck('RIZZ', 4),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump LilyDessertGood',
+                'False': 'jump LilyDessertBad'
+            }
+        }
+    ],
+
+    'LilyDessertGood': [
+        changeVar('lilyAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'li This is really nice.',
+        'jump LilyEnd'
+    ],
+
+    'LilyDessertBad': [
+        changeVar('lilyAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'li Let me help clean that.',
+        'jump LilyEnd'
+    ],
+
+    'LilyEnd': [
+        'li Tonight was wonderful!',
+        'jump BigD_Message'
+    ],
+
+    'DateLucy1': [
+        'clear',
+        'show scene #8b0000 with fadeIn',
+        'lu Ready for real Hell?',
+        'lu Drinking game?',
+        {
+            Choice: {
+                Dialog: 'Join?',
+                Join: { Text: 'Join (CON)', Do: 'jump LucyDrink' },
+                Watch: { Text: 'Watch', Do: 'jump LucyDate2' }
+            }
+        }
+    ],
+
+    'LucyDrink': [
+        statCheck('CONSTITUTION', 5),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump LucyDrinkGood',
+                'False': 'jump LucyDrinkBad'
+            }
+        }
+    ],
+
+    'LucyDrinkGood': [
+        changeVar('lucyAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'lu YOOO! Beast mode!',
+        'jump LucyDate2'
+    ],
+
+    'LucyDrinkBad': [
+        changeVar('lucyAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'lu Easy there!',
+        'jump LucyDate2'
+    ],
+
+    'LucyDate2': [
+        'lu Sketchy demon approaching...',
+        {
+            Choice: {
+                Dialog: 'Handle it?',
+                Handle: { Text: 'Handle it (RIZZ)', Do: 'jump LucyMerchant' },
+                LetLucy: { Text: 'Let Lucy', Do: 'jump LucyEnd' }
+            }
+        }
+    ],
+
+    'LucyMerchant': [
+        statCheck('RIZZ', 5),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump LucyMerchantGood',
+                'False': 'jump LucyMerchantBad'
+            }
+        }
+    ],
+
+    'LucyMerchantGood': [
+        changeVar('lucyAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'lu That was kinda hot.',
+        'jump LucyEnd'
+    ],
+
+    'LucyMerchantBad': [
+        changeVar('lucyAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'lu *steps in* Beat it.',
+        'jump LucyEnd'
+    ],
+
+    'LucyEnd': [
+        'lu Tonight was fun.',
+        'jump BigD_Message'
+    ],
+
+    'DateSam1': [
+        'clear',
+        'show scene #ff4500 with fadeIn',
+        's Ready for combat?',
+        's Bet 20 souls?',
+        {
+            Choice: {
+                Dialog: 'Bet?',
+                Bet: { Text: 'Bet (WIS)', Do: 'jump SamBet' },
+                Pass: { Text: 'Just watch', Do: 'jump SamDate2' }
+            }
+        }
+    ],
+
+    'SamBet': [
+        statCheck('WISDOM', 4),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump SamBetGood',
+                'False': 'jump SamBetBad'
+            }
+        }
+    ],
+
+    'SamBetGood': [
+        changeVar('samAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        's You called it! Impressive.',
+        'jump SamDate2'
+    ],
+
+    'SamBetBad': [
+        changeVar('samAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        's Better luck next time.',
+        'jump SamDate2'
+    ],
+
+    'SamDate2': [
+        's Hellhound wings?',
+        {
+            Choice: {
+                Dialog: 'Try them?',
+                Try: { Text: 'Challenge! (CON)', Do: 'jump SamWings' },
+                Pass: { Text: 'Something mild', Do: 'jump SamEnd' }
+            }
+        }
+    ],
+
+    'SamWings': [
+        statCheck('CONSTITUTION', 5),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump SamWingsGood',
+                'False': 'jump SamWingsBad'
+            }
+        }
+    ],
+
+    'SamWingsGood': [
+        changeVar('samAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        's Holy shit! Respect.',
+        'jump SamEnd'
+    ],
+
+    'SamWingsBad': [
+        changeVar('samAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        's HAHA! Here, drink this.',
+        'jump SamEnd'
+    ],
+
+    'SamEnd': [
+        's Tonight was solid.',
+        'jump BigD_Message'
+    ],
+
+    'DateBelle1': [
+        'clear',
+        'show scene #9370db with fadeIn',
+        'b Welcome!',
+        'b Ancient puzzle!',
+        {
+            Choice: {
+                Dialog: 'Solve it?',
+                Solve: { Text: 'Solve (INT)', Do: 'jump BellePuzzle' },
+                Watch: { Text: 'Let Belle', Do: 'jump BelleDate2' }
+            }
+        }
+    ],
+
+    'BellePuzzle': [
+        statCheck('INTELLIGENCE', 5),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump BellePuzzleGood',
+                'False': 'jump BellePuzzleBad'
+            }
+        }
+    ],
+
+    'BellePuzzleGood': [
+        changeVar('belleAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'b Brilliant!',
+        'jump BelleDate2'
+    ],
+
+    'BellePuzzleBad': [
+        changeVar('belleAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'b Quite tricky!',
+        'jump BelleDate2'
+    ],
+
+    'BelleDate2': [
+        'b Sneak into restricted?',
+        {
+            Choice: {
+                Dialog: 'Sneak?',
+                Sneak: { Text: 'Let\'s do it! (DEX)', Do: 'jump BelleSneak' },
+                No: { Text: 'Better not', Do: 'jump BelleEnd' }
+            }
+        }
+    ],
+
+    'BelleSneak': [
+        statCheck('DEXTERITY', 4),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump BelleSneakGood',
+                'False': 'jump BelleSneakBad'
+            }
+        }
+    ],
+
+    'BelleSneakGood': [
+        changeVar('belleAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'b Exhilarating!',
+        'jump BelleEnd'
+    ],
+
+    'BelleSneakBad': [
+        changeVar('belleAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'b Quick, run!',
+        'jump BelleEnd'
+    ],
+
+    'BelleEnd': [
+        'b Absolutely delightful!',
+        'jump BigD_Message'
+    ],
+
+    'DateMolly1': [
+        'clear',
+        'show scene #ffb6c1 with fadeIn',
+        'm You came!',
+        'm Pick a movie!',
+        {
+            Choice: {
+                Dialog: 'Genre?',
+                Horror: { Text: 'Horror (CON)', Do: 'jump MollyHorror' },
+                Romance: { Text: 'Romance (RIZZ)', Do: 'jump MollyRomance' }
+            }
+        }
+    ],
+
+    'MollyHorror': [
+        statCheck('CONSTITUTION', 4),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump MollyHorrorGood',
+                'False': 'jump MollyHorrorBad'
+            }
+        }
+    ],
+
+    'MollyHorrorGood': [
+        changeVar('mollyAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'm So brave!',
+        'jump MollyDate2'
+    ],
+
+    'MollyHorrorBad': [
+        changeVar('mollyAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'm We\'re both scared!',
+        'jump MollyDate2'
+    ],
+
+    'MollyRomance': [
+        statCheck('RIZZ', 5),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump MollyRomanceGood',
+                'False': 'jump MollyRomanceBad'
+            }
+        }
+    ],
+
+    'MollyRomanceGood': [
+        changeVar('mollyAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'm This is really nice.',
+        'jump MollyDate2'
+    ],
+
+    'MollyRomanceBad': [
+        changeVar('mollyAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'm Want more popcorn?',
+        'jump MollyDate2'
+    ],
+
+    'MollyDate2': [
+        'm Board game?',
+        {
+            Choice: {
+                Dialog: 'Play?',
+                Play: { Text: 'Let\'s play! (WIS)', Do: 'jump MollyGame' },
+                Keep: { Text: 'Finish movie', Do: 'jump MollyEnd' }
+            }
+        }
+    ],
+
+    'MollyGame': [
+        statCheck('WISDOM', 4),
+        {
+            'Conditional': {
+                'Condition': function() {
+                    return monogatari.storage()._lastSuccess;
+                },
+                'True': 'jump MollyGameGood',
+                'False': 'jump MollyGameBad'
+            }
+        }
+    ],
+
+    'MollyGameGood': [
+        changeVar('mollyAffection', 2),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✓]',
+        'm Great team!',
+        'jump MollyEnd'
+    ],
+
+    'MollyGameBad': [
+        changeVar('mollyAffection', 1),
+        'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} ✗]',
+        'm Still fun!',
+        'jump MollyEnd'
+    ],
+
+    'MollyEnd': [
+        'm Tonight was perfect!',
+        'jump BigD_Message'
+    ],
+
+    'BigD_Message': [
+        'clear',
+        'show scene #000000 with fadeIn',
+        'y *BUZZ*',
+        'y "Unknown: Having fun?"',
+        'y "Unknown: Don\'t get TOO comfortable."',
+        'y "Unknown: See you soon~ -D"',
+        'y Who is D?',
         'centered Day 1 Complete',
         resetDailyActivities(),
         'end'
