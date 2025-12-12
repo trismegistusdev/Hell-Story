@@ -13436,6 +13436,9 @@ audio,canvas,video {
 [data-action] {
     cursor: pointer
 }
+#monogatari > visual-novel > game-screen > quick-menu > button:nth-child(1) {
+    display:none;
+}
 
 [data-ui=broadcast] {
     display: flex;
