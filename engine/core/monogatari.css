@@ -13268,11 +13268,14 @@ li {
 button {
     width: 8rem;
     height: 2.5rem;
-    color: #FF0000;
+    color: #b11f1b;
     padding: 0;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50%
+}
+button:hover {
+    color:#FFFFFF;
 }
 
 button,button:focus,button:hover {
@@ -14140,7 +14143,11 @@ quick-menu button>.fas {
     quick-menu>button>[data-string] {
         display: inline-block
     }
+    
 }
+#monogatari > visual-novel > game-screen > quick-menu > button:nth-child(2) > span {
+        display:none
+    }
 
 @media screen and (min-width: 48em) {
     quick-menu>button {
@@ -14280,7 +14287,7 @@ text-box {
     bottom: 0;
     color: #fff;
     margin: 1em;
-    border: red solid 5px;
+    border: #b11f1b ridge 10px;
     border-radius: 1em;
 }
 #monogatari > visual-novel > game-screen > text-box {

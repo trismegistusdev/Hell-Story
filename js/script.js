@@ -512,7 +512,7 @@ monogatari.script({
 
     // STR - Gym
     'DayGym': [
-        'show scene #ffcccc with fadeIn',
+        'show scene #000000 with fadeIn',
         setVar('didGymToday', true),
         'show character s normal at bigLeft with fadeIn',
         's Spot me?',
@@ -526,9 +526,11 @@ monogatari.script({
 
     // DEX - Parkour Park
     'DayParkour': [
-        'show scene #87ceeb with fadeIn',
+        'show scene #000000 with fadeIn',
         setVar('didParkourToday', true),
+        'show character lu normal at bigLeft with fadeIn',
         'lu Race me through the obstacle course?',
+        'show scene with fadeIn',
         { Choice: { Dialog: 'Race Lucy?', Good: { Text: 'You\'re on! (DEX)', Do: 'jump ParkourCheck' }, Bad: { Text: 'Just watch (-1)', Do: 'jump ParkourBad' }}}
     ],
     'ParkourCheck': [statCheck('DEXTERITY', 5), { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump ParkourGood', False: 'jump ParkourFail' }}],
@@ -538,9 +540,11 @@ monogatari.script({
 
     // CON - Lava Pool
     'DayPool': [
-        'show scene #ff6347 with fadeIn',
+        'show scene #000000 with fadeIn',
+        'show character li normal at bigLeft with fadeIn',
         setVar('didPoolToday', true),
         'li 100 laps! Join me?',
+        'show scene with fadeIn',
         { Choice: { Dialog: 'Swim with Lily?', Good: { Text: 'Let\'s go! (CON)', Do: 'jump PoolCheck' }, Bad: { Text: 'Too hot (-1)', Do: 'jump PoolBad' }}}
     ],
     'PoolCheck': [statCheck('CONSTITUTION', 5), { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump PoolGood', False: 'jump PoolFail' }}],
@@ -550,9 +554,11 @@ monogatari.script({
 
     // INT - Library
     'DayRead': [
-        'show scene #e8dcc4 with fadeIn',
+        'show scene #000000 with fadeIn',
+        'show character b normal at bigLeft with fadeIn',
         setVar('didReadToday', true),
         'b Read together?',
+        'show scene with fadeIn',
         { Choice: { Dialog: 'Join Belle?', Good: { Text: 'Sure! (INT)', Do: 'jump ReadCheck' }, Bad: { Text: 'I saw it first (-1)', Do: 'jump ReadBad' }}}
     ],
     'ReadCheck': [statCheck('INTELLIGENCE', 5), { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump ReadGood', False: 'jump ReadFail' }}],
@@ -562,9 +568,11 @@ monogatari.script({
 
     // WIS - Meditation Garden
     'DayChill': [
-        'show scene #c8e6c9 with fadeIn',
+        'show scene #000000 with fadeIn',
+        'show character m normal at bigLeft with fadeIn',        
         setVar('didChillToday', true),
         'm Meditate together?',
+        'show scene with fadeIn',
         { Choice: { Dialog: 'Join Molly?', Good: { Text: 'Sounds peaceful! (WIS)', Do: 'jump ChillCheck' }, Bad: { Text: 'Want to be alone (-1)', Do: 'jump ChillBad' }}}
     ],
     'ChillCheck': [statCheck('WISDOM', 5), { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump ChillGood', False: 'jump ChillFail' }}],
@@ -574,9 +582,11 @@ monogatari.script({
 
     // RIZZ - Social Club
     'DayParty': [
-        'show scene #ff69b4 with fadeIn',
+        'show scene #000000 with fadeIn',
+        'show character lu normal at bigLeft with fadeIn',        
         setVar('didPartyToday', true),
         'lu Party! Chat up some demons?',
+        'show scene with fadeIn',
         { Choice: { Dialog: 'Socialize?', Good: { Text: 'Let\'s mingle! (RIZZ)', Do: 'jump PartyCheck' }, Bad: { Text: 'Wallflower (-1)', Do: 'jump PartyBad' }}}
     ],
     'PartyCheck': [statCheck('RIZZ', 5), { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump PartyGood', False: 'jump PartyFail' }}],
@@ -595,7 +605,7 @@ monogatari.script({
                 Dialog: 'Pick a date:',
                 Lily: { Text: 'Lily (Cafe)', Do: 'jump DateLily1' },
                 Lucy: { Text: 'Lucy (Bar)', Do: 'jump DateLucy1' },
-                Sam: { Text: 'Sam (Arena)', Do: 'jump DateSam1' },
+                Sam: { Text: 'Sam (', Do: 'jump DateSam1' },
                 Belle: { Text: 'Belle (Museum)', Do: 'jump DateBelle1' },
                 Molly: { Text: 'Molly (Movies)', Do: 'jump DateMolly1' }
             }
