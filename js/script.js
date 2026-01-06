@@ -1,5 +1,7 @@
 /* global monogatari */
-
+monogatari.assets('music', {
+    'title': 'title.mp3'
+});
 /* ===== NOTIFICATIONS & MESSAGES ===== */
 monogatari.action('Notification').notifications({
     'Welcome': { title: 'Welcome!', body: 'This is the Monogatari VN Engine', icon: '' }
@@ -255,6 +257,7 @@ function showStatAllocation() {
 monogatari.script({
     'Start': [
         'show scene #000000 with fadeIn',
+        'play music title with loop',
         'y [INTRO PLACEHOLDER]',
         'jump AskName'
     ],
@@ -281,6 +284,7 @@ monogatari.script({
         'lu Here is your H-Phone!',
         setVar('receivedHPhone', true),
         'y Added to: HELL SQUAD ðŸ˜ˆ',
+        'stop music title with fade 2',
         'jump GroupChatNight0'
     ],
 
