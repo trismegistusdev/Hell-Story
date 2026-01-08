@@ -1,7 +1,20 @@
 /* global monogatari */
+
+/* MUSIC -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 monogatari.assets('music', {
-    'title': 'title.mp3'
+    'title': 'title.mp3',
+    'menu': 'menu.mp3',
+    'office': 'office.mp3',
+    'traffic': 'traffic.mp3'
 });
+
+/* SCENES -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+monogatari.assets('scenes', {
+    'office': 'office.jpg',
+    'traffic': 'traffic.jpg'
+});
+
+
 /* ===== NOTIFICATIONS & MESSAGES ===== */
 monogatari.action('Notification').notifications({
     'Welcome': { title: 'Welcome!', body: 'This is the Monogatari VN Engine', icon: '' }
@@ -256,21 +269,43 @@ function showStatAllocation() {
 /* ===== MAIN SCRIPT ===== */
 monogatari.script({
     'Start': [
-        'show scene #000000 with fadeIn',
-        'play music title with loop',
-        'y [INTRO PLACEHOLDER]',
+        'stop music menu',
+        'show scene #000 with fadeIn 100',
+        'play music office with loop',
+        '......',
+        'show scene office with fadeIn 100',
+        'Oh shit!',
+        'I was asleep at work!',
+        'Shit, shit, shit.....Okay play it cool, I dont think anyone saw you',
+        'I just need to enter my name and log in my computer and just be chill, no one saw me....',
         'jump AskName'
     ],
 
     'AskName': [
         { Input: { Text: "What is your name?", Validation: input => input.trim().length > 0, Save: input => { monogatari.storage().player.name = input; return true; }}},
-        "li Nice to meet you, {{player.name}}!",
+        "{{player.name}}! sucessfully logged in, welcome to SystemAssest Corp internal intranet",
+        'Phew......',
+        'Now what was I doing? Oh yeah I had that paperwork for HR to fill out',
+        "It didn't make much sense what they were asking though....Oh well, when HR says to do it, you do it I guess.......",
+        "Sigh.....",
         'jump StatAllocation_Screen'
     ],
 
     'StatAllocation_Screen': [showStatAllocation(), 'jump Intro'],
 
     'Intro': [
+        "y Well at least I'm done with this shit for today",
+        "y What is today anyways? Tuesday? Wednesday? If it was Friday, everyone would have made the Fri-Yay jokes.",
+        "y Fuck, I need to go home. It's quitting time",
+        "y Can't wait to be free",
+        'show scene #000000',
+        'stop music office',
+        "wait 2000",
+        "show scene traffic fadeIn 100",
+        "play music traffic loop",
+        "Goddamit",
+        "This is not free",
+        "stop music traffic",
         'show character li normal at bigLeft with fadeIn',
         'li STR: {{STRENGTH}}, DEX: {{DEXTERITY}}, RIZZ: {{RIZZ}}',
         'show scene #880808 with fadeIn',
@@ -690,4 +725,11 @@ monogatari.script({
         resetDailyActivities(),
         'end'
     ]
+});
+
+// Play menu music when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        monogatari.run('play music menu with loop', false);
+    }, 500);
 });

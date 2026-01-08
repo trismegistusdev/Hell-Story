@@ -14516,3 +14516,12 @@ visual-novel {
     width: 100%;
     height: 100%
 }
+
+@keyframes pulse-logo {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
