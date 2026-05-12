@@ -248,7 +248,7 @@ Purpose:
 Script:
 
 Lucy:
-Lucy Morningstar. Executive authority, strategic oversight, infernal operations. If something in Hell is broken, it is usually because someone failed to obey my very clear memo.
+Lucy. Executive authority, strategic oversight, infernal operations. If something in Hell is broken, it is usually because someone failed to obey my very clear memo.
 
 You:
 So you're in charge?
@@ -257,7 +257,7 @@ Lucy:
 Obviously.
 
 Sam:
-General Samael. Field Marshal of the Fallen Host. You will address me with respect, posture, and a basic willingness to survive.
+Sam. Field Marshal of the Fallen Host. You will address me with respect, posture, and a basic willingness to survive.
 
 You:
 Do I get a helmet?

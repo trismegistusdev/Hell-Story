@@ -22,6 +22,79 @@ body {
 
 }
 
+/* ===== GAMEPLAY STATS HUD (Monster Roadtrip–style strip) =====
+ * Shown only on the game screen after stat allocation (storage.completedStatSpread).
+ * Position/size here. Core vs affection rows: js/main.js → GAMEPLAY_HUD_CORE_ROWS / GAMEPLAY_HUD_AFFECTION_ROWS.
+ * Hide affection block: #gameplay-stats-hud-affection { display: none !important; }
+ */
+#gameplay-stats-hud {
+	position: fixed;
+	top: 0.75rem;
+	right: 0.75rem;
+	z-index: 12;
+	min-width: 11rem;
+	max-width: 16rem;
+	padding: 0.55rem 0.75rem 0.65rem;
+	font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	color: #f4fff4;
+	background: #1a3328;
+	border: 2px solid #39ff6b;
+	border-radius: 0.35rem;
+	box-shadow: 0 0.15rem 0.75rem rgba(0, 0, 0, 0.45);
+	pointer-events: none;
+}
+
+#gameplay-stats-hud.gameplay-stats-hud--hidden {
+	display: none;
+}
+
+.gameplay-stats-hud__title {
+	text-align: center;
+	font-size: 0.62rem;
+	text-transform: uppercase;
+	color: #9dffb8;
+	border-bottom: 1px solid rgba(57, 255, 107, 0.35);
+	padding-bottom: 0.35rem;
+	margin-bottom: 0.4rem;
+}
+
+.gameplay-stats-hud__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.gameplay-stats-hud__list + .gameplay-stats-hud__list {
+	margin-top: 0.45rem;
+	padding-top: 0.45rem;
+	border-top: 1px solid rgba(57, 255, 107, 0.25);
+}
+
+.gameplay-stats-hud__row {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 0.15rem 0.75rem;
+	align-items: baseline;
+	margin: 0;
+	padding: 0;
+}
+
+.gameplay-stats-hud__label {
+	margin: 0;
+	font-weight: 700;
+	color: rgba(255, 255, 255, 0.92);
+}
+
+.gameplay-stats-hud__value {
+	margin: 0;
+	font-variant-numeric: tabular-nums;
+	color: #ffffff;
+	text-align: right;
+}
+
 /* Simple Button styles*/
 button {
 
@@ -154,6 +227,23 @@ button:hover {
 
 [data-screen="game"] [data-character].introFarRight {
 	left: 82%;
+}
+
+/**
+ * Speaking indicator: Monogatari adds `.focus` to whoever is talking.
+ * Only a soft brightness pulse — no transform, bottom, or margin — so sprites
+ * stay locked to their positions and do not flicker when `.focus` is cleared
+ * between dialogue lines (motion on those properties caused blink + float bugs).
+ */
+@media (prefers-reduced-motion: no-preference) {
+	#monogatari.hell-story-speaking-bounce-enabled [data-screen="game"] [data-character].focus {
+		animation: hell-story-speaking-hint 0.75s ease-in-out infinite;
+	}
+}
+
+@keyframes hell-story-speaking-hint {
+	0%, 100% { filter: brightness(1); }
+	50% { filter: brightness(1.14); }
 }
 
 /* Other Images Styles */

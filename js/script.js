@@ -72,6 +72,7 @@ monogatari.action('Message').messages({
  */
 monogatari.storage({
     player: { name: '' },
+    completedStatSpread: false,
     lilyAffection: 0, lucyAffection: 0, mollyAffection: 0, belleAffection: 0, samAffection: 0,
     receivedHPhone: false,
     STRENGTH: 1, DEXTERITY: 1, CONSTITUTION: 1, INTELLIGENCE: 1, WISDOM: 1, RIZZ: 1,
@@ -91,7 +92,7 @@ monogatari.characters({
     y: { name: 'You'},
     li: { name: 'Lily', color: '#d96f72', sprites: { normal: 'lily.png' }},
     lu: { name: 'Lucy', color: '#9797bb', sprites: { normal: 'lucy.png' } },
-    b: { name: 'Belle', color: '#d96f72', sprites: { normal: 'belle.png' } },
+    b: { name: 'Belle', color: '#9370db', sprites: { normal: 'belle.png' } },
     s: { name: 'Sam', color: '#ff989f', sprites: { normal: 'sam.png' } },
     m: { name: 'Molly', color: '#b6e9ba', sprites: { normal: 'molly.png' } }
 });
@@ -321,6 +322,7 @@ function showStatAllocation() {
                     overlay.querySelector('#confirm-stats').addEventListener('click', () => {
                         if (10 - STATS.reduce((sum, s) => sum + (stats[s] - 1), 0) !== 0) return;
                         STATS.forEach(s => storage[s] = stats[s]);
+                        storage.completedStatSpread = true;
                         monogatari.storage(storage);
                         overlay.remove();
                         resolve();
@@ -983,12 +985,12 @@ monogatari.script({
         'clear',
         'show scene #2b0505 with fadeIn',
         'show character lu normal at bigLeft with fadeIn',
-        'lu Lucy Morningstar. Executive authority, strategic oversight, infernal operations. If something in Hell is broken, it is usually because someone failed to obey my very clear memo.',
+        'lu Lucy. Executive authority, strategic oversight, infernal operations. If something in Hell is broken, it is usually because someone failed to obey my very clear memo.',
         'y So you are in charge?',
         'lu Obviously.',
         'hide character lu with fadeOut',
         'show character s normal at bigLeft with fadeIn',
-        's General Samael. Field Marshal of the Fallen Host. You will address me with respect, posture, and a basic willingness to survive.',
+        's Sam. Field Marshal of the Fallen Host. You will address me with respect, posture, and a basic willingness to survive.',
         'y Do I get a helmet?',
         's Not with that tone.',
         'hide character s with fadeOut',
@@ -1059,6 +1061,11 @@ monogatari.script({
 
     'HotelAndPhone': [
         'show scene #880808 with fadeIn',
+        'show character m normal at introFarLeft with fadeIn',
+        'show character s normal at introLeft with fadeIn',
+        'show character li normal at introCenter with fadeIn',
+        'show character b normal at introRight with fadeIn',
+        'show character lu normal at introFarRight with fadeIn',
         'lu We need to get our little anomaly settled before the Celestial Bureaucracy Administration gets a whiff of this.',
         'y The what?',
         's The CBA. Heaven auditors. Merciless. Humorless. Armed with clipboards capable of severing immortal essence.',
@@ -1107,6 +1114,11 @@ monogatari.script({
         'clear',
         'show scene #330000 with fadeIn',
         setVar('dayStamina', 3),
+        'show character m normal at introFarLeft with fadeIn',
+        'show character s normal at introLeft with fadeIn',
+        'show character li normal at introCenter with fadeIn',
+        'show character b normal at introRight with fadeIn',
+        'show character lu normal at introFarRight with fadeIn',
         'Morning arrives in Hell without sunlight. Instead, the sky turns from black-red to slightly more judgmental red.',
         'y I slept maybe forty minutes and dreamed about my W-2 biting me.',
         'H-Phone: AGENDA-666 NOTICE: Entropy Stabilization Activities Available.',

@@ -98,6 +98,13 @@
 			</div>
 		</noscript>
 
+		<!-- Gameplay HUD: position/styling in style/main.css. Affection list: hide with #gameplay-stats-hud-affection { display: none; } -->
+		<div id="gameplay-stats-hud" class="gameplay-stats-hud gameplay-stats-hud--hidden" aria-hidden="true">
+			<div class="gameplay-stats-hud__title">Status</div>
+			<ul id="gameplay-stats-hud-core" class="gameplay-stats-hud__list gameplay-stats-hud__core"></ul>
+			<ul id="gameplay-stats-hud-affection" class="gameplay-stats-hud__list gameplay-stats-hud__affection"></ul>
+		</div>
+
 		<div id="monogatari">
 			<visual-novel>
 				<language-selection-screen></language-selection-screen>
