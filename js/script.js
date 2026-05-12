@@ -892,3 +892,576 @@ monogatari.script({
     ]
 });
 
+/* ===== PLAYABLE DAY 1 REWRITE =====
+ * This second script block replaces the rough prototype flow above with the
+ * consolidated first-day script from FIRST_DAY_SCRIPT_DRAFT.md.
+ *
+ * The older block is still above as reference material, but these labels use
+ * the same names, so this is the version the game should play.
+ */
+monogatari.script({
+    'Start': [
+        'stop music menu',
+        'show scene office with fadeIn',
+        'play music office with loop',
+        'The fluorescent lights buzz like trapped insects above a maze of beige cubicles.',
+        'Your monitor displays a spreadsheet so dense it seems less like data and more like a curse.',
+        { Input: { Text: 'What is your name?', Validation: input => input.trim().length > 0, Save: input => { const storage = monogatari.storage(); storage.player.name = input.trim(); monogatari.storage(storage); return true; }}},
+        'y Thanks for holding, this is {{player.name}} with Aeroplex Supply Solutions. One moment while I pull up your account details.',
+        'This is unacceptable! I need those EKG leads by tomorrow and you people never have anything in stock!',
+        'y Absolutely, I understand how frustrating that must be.',
+        'You do not understand. You have not understood anything for roughly three fiscal quarters.',
+        'y Six more hours.',
+        'Six hours later, you remove your headset with the haunted delicacy of a bomb technician.',
+        'y Freedom. Temporary, legally distinct freedom.',
+        'Outside, a wild-eyed street preacher shoves a hand-painted sign in your face.',
+        'Street Preacher: Sinners! Blasphemers! Hell awaits! Eternal punishment!',
+        'y Buddy, I just got out of a nine-hour headset shift. You are going to have to sell me on the downside.',
+        'jump CommuteToDamnation'
+    ],
+
+    'CommuteToDamnation': [
+        'show scene traffic with fadeIn',
+        'play music traffic with loop',
+        'Your beat-up sedan tears down the interstate, music blaring, windshield wipers losing a war against the rain.',
+        'y Okay. Home. Shower. Food. Maybe stare at a wall for two hours and call it self-care.',
+        'Ahead, a semi-truck jackknifes across four lanes.',
+        'y Whoa, shit!',
+        'You swerve at the last second. The car lifts onto two wheels, threads through flying sparks, and lands clean.',
+        'y Okay. Cool. Normal Tuesday.',
+        'The highway collapses into a sinkhole.',
+        'y That is less normal.',
+        'You floor it. For one impossible second, a trail of hellfire burns under your tires and carries you across.',
+        'y What the actual fu-',
+        'A biker gang bursts out of the rain behind you, guns blazing.',
+        'y I AM SORRY! I DID NOT MEAN TO CUT YOU OFF OR WHATEVER!',
+        'Explosions. Drifts. Screaming. A brief moment where reality pixelates like the universe is buffering.',
+        'y No no no. I am not dying to lag.',
+        'Somehow, you make it home.',
+        'y I made it. I actually made it through that entire impossible gauntlet of bullsh-',
+        'Your foot hits a banana peel on the welcome mat.',
+        'y ...No.',
+        'Concrete rushes up to greet you with professional enthusiasm.',
+        'stop music traffic',
+        'show scene #000000 with fadeIn',
+        'jump CrashLanding'
+    ],
+
+    'CrashLanding': [
+        'wait 1000',
+        'show scene #5a0505 with fadeIn',
+        'You fall through smoke, heat, screaming wind, and at least three layers of municipal zoning violation.',
+        'You crash through a wooden announcer table in an explosion of splinters and demonic confetti.',
+        'show character m normal at introFarLeft with fadeIn',
+        'show character s normal at introLeft with fadeIn',
+        'show character li normal at introCenter with fadeIn',
+        'show character b normal at introRight with fadeIn',
+        'show character lu normal at introFarRight with fadeIn',
+        'm OH YEAH! Did everybody see that supreme spitfire bomb through my custom announcer table?!',
+        's For the last time, Molly, this is not one of your ridiculous wrestling exhibitions. That was an actual soul.',
+        'li And still intact. Impressive. Also potentially snack material.',
+        'b A human soul crash-landed directly into the Ninth Circle? That defies every trans-dimensional intake ordinance I have ever catalogued.',
+        'lu Or it means our onboarding department finally processed my VIP requisition.',
+        's They do not look VIP. They look like raw recruitment material.',
+        'm They look like they owe me one announcer table.',
+        'y Am I dead?',
+        'lu Technically, yes.',
+        'y Am I in Hell?',
+        'li Technically, deliciously yes.',
+        'y Am I supposed to be on fire?',
+        'b That is actually an excellent question, and I hate that I do not have the answer.',
+        'For the first time, all five demons look worried.',
+        'hide character m with fadeOut',
+        'hide character s with fadeOut',
+        'hide character li with fadeOut',
+        'hide character b with fadeOut',
+        'hide character lu with fadeOut',
+        'jump DemonIntroductions'
+    ],
+
+    'DemonIntroductions': [
+        'clear',
+        'show scene #2b0505 with fadeIn',
+        'show character lu normal at bigLeft with fadeIn',
+        'lu Lucy Morningstar. Executive authority, strategic oversight, infernal operations. If something in Hell is broken, it is usually because someone failed to obey my very clear memo.',
+        'y So you are in charge?',
+        'lu Obviously.',
+        'hide character lu with fadeOut',
+        'show character s normal at bigLeft with fadeIn',
+        's General Samael. Field Marshal of the Fallen Host. You will address me with respect, posture, and a basic willingness to survive.',
+        'y Do I get a helmet?',
+        's Not with that tone.',
+        'hide character s with fadeOut',
+        'show character li normal at bigLeft with fadeIn',
+        'li Lily. Vice, temptation, pleasure, bad decisions, good stories. I make eternity bearable, or at least memorable.',
+        'y That sounds like a warning.',
+        'li That was me being polite.',
+        'hide character li with fadeOut',
+        'show character b normal at bigLeft with fadeIn',
+        'b Belle. Archivist, compliance researcher, custodian of arcane records. I am sorry about all of this, unless you caused it, in which case I am still sorry but more judgmental.',
+        'hide character b with fadeOut',
+        'show character m normal at bigLeft with fadeIn',
+        'm Molly! Demolition sweetheart, wrestling menace, certified chaos enthusiast. If it explodes, suplexes, or screams, I probably know a guy.',
+        'y I have never been more afraid of the phrase sweetheart.',
+        'm Aww, you are learning already!',
+        'hide character m with fadeOut',
+        'jump InfernalOrientation'
+    ],
+
+    'InfernalOrientation': [
+        'clear',
+        'show scene #111111 with fadeIn',
+        'show character b normal at bigLeft with fadeIn',
+        'b Before anything else, we need to classify you.',
+        'y As what?',
+        'b That is the problem.',
+        'hide character b with fadeOut',
+        'show character lu normal at bigLeft with fadeIn',
+        'lu Every soul has a category. Gluttons, tyrants, frauds, influencers who filmed apology videos in parked cars.',
+        'hide character lu with fadeOut',
+        'show character li normal at bigLeft with fadeIn',
+        'li People who say we should hang sometime and never mean it.',
+        'hide character li with fadeOut',
+        'show character s normal at bigLeft with fadeIn',
+        's Men who leave shopping carts loose in parking lots.',
+        'hide character s with fadeOut',
+        'show character b normal at bigLeft with fadeIn',
+        'b That is actually one of our largest archive wings.',
+        'y So what am I?',
+        'b Unclear. The system lists you as: Pending, unstable, probably expensive.',
+        'hide character b with fadeOut',
+        'show character lu normal at bigLeft with fadeIn',
+        'lu That is not a category. That is a budget meeting.',
+        'hide character lu with fadeOut',
+        'show character b normal at bigLeft with fadeIn',
+        'b I am going to run a manual aptitude spread. Strength, Dexterity, Constitution, Intelligence, Wisdom, and...',
+        'hide character b with fadeOut',
+        'show character li normal at bigLeft with fadeIn',
+        'li Rizz.',
+        'hide character li with fadeOut',
+        'show character b normal at bigLeft with fadeIn',
+        'b I hate that the official form says Rizz.',
+        'hide character b with fadeOut',
+        'jump StatAllocation_Screen'
+    ],
+
+    'StatAllocation_Screen': [
+        showStatAllocation(),
+        'show character b normal at bigLeft with fadeIn',
+        'b Okay. That is...not good, but it is data.',
+        'y Do I pass?',
+        'hide character b with fadeOut',
+        'show character lu normal at bigLeft with fadeIn',
+        'lu Nobody passes Hell. They merely become actionable.',
+        'hide character lu with fadeOut',
+        'jump HotelAndPhone'
+    ],
+
+    'HotelAndPhone': [
+        'show scene #880808 with fadeIn',
+        'lu We need to get our little anomaly settled before the Celestial Bureaucracy Administration gets a whiff of this.',
+        'y The what?',
+        's The CBA. Heaven auditors. Merciless. Humorless. Armed with clipboards capable of severing immortal essence.',
+        'b If they discover an unprocessed mortal in the Ninth Circle, they could relocate all of us.',
+        'm And not fun relocate. Clipboard relocate.',
+        'li Which is tragic, because I have outfits that deserve better lighting than a compliance hearing.',
+        'lu For now, you are a VIP guest of Hell LLC.',
+        'y That sounds expensive.',
+        'b Technically, your soul is collateral.',
+        'y That sounds expensive.',
+        's You will need this.',
+        setVar('receivedHPhone', true),
+        'Sam hands you a black glass phone. It is warm, heavy, and faintly screaming.',
+        's H-Phone. Obsidian glass. Recycled legion armor casing. Inferno OS.',
+        'li The screen is powered by tortured souls, but in a cute way.',
+        'b The in-app purchases also drain your soul.',
+        'y Also in a cute way?',
+        'b No.',
+        'lu Every night, you will receive invitations through Agenda-666. Choose one of us. We gather affinity data and stabilize your entropy.',
+        'y You are making dating sound like a tax audit.',
+        'lu Most intimacy is.',
+        'jump UnknownMessage1'
+    ],
+
+    'UnknownMessage1': [
+        'clear',
+        'show scene #000000 with fadeIn',
+        'Drew, the three-headed hyena clerk, shoves you into your suite and growls something about complimentary suffering.',
+        'The room is luxurious in the way a haunted casino is luxurious. Velvet sheets. Bone chandelier. A minibar labeled DO NOT MAKE EYE CONTACT.',
+        'y Okay. Dead. Hell. Hot demons. Government problem. Phone made of screaming.',
+        'y *BUZZ*',
+        'Unknown: Ah, there you are.',
+        'y Who is this?',
+        'Unknown: Someone with a vested interest in your continued instability.',
+        'y That is an insane way to introduce yourself.',
+        'Unknown: You are not here by accident. You are also not here by ordinary damnation. The reason you are not burning will become clear.',
+        'Unknown: For now, let Hell finest try to stabilize you. It will be funny.',
+        'y Is this a threat?',
+        'Unknown: Think of it as paternal encouragement from a stranger.',
+        'The message deletes itself.',
+        'y I hate that paternal was the worst word in there.',
+        'jump NextMorning'
+    ],
+
+    'NextMorning': [
+        'clear',
+        'show scene #330000 with fadeIn',
+        setVar('dayStamina', 3),
+        'Morning arrives in Hell without sunlight. Instead, the sky turns from black-red to slightly more judgmental red.',
+        'y I slept maybe forty minutes and dreamed about my W-2 biting me.',
+        'H-Phone: AGENDA-666 NOTICE: Entropy Stabilization Activities Available.',
+        'H-Phone: You have 3 daytime blocks. Training, work, and hangouts spend time. Phone and shopping are free.',
+        'lu Do at least one productive thing today. If the CBA asks, I want to say we made an effort.',
+        's Train. Weakness is just failure before it gets honest.',
+        'li Or come relax. Stress is terrible for the skin, and yours still technically has mortal warranty.',
+        'b The Archives are open if you want answers. Or dust inhalation. Usually both.',
+        'm HEY. WANNA DO SOMETHING STUPID?',
+        'jump DayChoice_All'
+    ],
+
+    'DayChoice_All': [{
+        Choice: {
+            Dialog: 'Pick a daytime activity. Blocks left: {{dayStamina}}',
+            Gym: { Text: 'Train with Sam (STR)', Do: 'jump DayGym' },
+            Parkour: { Text: 'Obstacle course with Lucy (DEX)', Do: 'jump DayParkour' },
+            Pool: { Text: 'Lava pool with Lily (CON)', Do: 'jump DayPool' },
+            Read: { Text: 'Archives with Belle (INT)', Do: 'jump DayRead' },
+            Chill: { Text: 'Meditation with Molly (WIS)', Do: 'jump DayChill' },
+            Party: { Text: 'Social club with Lucy (RIZZ)', Do: 'jump DayParty' },
+            Work: { Text: 'Earn souls at Hell temp work', Do: 'jump DayWork' },
+            Phone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
+        }
+    }],
+
+    'DayNext': [
+        'clear',
+        'show scene #330000 with fadeIn',
+        'H-Phone: Daytime blocks left: {{dayStamina}}.',
+        'jump DayChoice_All'
+    ],
+    'DayChoiceRouter': ['jump DayChoice_All'],
+    'DayChoice_Filtered': ['jump DayChoice_All'],
+
+    'DayWork': [
+        'show scene #3b2a10 with fadeIn',
+        'A Hell temp agency makes you alphabetize screams by urgency.',
+        'y Earned 5 souls and one new stress twitch.',
+        changeVar('money', 5),
+        changeVar('dayStamina', -1),
+        checkStaminaAndRoute()
+    ],
+
+    'DayGym': [
+        'show scene #000000 with fadeIn',
+        'show character s normal at bigLeft with fadeIn',
+        's Spot me, recruit. If the weights scream, scream louder.',
+        statCheck('STRENGTH', 5),
+        { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayGymGood', False: 'jump DayGymFail' }}
+    ],
+    'DayGymGood': [changeVar('STRENGTH', 1), changeVar('samAffection', 1), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}}]', 's Adequate. Disturbingly adequate.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayGymFail': [changeVar('STRENGTH', 1), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}}]', 's You survived. That is the lowest possible form of victory.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+
+    'DayParkour': [
+        'show scene #111111 with fadeIn',
+        'show character lu normal at bigLeft with fadeIn',
+        'lu The obstacle course is legally distinct from a murder maze.',
+        statCheck('DEXTERITY', 5),
+        { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayParkourGood', False: 'jump DayParkourFail' }}
+    ],
+    'DayParkourGood': [changeVar('DEXTERITY', 1), changeVar('lucyAffection', 1), 'lu Efficient. I may put that in a memo.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayParkourFail': [changeVar('DEXTERITY', 1), 'lu You fell with memorable commitment.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+
+    'DayPool': [
+        'show scene #7a0808 with fadeIn',
+        'show character li normal at bigLeft with fadeIn',
+        'li Come on, gorgeous. Lava swimming is mostly confidence.',
+        statCheck('CONSTITUTION', 5),
+        { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayPoolGood', False: 'jump DayPoolFail' }}
+    ],
+    'DayPoolGood': [changeVar('CONSTITUTION', 1), changeVar('lilyAffection', 1), 'li Look at you, not melting. Very attractive.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPoolFail': [changeVar('CONSTITUTION', 1), 'li A little crispy, but still cute.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+
+    'DayRead': [
+        'show scene #221133 with fadeIn',
+        'show character b normal at bigLeft with fadeIn',
+        'b Please do not breathe on the cursed indexes. They are sensitive.',
+        statCheck('INTELLIGENCE', 5),
+        { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayReadGood', False: 'jump DayReadFail' }}
+    ],
+    'DayReadGood': [changeVar('INTELLIGENCE', 1), changeVar('belleAffection', 1), 'b Oh. That was actually a very good observation.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayReadFail': [changeVar('INTELLIGENCE', 1), 'b That answer is wrong, but in an educational direction.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+
+    'DayChill': [
+        'show scene #113322 with fadeIn',
+        'show character m normal at bigLeft with fadeIn',
+        'm Meditation means sitting still until the urge to body-slam destiny passes.',
+        statCheck('WISDOM', 5),
+        { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayChillGood', False: 'jump DayChillFail' }}
+    ],
+    'DayChillGood': [changeVar('WISDOM', 1), changeVar('mollyAffection', 1), 'm Whoa. You got inner peace hands.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayChillFail': [changeVar('WISDOM', 1), 'm Your aura fell down the stairs, but it got back up.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+
+    'DayParty': [
+        'show scene #330033 with fadeIn',
+        'show character lu normal at bigLeft with fadeIn',
+        'lu Networking is just flirting with consequences.',
+        statCheck('RIZZ', 5),
+        { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayPartyGood', False: 'jump DayPartyFail' }}
+    ],
+    'DayPartyGood': [changeVar('RIZZ', 1), changeVar('lucyAffection', 1), 'lu Hm. You may be useful in rooms with appetizers.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPartyFail': [changeVar('RIZZ', 1), 'lu Painful, but recoverable. Like most public speaking.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+
+    'HPhone': [
+        'show scene #111111 with fadeIn',
+        'y Money: {{money}} souls.',
+        { Choice: {
+            Dialog: 'H-Phone',
+            Shop: { Text: 'Browse Hell-Mazon', Do: 'jump HellMazon' },
+            Messages: { Text: 'Check Messages', Do: 'jump HPhoneMessages' },
+            Return: { Text: 'Put Phone Away', Do: 'jump DayNext' }
+        }}
+    ],
+    'HPhoneMessages': ['Unknown: Enjoying orientation?', 'y Absolutely not.', 'Unknown: Good. Honest answers are rare down here.', 'jump HPhone'],
+    'HPhoneSocials': ['y Hell social media is just thirst traps and municipal warnings.', 'jump HPhone'],
+    'HPhone_WithItem': ['jump HPhone'],
+    'HPhone_NoItem': ['jump HPhone'],
+
+    'HellMazon': [
+        'show scene #441100 with fadeIn',
+        'y Hell-Mazon loads a suspicious black market page.',
+        'y Maybe later. The app keeps asking whether I consent to spiritually binding cookies.',
+        'jump HPhone'
+    ],
+
+    'Night1Texting': [
+        'clear',
+        'show scene #111111 with fadeIn',
+        'H-Phone: AGENDA-666: Nightly Affinity Stabilization Required.',
+        'lu Translation: pick someone before your entropy turns into a class-action lawsuit.',
+        'li Pick someone fun.',
+        's Pick someone competent.',
+        'b Pick someone who has prepared a reasonable itinerary.',
+        'm PICK VIOLENCE. ROMANTIC VIOLENCE.',
+        { Choice: {
+            Dialog: 'Pick a date:',
+            Lily: { Text: 'Lily - Hell Chilis', Do: 'jump DateLily1' },
+            Lucy: { Text: 'Lucy - Office/Diner', Do: 'jump DateLucy1' },
+            Sam: { Text: 'Sam - Imp Bowling', Do: 'jump DateSam1' },
+            Belle: { Text: 'Belle - Abyssal Archives', Do: 'jump DateBelle1' },
+            Molly: { Text: 'Molly - Axe Throwing', Do: 'jump DateMolly1' }
+        }}
+    ],
+
+    'DateLily1': [
+        'clear',
+        'show scene #ff6b6b with fadeIn',
+        'show character li normal at bigLeft with fadeIn',
+        'y So this is where you wanted to meet?',
+        'li Oh yeah, I love this place.',
+        'You look up at the sign. It was clearly supposed to say Hell Chilis, but half the letters are burned out. It now reads: HEHIS.',
+        'y Your favorite place, huh?',
+        'li The food is okay, but I am really here for the 3PM happy hour.',
+        'y It is 9 PM.',
+        'li Exactly. In Hell, happy hour is a legally contested state of mind.',
+        { Choice: {
+            Dialog: 'How do you play this?',
+            Sincere: { Text: 'Ask what she actually likes here.', Do: 'jump LilySincere' },
+            Flirt: { Text: 'Flirt back aggressively.', Do: 'jump LilyFlirt' }
+        }}
+    ],
+    'LilySincere': [changeVar('lilyAffection', 2), 'y What do you actually like about this place?', 'li Actually?', 'For half a second, her smile slips.', 'li Nobody expects anything real here. There is comfort in that.', 'y That sounded almost honest.', 'li Careful. Keep listening like that and I might develop standards.', 'jump LilyDinner'],
+    'LilyFlirt': [changeVar('lilyAffection', 1), 'y I thought you brought me here because the lighting makes me look edible.', 'li It does. Tragically edible.', 'li But do not get cocky. I have sent cuter mortals to worse restaurants.', 'jump LilyDinner'],
+    'LilyDinner': [
+        'Hellbilly Server: Welcome to Hehis. Tonight we have screaming fajitas and one legally distinct molten chocolate regret cake.',
+        'y What is screaming about the fajitas?',
+        'Hellbilly Server: The fajitas.',
+        'li Two drinks. Something pink, dangerous, and financially irresponsible.',
+        { Choice: {
+            Dialog: 'Dinner plan?',
+            Normal: { Text: 'Try to have a normal dinner.', Do: 'jump LilyNormalDinner' },
+            Leave: { Text: 'Leave before the fajitas testify.', Do: 'jump LilyLeaveDinner' }
+        }}
+    ],
+    'LilyNormalDinner': [changeVar('lilyAffection', 1), 'y We could try to have a normal dinner.', 'li Normal?', 'She repeats the word like you handed her a bird with no bones.', 'li Fine. But if this becomes emotionally healthy, I am blaming you.', 'jump LilyEnd'],
+    'LilyLeaveDinner': [changeVar('lilyAffection', 1), 'y We could get out of here before the fajitas start naming names.', 'li Bold. Impulsive. Terrible for digestion. I approve.', 'jump LilyEnd'],
+    'LilyEnd': ['The date ends in a neon haze of bad drinks, worse appetizers, and Lily laughing harder than she seems to expect.', 'li You are strange, mortal.', 'y That good?', 'li That is undecided.', 'She brushes a hand over yours. The touch is practiced. The hesitation afterward is not.', 'li Maybe next time we try somewhere with fewer laminated menus.', 'jump BigD_Message'],
+
+    'DateLucy1': [
+        'clear',
+        'show scene #8b0000 with fadeIn',
+        'show character lu normal at bigLeft with fadeIn',
+        'lu Come in. Do not touch anything that glows, bleeds, or has a tab labeled Q4 Suffering.',
+        'Lucys office looks less like a workplace and more like a cathedral built to worship deadlines.',
+        'y Is this a date or a performance review?',
+        'lu Yes.',
+        'y That was not a choice.',
+        'lu You are learning.',
+        'lu The CBA monitors all entropy irregularities. You are an entropy irregularity. Therefore, we must make you look statistically boring.',
+        'y Good luck.',
+        'lu Do not flirt with disaster. Disaster reports to me.',
+        { Choice: {
+            Dialog: 'Help Lucy how?',
+            Serious: { Text: 'Analyze the forms seriously.', Do: 'jump LucySerious' },
+            Tease: { Text: 'Tease her about relaxing.', Do: 'jump LucyTease' }
+        }}
+    ],
+    'LucySerious': [changeVar('lucyAffection', 2), 'y Show me what needs sorting.', 'lu Unexpectedly useful. Disturbing, but useful.', 'You help her mark forms: Still Screaming, Screaming But Productive, and Promotable Screaming.', 'jump LucyDiner'],
+    'LucyTease': [changeVar('lucyAffection', 1), 'y You know most people do not schedule dates in compliance folders.', 'lu Most people are inefficient.', 'y Most people are happier.', 'lu Citation needed.', 'jump LucyDiner'],
+    'LucyDiner': [
+        'Lucys stomach growls. The sound is dignified, furious, and immediately denied.',
+        'lu That was the building.',
+        'y The building wants fries?',
+        'lu We are going to Sinnys.',
+        'show scene #552222 with fadeIn',
+        'lu Do not let the kitschy exterior fool you. This place is an affront to culinary order.',
+        'y Then why are we here?',
+        'lu Because their milkshakes are transcendent and I contain multitudes.',
+        'A blob of infernal chili splatters Lucys blazer.',
+        { Choice: {
+            Dialog: 'Food fight response?',
+            Defuse: { Text: 'Defuse the food fight.', Do: 'jump LucyDefuse' },
+            Escalate: { Text: 'Escalate the food fight.', Do: 'jump LucyEscalate' }
+        }}
+    ],
+    'LucyDefuse': [changeVar('lucyAffection', 1), 'y Everyone breathe. Nobody needs to die over chili.', 'lu This blazer is an Ayperor Autocure original.', 'y Nobody needs to die permanently over chili.', 'lu Acceptable revision.', 'jump LucyEnd'],
+    'LucyEscalate': [changeVar('lucyAffection', 2), 'y Permission to become a problem?', 'lu Denied.', 'y Too late.', 'You fling a napkin dispenser. Lucy stares, horrified, then delighted against her will.', 'lu You absolute agent of infinite chaos.', 'jump LucyEnd'],
+    'LucyEnd': ['By the time you escape Sinnys, the diner is smoking and Lucy is laughing so hard she has to brace one hand against the alley wall.', 'lu I cannot remember the last time I lost control and the world did not end.', 'y Low bar, but I will take it.', 'lu Do not get sentimental. I am still evaluating you.', 'Her smile lingers after the words.', 'jump BigD_Message'],
+
+    'DateSam1': [
+        'clear',
+        'show scene #ff4500 with fadeIn',
+        'show character s normal at bigLeft with fadeIn',
+        's A date? You test the limits of my unholy patience.',
+        'y I am just calling it like I see it. So are we going bowling or not?',
+        's Perhaps a brief military foray to assess battlefield conditions could prove educational.',
+        'The Imp Alehouse is a sports bar, bowling alley, and public health violation in one.',
+        's Repulsive. These imbeciles cannot even handle the fundamentals.',
+        'An imp gets its fingers stuck in a bowling ball and waddles down the lane screaming.',
+        'y I think that one is inventing a new technique.',
+        's That one is inventing a court-martial.',
+        'Cerberus Bouncer: Well butter my demonic biscuit, if it aint General Stick-Up-Her-Unholy-Crevice herself.',
+        'Sam goes rigid. Talons extend.',
+        { Choice: {
+            Dialog: 'Handle the bouncer?',
+            Humor: { Text: 'Defuse with humor.', Do: 'jump SamHumor' },
+            StandBack: { Text: 'Let Sam intimidate them.', Do: 'jump SamIntimidate' }
+        }}
+    ],
+    'SamHumor': [changeVar('samAffection', 2), 'y Hey now, the General and I are just here for casual circle-burning mayhem.', 'Sam blinks, then exhales through her nose.', 's Poorly articulated. But acceptable.', 'jump SamBowling'],
+    'SamIntimidate': [changeVar('samAffection', 1), 'y I am going to stand over here where I am less throwable.', 's Wise.', 'The bouncer apologizes to every god it no longer believes in.', 'jump SamBowling'],
+    'SamBowling': [
+        'At the rental counter, Sam receives the Squintyblinker 9000: a black bowling ball covered in blinking eyes.',
+        'y That ball needs a priest.',
+        's That ball needs discipline.',
+        's What shall be your first sacrifice to sacred pinsport? Full ritual challenge, or a tactical handicap?',
+        { Choice: {
+            Dialog: 'Bowling strategy?',
+            Full: { Text: 'Accept the full challenge.', Do: 'jump SamFullChallenge' },
+            Handicap: { Text: 'Ask for rail-guides.', Do: 'jump SamHandicap' }
+        }}
+    ],
+    'SamFullChallenge': [changeVar('samAffection', 1), 'y No mercy. Unleash the ritual.', 's Brave. Foolish. Efficient.', 'jump SamEnd'],
+    'SamHandicap': ['y Maybe a slight tactical handicap for unit cohesion?', 's Very well. Even elite soldiers begin with humiliating training wheels.', 'jump SamEnd'],
+    'SamEnd': ['For an hour, Sam turns bowling into siege warfare. Pins explode. Imps flee. The snack counter catches fire twice.', 'On the final frame, the Squintyblinker wobbles, blinks wrong, and misses one single pin.', 's ...', 'The silence is absolute.', 's This abysmal performance shall not be soon forgotten.', 'y It was the balls fault.', 'Sam looks at you. The rage does not vanish, but it changes shape.', 's Obviously.', 's There will be a rematch.', 'y Looking forward to it, General.', 's Do not make it sound pleasant.', 'jump BigD_Message'],
+
+    'DateBelle1': [
+        'clear',
+        'show scene #9370db with fadeIn',
+        'show character b normal at bigLeft with fadeIn',
+        'b You came.',
+        'y You sound surprised.',
+        'b Ghosting is very common in Hell. Usually literal. Still rude.',
+        'The Abyssal Archives rise around you: towers of books, impossible staircases, shelves stretching into a starless void.',
+        'y What is this place?',
+        'b Every sin ever recorded. Wrath is east wing, greed is lower stacks, lust has ventilation problems.',
+        'y And that giant chasm?',
+        'b People who leave shopping carts in parking lots instead of returning them.',
+        'y Holy shit. That is the biggest section.',
+        'b Yes.',
+        'She laughs nervously, then immediately looks like she regrets making sound.',
+        'b That is why I asked you here. I let it get out of hand.',
+        'b This is a horrible first date. I dragged you into my work because I cannot relax until the work stops screaming.',
+        { Choice: {
+            Dialog: 'Comfort Belle?',
+            Reassure: { Text: 'Reassure her.', Do: 'jump BelleReassure' },
+            Joke: { Text: 'Joke about cart sinners.', Do: 'jump BelleJoke' }
+        }}
+    ],
+    'BelleReassure': [changeVar('belleAffection', 2), 'y Hey. You asked for help. That is not horrible. That is honest.', 'b Honest sounds less shameful when you say it.', 'jump BelleCarts'],
+    'BelleJoke': [changeVar('belleAffection', 1), 'y For what it is worth, these people deserve consequences.', 'b Thank you. I have always said cart abandonment is civilizations quietest confession.', 'jump BelleCarts'],
+    'BelleCarts': [
+        'You and Belle sort spectral carts into categories: Lazy, Raining, I Have Kids, and Just A Bad Person.',
+        'b Careful with that one. It still has a purse in it.',
+        'y Is the purse cursed?',
+        'b Worse. It contains expired coupons.',
+        { Choice: {
+            Dialog: 'Sorting style?',
+            Faster: { Text: 'Suggest a faster system.', Do: 'jump BelleFaster' },
+            Patient: { Text: 'Follow Belles exact system.', Do: 'jump BellePatient' }
+        }}
+    ],
+    'BelleFaster': [changeVar('belleAffection', 1), 'y What if we sort by intent instead of cart size?', 'b That...might work.', 'b Please do not be smarter than me too quickly. I am fragile today.', 'jump BelleEnd'],
+    'BellePatient': [changeVar('belleAffection', 2), 'y Show me your system. I will follow your lead.', 'b You will?', 'y You are the archivist.', 'b Right. Yes. I am. Sorry. Thank you.', 'jump BelleEnd'],
+    'BelleEnd': ['Hours later, the chasm is not fixed, but it is less actively menacing.', 'b I know this was not a normal date.', 'y I died on a banana peel yesterday. Normal is dead to me.', 'b That is weirdly comforting.', 'She smiles, small and startled, like she found a flower growing in a filing cabinet.', 'b Maybe next time I can take you somewhere that does not involve the moral weight of retail negligence.', 'Belle notices a blank record with your name on it. It has no sin category. Only one initial in the ownership field: D.', 'jump BigD_Message'],
+
+    'DateMolly1': [
+        'clear',
+        'show scene #ffb6c1 with fadeIn',
+        'show character m normal at bigLeft with fadeIn',
+        'm Whats up, meatbag? It is your girl Molly, the one and only Demon Destroyer!',
+        'y Should I be wearing protective gear?',
+        'm Emotionally? Absolutely.',
+        'm Quit whimpering and tell me if you have what it takes to ride shotgun with the wildest hellion this side of the Abyss.',
+        { Choice: {
+            Dialog: 'Molly date energy?',
+            Agree: { Text: 'Agree enthusiastically.', Do: 'jump MollyAgree' },
+            Safe: { Text: 'Ask if this is safe.', Do: 'jump MollySafe' }
+        }}
+    ],
+    'MollyAgree': [changeVar('mollyAffection', 2), 'y Lets do this crazy thing.', 'm OH YEAH! That is the energy! Welcome to the main event!', 'jump MollyAxeRange'],
+    'MollySafe': [changeVar('mollyAffection', 1), 'y Define safe.', 'm Nobody important dies twice.', 'y That did not help.', 'jump MollyAxeRange'],
+    'MollyAxeRange': [
+        'The Infernal Axe Throwing Range smells like hot metal, sweat, and liability waivers.',
+        'm They call me Demon Destroyer for a reason.',
+        'y Because you destroy demons?',
+        'm Because I destroy expectations. And sometimes demons. And once a buffet.',
+        'The floor explodes.',
+        'Kezavaldraak: FOOLISH DEMONS! Your games have awakened Kezavaldraak from volcanic slumber!',
+        'm Well, well, if it is not my oldest frenemy.',
+        'y You know him?',
+        'm I owe him money. Or he owes me money. We disagree loudly.',
+        { Choice: {
+            Dialog: 'Help Molly?',
+            TrashTalk: { Text: 'Trash-talk Kezavaldraak.', Do: 'jump MollyTrashTalk' },
+            Support: { Text: 'Support Molly directly.', Do: 'jump MollySupport' }
+        }}
+    ],
+    'MollyTrashTalk': [changeVar('mollyAffection', 1), 'y Hey, gecko-breath! Didnt your pit momma teach you not to make a scene on date night?', 'm That was disgusting. I loved every syllable.', 'jump MollyEnd'],
+    'MollySupport': [changeVar('mollyAffection', 2), 'y Mollys got this. I am just here to witness greatness and maybe hold her hair.', 'm Ohhh, sweet emotional support with a side of violence. My favorite combo meal.', 'jump MollyEnd'],
+    'MollyEnd': ['The fight becomes less a battle and more a wrestling pay-per-view with property damage.', 'm Say my name, ugly!', 'Kezavaldraak: Demon...Destroyer...', 'm Thats right!', 'With one final impossible suplex, Molly sends Kezavaldraak crashing into the target wall. The axes spell out: DATE NIGHT.', 'Molly stumbles, laughing, then nearly collapses into your arms.', 'y I got you.', 'm Heh. Fancy meeting you in the smoldering ruins of our devastatingly romantic date night.', 'For once, her voice is quiet.', 'm You do not think I am too much?', 'y Molly, we are in Hell. Too much is the dress code.', 'm Good. Because next time I am bringing fireworks.', 'jump BigD_Message'],
+
+    'BigD_Message': [
+        'clear',
+        'show scene #000000 with fadeIn',
+        'By the time you get back to your room, Hell feels less impossible and more like a bad neighborhood you are somehow already learning to navigate.',
+        'y Day one. Dead. Dating. Bureaucratically unstable.',
+        'y *BUZZ*',
+        'Unknown: You made an impression.',
+        'y Stop doing that.',
+        'Unknown: I would, but then who would encourage your worst instincts?',
+        'y What do you want?',
+        'Unknown: For now? Keep meeting them. Lucy, Lily, Sam, Belle, Molly. Each one thinks they are studying you.',
+        'Unknown: None of them realize what you are teaching them.',
+        'y And what am I?',
+        'Unknown: Potential.',
+        'Unknown: Goodnight, kid.',
+        'The message deletes itself.',
+        'y Kid?',
+        'For one second, the room feels colder than Hell should be.',
+        'Somewhere far below, or above, or behind the world, someone laughs.',
+        'centered Day 1 Complete',
+        resetDailyActivities(),
+        'end'
+    ]
+});
+

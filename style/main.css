@@ -115,6 +115,47 @@ button:hover {
 
 }
 
+/* ===== STORY SPRITE POSITIONS =====
+ * These are custom positions used by js/script.js.
+ *
+ * Monogatari lets the script say:
+ *   'show character li normal at introLeft with fadeIn'
+ *
+ * The word after "at" becomes a CSS class on that character image. These
+ * classes spread the five demon girls into a readable lineup for the intro.
+ */
+[data-screen="game"] [data-character].introFarLeft,
+[data-screen="game"] [data-character].introLeft,
+[data-screen="game"] [data-character].introCenter,
+[data-screen="game"] [data-character].introRight,
+[data-screen="game"] [data-character].introFarRight {
+	bottom: 155px;
+	max-height: 47vh;
+	left: 50%;
+	right: auto;
+	transform: translateX(-50%);
+}
+
+[data-screen="game"] [data-character].introFarLeft {
+	left: 18%;
+}
+
+[data-screen="game"] [data-character].introLeft {
+	left: 34%;
+}
+
+[data-screen="game"] [data-character].introCenter {
+	left: 50%;
+}
+
+[data-screen="game"] [data-character].introRight {
+	left: 66%;
+}
+
+[data-screen="game"] [data-character].introFarRight {
+	left: 82%;
+}
+
 /* Other Images Styles */
 [data-screen="game"] [data-image] {
 
