@@ -1,0 +1,2004 @@
+HELL STORY - READABLE GAME SCRIPT
+Export Date: 2026-05-13
+
+Generated from the active Monogatari script labels in js/script.js.
+Engine commands are mostly omitted; jumps, prompts, choices, and gameplay/UI actions are summarized.
+
+============================================================
+[Start]
+============================================================
+
+The fluorescent lights buzz like trapped insects above a maze of beige cubicles.
+Your monitor displays a spreadsheet so dense it seems less like data and more like a curse.
+[Input: What is your name?]
+y Thanks for holding, this is {{player.name}} with Aeroplex Supply Solutions. One moment while I pull up your account details.
+This is unacceptable! I need those EKG leads by tomorrow and you people never have anything in stock!
+y Absolutely, I understand how frustrating that must be.
+You do not understand. You have not understood anything for roughly three fiscal quarters.
+y Six more hours.
+Six hours later, you remove your headset with the haunted delicacy of a bomb technician.
+y Freedom. Temporary, legally distinct freedom.
+Outside, a wild-eyed street preacher shoves a hand-painted sign in your face.
+Street Preacher: Sinners! Blasphemers! Hell awaits! Eternal punishment!
+y Buddy, I just got out of a nine-hour headset shift. You are going to have to sell me on the downside.
+→ Jump to CommuteToDamnation
+
+============================================================
+[AskName]
+============================================================
+
+[Input: What is your name?]
+{{player.name}}! sucessfully logged in, welcome to SystemAssest Corp internal intranet
+Phew......
+Now what was I doing? Oh yeah I had that paperwork for HR to fill out
+It didn't make much sense what they were asking though....Oh well, when HR says to do it, you do it I guess.......
+Sigh.....
+→ Jump to StatAllocation_Screen
+
+============================================================
+[StatAllocation_Screen]
+============================================================
+
+[Gameplay/UI action]
+b Okay. That is...not good, but it is data.
+y Do I pass?
+lu Nobody passes Hell. They merely become actionable.
+→ Jump to HotelAndPhone
+
+============================================================
+[Intro]
+============================================================
+
+y Well at least I'm done with this shit for today
+y What is today anyways? Tuesday? Wednesday? If it was Friday, everyone would have made the Fri-Yay jokes.
+y Fuck, I need to go home. It's quitting time
+y Can't wait to be free
+Goddamit
+This is not free
+li STR: {{STRENGTH}}, DEX: {{DEXTERITY}}, RIZZ: {{RIZZ}}
+li Welcome to Hell!
+
+Choice prompt: li Ready?
+- Yes (go to Scene0)
+- No (go to Scene0)
+
+============================================================
+[Scene0]
+============================================================
+
+lu Here is your H-Phone!
+[Gameplay/UI action]
+y Added to: HELL SQUAD
+→ Jump to GroupChatNight0
+
+============================================================
+[GroupChatNight0]
+============================================================
+
+li Hey {{player.name}}!
+m Hi!!
+b Hello!
+s yo
+
+Choice prompt: What do you say?
+- Hey everyone! (go to GC_Good1)
+- Uh... hi? (go to GC_Bad1)
+
+============================================================
+[GC_Good1]
+============================================================
+
+[Gameplay/UI action]
+li Great attitude!
+s not bad
+→ Jump to GC_Scene2
+
+============================================================
+[GC_Bad1]
+============================================================
+
+[Gameplay/UI action]
+lu lol awkward much
+→ Jump to GC_Scene2
+
+============================================================
+[GC_Scene2]
+============================================================
+
+m How do you like Hell?
+
+Choice prompt: Response?
+- You all seem cool! (go to GC_Good2)
+- Still processing... (go to GC_Bad2)
+
+============================================================
+[GC_Good2]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+m Aww!
+→ Jump to GC_Scene3
+
+============================================================
+[GC_Bad2]
+============================================================
+
+[Gameplay/UI action]
+s fair
+→ Jump to GC_Scene3
+
+============================================================
+[GC_Scene3]
+============================================================
+
+lu wanna hit the cafe tomorrow?
+m YES!
+
+Choice prompt: Join them?
+- I am in! (go to GC_Good3)
+- Maybe... (go to GC_Bad3)
+
+============================================================
+[GC_Good3]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+lu nice
+→ Jump to GC_Scene4
+
+============================================================
+[GC_Bad3]
+============================================================
+
+m Oh... okay!
+→ Jump to GC_Scene4
+
+============================================================
+[GC_Scene4]
+============================================================
+
+s gotta bounce
+s night
+b Goodnight!
+→ Jump to GC_Scene5
+
+============================================================
+[GC_Scene5]
+============================================================
+
+lu yo {{player.name}}
+lu we got your back
+
+Choice prompt: Final message:
+- Thanks everyone (go to GC_GoodEnd)
+- Cool (go to GC_BadEnd)
+
+============================================================
+[GC_GoodEnd]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+lu anytime
+li Goodnight!
+→ Jump to NextMorning
+
+============================================================
+[GC_BadEnd]
+============================================================
+
+lu night
+→ Jump to NextMorning
+
+============================================================
+[NextMorning]
+============================================================
+
+[Gameplay/UI action]
+Morning arrives in Hell without sunlight. Instead, the sky turns from black-red to slightly more judgmental red.
+y I slept maybe forty minutes and dreamed about my W-2 biting me.
+H-Phone: AGENDA-666 NOTICE: Entropy Stabilization Activities Available.
+H-Phone: You have 3 daytime blocks. Training, work, and hangouts spend time. Phone and shopping are free.
+lu Do at least one productive thing today. If the CBA asks, I want to say we made an effort.
+s Train. Weakness is just failure before it gets honest.
+li Or come relax. Stress is terrible for the skin, and yours still technically has mortal warranty.
+b The Archives are open if you want answers. Or dust inhalation. Usually both.
+m HEY. WANNA DO SOMETHING STUPID?
+→ Jump to DayChoice_All
+
+============================================================
+[DayNext]
+============================================================
+
+H-Phone: Daytime blocks left: {{dayStamina}}.
+→ Jump to DayChoiceRouter
+
+============================================================
+[DayChoiceRouter]
+============================================================
+
+[Conditional: if true go to DayChoice_All, otherwise go to DayChoice_Filtered]
+
+============================================================
+[DayChoice_Filtered]
+============================================================
+
+[Gameplay/UI action]
+→ Jump to DayChoice_Dynamic
+
+============================================================
+[DayChoice_All]
+============================================================
+
+
+Choice prompt: Pick a daytime activity. Blocks left: {{dayStamina}}
+- Train with Sam (STR) (go to DayGym)
+- Obstacle course with Lucy (DEX) (go to DayParkour)
+- Infernal endurance trial (CON) (go to DayPool)
+- Archives with Belle (INT) (go to DayRead)
+- Meditation with Molly (WIS) (go to DayChill)
+- Social club with Lily (RIZZ) (go to DayParty)
+- Earn souls at Hell temp work (go to DayWork)
+- Check H-Phone (go to HPhone)
+
+============================================================
+[HPhone]
+============================================================
+
+[Gameplay/UI action]
+y The H-Phone opens to a glowing message thread list.
+y Money: {{money}} souls.
+
+Choice prompt: H-Phone
+- Browse Hell-Mazon (go to HellMazon)
+- Check Messages (go to HPhoneMessages)
+- Put Phone Away (go to HPhoneClose)
+
+============================================================
+[HPhone_WithItem]
+============================================================
+
+→ Jump to HPhone
+
+============================================================
+[HPhone_NoItem]
+============================================================
+
+→ Jump to HPhone
+
+============================================================
+[HPhoneMessages]
+============================================================
+
+[Gameplay/UI action]
+Unknown: Enjoying orientation?
+y Absolutely not.
+Unknown: Good. Honest answers are rare down here.
+→ Jump to HPhone
+
+============================================================
+[HPhoneSocials]
+============================================================
+
+y Hell social media is just thirst traps and municipal warnings.
+→ Jump to HPhone
+
+============================================================
+[HellMazon]
+============================================================
+
+[Gameplay/UI action]
+y Hell-Mazon loads a suspicious black market page.
+y Maybe later. The app keeps asking whether I consent to spiritually binding cookies.
+→ Jump to HPhone
+
+============================================================
+[HellMazon_AlreadyBought]
+============================================================
+
+y Already bought today!
+→ Jump to HPhone
+
+============================================================
+[HellMazon_Shop]
+============================================================
+
+y Money: {{money}} souls
+[Gameplay/UI action]
+→ Jump to HellMazon_Dynamic
+
+============================================================
+[CantAfford]
+============================================================
+
+y Cannot afford it!
+→ Jump to HellMazon_Shop
+
+============================================================
+[BuyItem1]
+============================================================
+
+[Gameplay/UI action]
+→ Jump to ProcessPurchase
+
+============================================================
+[BuyItem2]
+============================================================
+
+[Gameplay/UI action]
+→ Jump to ProcessPurchase
+
+============================================================
+[ProcessPurchase]
+============================================================
+
+[Gameplay/UI action]
+y PURCHASED!
+y Consumed: {{_purchasedItem.name}}
+y {{_effectText}}
+y Money: {{money}}
+→ Jump to DayNext
+
+============================================================
+[DayWork]
+============================================================
+
+[Gameplay/UI action]
+A Hell temp agency makes you alphabetize screams by urgency.
+y Earned 5 souls and one new stress twitch.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayGym]
+============================================================
+
+[Gameplay/UI action]
+s Spot me, recruit. If the weights scream, scream louder.
+A barbell chained in silver rattles on the rack. Every plate has a tiny face and every tiny face looks judgmental.
+s Lift clean. Breathe correctly. Do not flirt with spinal injury.
+y That was my whole plan.
+[Gameplay/UI action]
+[Conditional: if true go to DayGymGood, otherwise go to DayGymFail]
+
+============================================================
+[GymCheck]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to GymGood, otherwise go to GymFail]
+
+============================================================
+[GymGood]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+s Damn! Nice work!
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[GymFail]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+s Whoa! I got it.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[GymBad]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+s Alright...
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayParkour]
+============================================================
+
+[Gameplay/UI action]
+lu The obstacle course is legally distinct from a murder maze.
+The course unfolds across rooftops, swinging chains, tax forms, and one rotating saw labeled TEAM BUILDING.
+lu Fast is useful. Controlled is rare. Try to be both, or at least entertaining.
+[Gameplay/UI action]
+[Conditional: if true go to DayParkourGood, otherwise go to DayParkourFail]
+
+============================================================
+[ParkourCheck]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to ParkourGood, otherwise go to ParkourFail]
+
+============================================================
+[ParkourGood]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+lu Holy shit you're fast!
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[ParkourFail]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+lu Better luck next time!
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[ParkourBad]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+lu Boring...
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayPool]
+============================================================
+
+[Gameplay/UI action]
+The Infernal Wellness Annex offers a free endurance assessment, which is suspicious because nothing in Hell is free except consequences.
+An imp in a visor points you toward a treadmill made of bone, brass, and obvious OSHA violations.
+Imp Attendant: Run until the machine respects you, collapses, or requests legal counsel.
+y Which one usually happens first?
+Imp Attendant: Depends how funny you are.
+[Gameplay/UI action]
+[Conditional: if true go to DayPoolGood, otherwise go to DayPoolFail]
+
+============================================================
+[PoolCheck]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to PoolGood, otherwise go to PoolFail]
+
+============================================================
+[PoolGood]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+li Your endurance is incredible!
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[PoolFail]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+li That's okay, it takes practice!
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[PoolBad]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+li Oh... okay then.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayRead]
+============================================================
+
+[Gameplay/UI action]
+b Please do not breathe on the cursed indexes. They are sensitive.
+Belle places three books in front of you. One whispers your name, one bites the table, and one has already filed a complaint.
+b We are looking for a missing clause in your damnation record. If it screams, cite it properly.
+[Gameplay/UI action]
+[Conditional: if true go to DayReadGood, otherwise go to DayReadFail]
+
+============================================================
+[ReadCheck]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to ReadGood, otherwise go to ReadFail]
+
+============================================================
+[ReadGood]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+b Your insights are remarkable!
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[ReadFail]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+b These topics are dense!
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[ReadBad]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+b Oh... okay.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayChill]
+============================================================
+
+[Gameplay/UI action]
+m Meditation means sitting still until the urge to body-slam destiny passes.
+The garden is quiet except for distant screams, wind chimes made of tiny ribs, and Molly cracking her knuckles at enlightenment.
+m Close your eyes. If you see your inner demon, suplex it with kindness.
+[Gameplay/UI action]
+[Conditional: if true go to DayChillGood, otherwise go to DayChillFail]
+
+============================================================
+[ChillCheck]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to ChillGood, otherwise go to ChillFail]
+
+============================================================
+[ChillGood]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+m You really get it! So nice!
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[ChillFail]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+m Oh... yeah?
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[ChillBad]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+m Oh... okay.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayParty]
+============================================================
+
+[Gameplay/UI action]
+li Rizz is not about lines, sweetheart. It is about making bad ideas sound like destiny.
+The social club is packed with demons exchanging gossip, drinks, and eye contact with dangerous financial terms.
+li Go charm someone. If they offer your soul a timeshare, smile and walk away.
+[Gameplay/UI action]
+[Conditional: if true go to DayPartyGood, otherwise go to DayPartyFail]
+
+============================================================
+[PartyCheck]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to PartyGood, otherwise go to PartyFail]
+
+============================================================
+[PartyGood]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+lu Damn you're smooth!
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[PartyFail]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+lu Don't worry, I got you.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[PartyBad]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+lu Come on, don't be boring.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[Night1Texting]
+============================================================
+
+[Gameplay/UI action]
+H-Phone: AGENDA-666: Nightly Affinity Stabilization Required.
+lu Translation: pick someone before your entropy turns into a class-action lawsuit.
+li Pick someone fun.
+s Pick someone competent.
+b Pick someone who has prepared a reasonable itinerary.
+m PICK VIOLENCE. ROMANTIC VIOLENCE.
+
+Choice prompt: Pick a date:
+- Lily - Hell Chilis (go to DateLily1)
+- Lucy - Office/Diner (go to DateLucy1)
+- Sam - Imp Bowling (go to DateSam1)
+- Belle - Abyssal Archives (go to DateBelle1)
+- Molly - Axe Throwing (go to DateMolly1)
+
+============================================================
+[DateLily1]
+============================================================
+
+[Gameplay/UI action]
+y So this is where you wanted to meet?
+li Obviously. Hell Chilis. Technically condemned, spiritually franchised, and emotionally unsafe after 9 PM.
+You look up at the sign. It was clearly supposed to say Hell Chilis, but half the letters are burned out. It now reads: HEHIS.
+y It says Hehis.
+li It says whatever you need it to say, babe.
+Inside, the restaurant glows with red neon, fake leather booths, and the quiet despair of a thousand first dates pretending not to check their phones.
+Hellbilly Server: Welcome to Hehis. Our specials tonight are screaming fajitas, bottomless sin-chips, and molten chocolate regret cake.
+li Two drinks. Something pink, dangerous, and financially irresponsible.
+y You come here often?
+li Only when I want something cheap, loud, and bad for me.
+She smiles like the punchline already happened.
+li So. Tell me something honest.
+
+Choice prompt: What do you give Lily?
+- Admit this is overwhelming. (go to LilySincere)
+- Flirt back and keep it light. (go to LilyFlirt)
+
+============================================================
+[LilyTruth]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to LilyTruthGood, otherwise go to LilyTruthBad]
+
+============================================================
+[LilyTruthGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+li Wow... that was honest.
+→ Jump to LilyDate2
+
+============================================================
+[LilyTruthBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+li Oh... okay.
+→ Jump to LilyDate2
+
+============================================================
+[LilyDare]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to LilyDareGood, otherwise go to LilyDareBad]
+
+============================================================
+[LilyDareGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+li You actually did it! Amazing!
+→ Jump to LilyDate2
+
+============================================================
+[LilyDareBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+li Points for trying!
+→ Jump to LilyDate2
+
+============================================================
+[LilyDate2]
+============================================================
+
+li Share dessert?
+
+Choice prompt: Share?
+- Share (RIZZ) (go to LilyDessert)
+- Too full (go to LilyEnd)
+
+============================================================
+[LilyDessert]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to LilyDessertGood, otherwise go to LilyDessertBad]
+
+============================================================
+[LilyDessertGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+li This is really nice.
+→ Jump to LilyEnd
+
+============================================================
+[LilyDessertBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+li Let me help clean that.
+→ Jump to LilyEnd
+
+============================================================
+[LilyEnd]
+============================================================
+
+li Tonight was wonderful!
+→ Jump to BigD_Message
+
+============================================================
+[DateLucy1]
+============================================================
+
+[Gameplay/UI action]
+lu Come in. Do not touch anything that glows, bleeds, or has a tab labeled Q4 Suffering.
+Lucys office looks less like a workplace and more like a cathedral built to worship deadlines.
+y Is this a date or a performance review?
+lu Yes.
+y That was not a choice.
+lu You are learning.
+lu The CBA monitors all entropy irregularities. You are an entropy irregularity. Therefore, we must make you look statistically boring.
+y Good luck.
+lu Do not flirt with disaster. Disaster reports to me.
+
+Choice prompt: Help Lucy how?
+- Analyze the forms seriously. (go to LucySerious)
+- Tease her about relaxing. (go to LucyTease)
+
+============================================================
+[LucyDrink]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to LucyDrinkGood, otherwise go to LucyDrinkBad]
+
+============================================================
+[LucyDrinkGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+lu YOOO! Beast mode!
+→ Jump to LucyDate2
+
+============================================================
+[LucyDrinkBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+lu Easy there!
+→ Jump to LucyDate2
+
+============================================================
+[LucyDate2]
+============================================================
+
+lu Sketchy demon approaching...
+
+Choice prompt: Handle it?
+- Handle it (RIZZ) (go to LucyMerchant)
+- Let Lucy (go to LucyEnd)
+
+============================================================
+[LucyMerchant]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to LucyMerchantGood, otherwise go to LucyMerchantBad]
+
+============================================================
+[LucyMerchantGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+lu That was kinda hot.
+→ Jump to LucyEnd
+
+============================================================
+[LucyMerchantBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+lu *steps in* Beat it.
+→ Jump to LucyEnd
+
+============================================================
+[LucyEnd]
+============================================================
+
+By the time you escape Sinnys, the diner is smoking and Lucy is laughing so hard she has to brace one hand against the alley wall.
+lu I cannot remember the last time I lost control and the world did not end.
+y Low bar, but I will take it.
+lu Do not get sentimental. I am still evaluating you.
+Her smile lingers after the words.
+→ Jump to BigD_Message
+
+============================================================
+[DateSam1]
+============================================================
+
+[Gameplay/UI action]
+s A date? You test the limits of my unholy patience.
+y I am just calling it like I see it. So are we going bowling or not?
+s Perhaps a brief military foray to assess battlefield conditions could prove educational.
+The Imp Alehouse is a sports bar, bowling alley, and public health violation in one.
+s Repulsive. These imbeciles cannot even handle the fundamentals.
+An imp gets its fingers stuck in a bowling ball and waddles down the lane screaming.
+y I think that one is inventing a new technique.
+s That one is inventing a court-martial.
+Cerberus Bouncer: Well butter my demonic biscuit, if it aint General Stick-Up-Her-Unholy-Crevice herself.
+Sam goes rigid. Talons extend.
+
+Choice prompt: Handle the bouncer?
+- Defuse with humor. (go to SamHumor)
+- Let Sam intimidate them. (go to SamIntimidate)
+
+============================================================
+[SamBet]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to SamBetGood, otherwise go to SamBetBad]
+
+============================================================
+[SamBetGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+s You called it! Impressive.
+→ Jump to SamDate2
+
+============================================================
+[SamBetBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+s Better luck next time.
+→ Jump to SamDate2
+
+============================================================
+[SamDate2]
+============================================================
+
+s Hellhound wings?
+
+Choice prompt: Try them?
+- Challenge! (CON) (go to SamWings)
+- Something mild (go to SamEnd)
+
+============================================================
+[SamWings]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to SamWingsGood, otherwise go to SamWingsBad]
+
+============================================================
+[SamWingsGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+s Holy shit! Respect.
+→ Jump to SamEnd
+
+============================================================
+[SamWingsBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+s HAHA! Here, drink this.
+→ Jump to SamEnd
+
+============================================================
+[SamEnd]
+============================================================
+
+For an hour, Sam turns bowling into siege warfare. Pins explode. Imps flee. The snack counter catches fire twice.
+On the final frame, the Squintyblinker wobbles, blinks wrong, and misses one single pin.
+s ...
+The silence is absolute.
+s This abysmal performance shall not be soon forgotten.
+y It was the balls fault.
+Sam looks at you. The rage does not vanish, but it changes shape.
+s Obviously.
+s There will be a rematch.
+y Looking forward to it, General.
+s Do not make it sound pleasant.
+→ Jump to BigD_Message
+
+============================================================
+[DateBelle1]
+============================================================
+
+[Gameplay/UI action]
+b You came.
+y You sound surprised.
+b Ghosting is very common in Hell. Usually literal. Still rude.
+The Abyssal Archives rise around you: towers of books, impossible staircases, shelves stretching into a starless void.
+y What is this place?
+b Every sin ever recorded. Wrath is east wing, greed is lower stacks, lust has ventilation problems.
+y And that giant chasm?
+b People who leave shopping carts in parking lots instead of returning them.
+y Holy shit. That is the biggest section.
+b Yes.
+She laughs nervously, then immediately looks like she regrets making sound.
+b That is why I asked you here. I let it get out of hand.
+b This is a horrible first date. I dragged you into my work because I cannot relax until the work stops screaming.
+
+Choice prompt: Comfort Belle?
+- Reassure her. (go to BelleReassure)
+- Joke about cart sinners. (go to BelleJoke)
+
+============================================================
+[BellePuzzle]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to BellePuzzleGood, otherwise go to BellePuzzleBad]
+
+============================================================
+[BellePuzzleGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+b Brilliant!
+→ Jump to BelleDate2
+
+============================================================
+[BellePuzzleBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+b Quite tricky!
+→ Jump to BelleDate2
+
+============================================================
+[BelleDate2]
+============================================================
+
+b Sneak into restricted?
+
+Choice prompt: Sneak?
+- Let's do it! (DEX) (go to BelleSneak)
+- Better not (go to BelleEnd)
+
+============================================================
+[BelleSneak]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to BelleSneakGood, otherwise go to BelleSneakBad]
+
+============================================================
+[BelleSneakGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+b Exhilarating!
+→ Jump to BelleEnd
+
+============================================================
+[BelleSneakBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+b Quick, run!
+→ Jump to BelleEnd
+
+============================================================
+[BelleEnd]
+============================================================
+
+Hours later, the chasm is not fixed, but it is less actively menacing.
+b I know this was not a normal date.
+y I died on a banana peel yesterday. Normal is dead to me.
+b That is weirdly comforting.
+She smiles, small and startled, like she found a flower growing in a filing cabinet.
+b Maybe next time I can take you somewhere that does not involve the moral weight of retail negligence.
+Belle notices a blank record with your name on it. It has no sin category. Only one initial in the ownership field: D.
+→ Jump to BigD_Message
+
+============================================================
+[DateMolly1]
+============================================================
+
+[Gameplay/UI action]
+m Whats up, meatbag? It is your girl Molly, the one and only Demon Destroyer!
+y Should I be wearing protective gear?
+m Emotionally? Absolutely.
+m Quit whimpering and tell me if you have what it takes to ride shotgun with the wildest hellion this side of the Abyss.
+
+Choice prompt: Molly date energy?
+- Agree enthusiastically. (go to MollyAgree)
+- Ask if this is safe. (go to MollySafe)
+
+============================================================
+[MollyHorror]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to MollyHorrorGood, otherwise go to MollyHorrorBad]
+
+============================================================
+[MollyHorrorGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+m So brave!
+→ Jump to MollyDate2
+
+============================================================
+[MollyHorrorBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+m We're both scared!
+→ Jump to MollyDate2
+
+============================================================
+[MollyRomance]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to MollyRomanceGood, otherwise go to MollyRomanceBad]
+
+============================================================
+[MollyRomanceGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+m This is really nice.
+→ Jump to MollyDate2
+
+============================================================
+[MollyRomanceBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+m Want more popcorn?
+→ Jump to MollyDate2
+
+============================================================
+[MollyDate2]
+============================================================
+
+m Board game?
+
+Choice prompt: Play?
+- Let's play! (WIS) (go to MollyGame)
+- Finish movie (go to MollyEnd)
+
+============================================================
+[MollyGame]
+============================================================
+
+[Gameplay/UI action]
+[Conditional: if true go to MollyGameGood, otherwise go to MollyGameBad]
+
+============================================================
+[MollyGameGood]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]
+m Great team!
+→ Jump to MollyEnd
+
+============================================================
+[MollyGameBad]
+============================================================
+
+[Gameplay/UI action]
+y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]
+m Still fun!
+→ Jump to MollyEnd
+
+============================================================
+[MollyEnd]
+============================================================
+
+The fight becomes less a battle and more a wrestling pay-per-view with property damage.
+m Say my name, ugly!
+Kezavaldraak: Demon...Destroyer...
+m Thats right!
+With one final impossible suplex, Molly sends Kezavaldraak crashing into the target wall. The axes spell out: DATE NIGHT.
+Molly stumbles, laughing, then nearly collapses into your arms.
+y I got you.
+m Heh. Fancy meeting you in the smoldering ruins of our devastatingly romantic date night.
+For once, her voice is quiet.
+m You do not think I am too much?
+y Molly, we are in Hell. Too much is the dress code.
+m Good. Because next time I am bringing fireworks.
+→ Jump to BigD_Message
+
+============================================================
+[BigD_Message]
+============================================================
+
+By the time you get back to your room, Hell feels less impossible and more like a bad neighborhood you are somehow already learning to navigate.
+y Day one. Dead. Dating. Bureaucratically unstable.
+y *BUZZ*
+Unknown: You made an impression.
+y Stop doing that.
+Unknown: I would, but then who would encourage your worst instincts?
+y What do you want?
+Unknown: For now? Keep meeting them. Lucy, Lily, Sam, Belle, Molly. Each one thinks they are studying you.
+Unknown: None of them realize what you are teaching them.
+y And what am I?
+Unknown: Potential.
+Unknown: Goodnight, kid.
+The message deletes itself.
+y Kid?
+For one second, the room feels colder than Hell should be.
+Somewhere far below, or above, or behind the world, someone laughs.
+centered Day 1 Complete
+[Gameplay/UI action]
+
+============================================================
+[CommuteToDamnation]
+============================================================
+
+Your beat-up sedan tears down the interstate, music blaring, windshield wipers losing a war against the rain.
+y Okay. Home. Shower. Food. Maybe stare at a wall for two hours and call it self-care.
+Ahead, a semi-truck jackknifes across four lanes.
+[Gameplay/UI action]
+y Whoa, shit!
+You swerve at the last second. The car lifts onto two wheels, threads through flying sparks, and lands clean.
+y Okay. Cool. Normal Tuesday.
+The highway collapses into a sinkhole.
+[Gameplay/UI action]
+y That is less normal.
+You floor it. For one impossible second, a trail of hellfire burns under your tires and carries you across.
+y What the actual fu-
+A biker gang bursts out of the rain behind you, guns blazing.
+[Gameplay/UI action]
+y I AM SORRY! I DID NOT MEAN TO CUT YOU OFF OR WHATEVER!
+Explosions. Drifts. Screaming. A brief moment where reality pixelates like the universe is buffering.
+y No no no. I am not dying to lag.
+Somehow, you make it home.
+y I made it. I actually made it through that entire impossible gauntlet of bullsh-
+Your foot hits a banana peel on the welcome mat.
+[Gameplay/UI action]
+y ...No.
+Concrete rushes up to greet you with professional enthusiasm.
+[Gameplay/UI action]
+→ Jump to CrashLanding
+
+============================================================
+[CrashLanding]
+============================================================
+
+You fall through smoke, heat, screaming wind, and at least three layers of municipal zoning violation.
+You crash through a wooden announcer table in an explosion of splinters and demonic confetti.
+[Gameplay/UI action]
+m OH YEAH! Did everybody see that supreme spitfire bomb through my custom announcer table?!
+s For the last time, Molly, this is not one of your ridiculous wrestling exhibitions. That was an actual soul.
+li And still intact. Impressive. Also potentially snack material.
+b A human soul crash-landed directly into the Ninth Circle? That defies every trans-dimensional intake ordinance I have ever catalogued.
+lu Or it means our onboarding department finally processed my VIP requisition.
+s They do not look VIP. They look like raw recruitment material.
+m They look like they owe me one announcer table.
+y Am I dead?
+lu Technically, yes.
+y Am I in Hell?
+li Technically, deliciously yes.
+y Am I supposed to be on fire?
+b That is actually an excellent question, and I hate that I do not have the answer.
+For the first time, all five demons look worried.
+→ Jump to DemonIntroductions
+
+============================================================
+[DemonIntroductions]
+============================================================
+
+lu Lucy. Executive authority, strategic oversight, infernal operations. If something in Hell is broken, it is usually because someone failed to obey my very clear memo.
+y So you are in charge?
+lu Obviously.
+s Sam. Field Marshal of the Fallen Host. You will address me with respect, posture, and a basic willingness to survive.
+y Do I get a helmet?
+s Not with that tone.
+li Lily. Vice, temptation, pleasure, bad decisions, good stories. I make eternity bearable, or at least memorable.
+y That sounds like a warning.
+li That was me being polite.
+b Belle. Archivist, compliance researcher, custodian of arcane records. I am sorry about all of this, unless you caused it, in which case I am still sorry but more judgmental.
+m Molly! Demolition sweetheart, wrestling menace, certified chaos enthusiast. If it explodes, suplexes, or screams, I probably know a guy.
+y I have never been more afraid of the phrase sweetheart.
+m Aww, you are learning already!
+→ Jump to InfernalOrientation
+
+============================================================
+[InfernalOrientation]
+============================================================
+
+b Before anything else, we need to classify you.
+y As what?
+b That is the problem.
+lu Every soul has a category. Gluttons, tyrants, frauds, influencers who filmed apology videos in parked cars.
+li People who say we should hang sometime and never mean it.
+s Men who leave shopping carts loose in parking lots.
+b That is actually one of our largest archive wings.
+y So what am I?
+b Unclear. The system lists you as: Pending, unstable, probably expensive.
+lu That is not a category. That is a budget meeting.
+b I am going to run a manual aptitude spread. Strength, Dexterity, Constitution, Intelligence, Wisdom, and...
+li Rizz.
+b I hate that the official form says Rizz.
+→ Jump to StatAllocation_Screen
+
+============================================================
+[HotelAndPhone]
+============================================================
+
+lu We need to get our little anomaly settled before the Celestial Bureaucracy Administration gets a whiff of this.
+y The what?
+s The CBA. Heaven auditors. Merciless. Humorless. Armed with clipboards capable of severing immortal essence.
+b If they discover an unprocessed mortal in the Ninth Circle, they could relocate all of us.
+m And not fun relocate. Clipboard relocate.
+li Which is tragic, because I have outfits that deserve better lighting than a compliance hearing.
+lu For now, you are a VIP guest of Hell LLC.
+y That sounds expensive.
+b Technically, your soul is collateral.
+y That sounds expensive.
+s You will need this.
+[Gameplay/UI action]
+[Gameplay/UI action]
+Sam hands you a black glass phone. It is warm, heavy, and faintly screaming.
+s H-Phone. Obsidian glass. Recycled legion armor casing. Inferno OS.
+li The screen is powered by tortured souls, but in a cute way.
+b The in-app purchases also drain your soul.
+y Also in a cute way?
+b No.
+lu Every night, you will receive invitations through Agenda-666. Choose one of us. We gather affinity data and stabilize your entropy.
+y You are making dating sound like a tax audit.
+lu Most intimacy is.
+[Gameplay/UI action]
+→ Jump to UnknownMessage1
+
+============================================================
+[UnknownMessage1]
+============================================================
+
+Drew, the three-headed hyena clerk, shoves you into your suite and growls something about complimentary suffering.
+The room is luxurious in the way a haunted casino is luxurious. Velvet sheets. Bone chandelier. A minibar labeled DO NOT MAKE EYE CONTACT.
+y Okay. Dead. Hell. Hot demons. Government problem. Phone made of screaming.
+y *BUZZ*
+[Gameplay/UI action]
+Unknown: Ah, there you are.
+y Who is this?
+Unknown: Someone with a vested interest in your continued instability.
+y That is an insane way to introduce yourself.
+Unknown: You are not here by accident. You are also not here by ordinary damnation. The reason you are not burning will become clear.
+Unknown: For now, let Hell finest try to stabilize you. It will be funny.
+y Is this a threat?
+Unknown: Think of it as paternal encouragement from a stranger.
+The message deletes itself.
+[Gameplay/UI action]
+y I hate that paternal was the worst word in there.
+→ Jump to NextMorning
+
+============================================================
+[DayGymGood]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+You get the bar up. The screaming weights go briefly silent, like they are embarrassed on your behalf.
+s Adequate. Disturbingly adequate.
+y Was that a compliment?
+s It was a tactical observation. Treasure it quietly.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayGymFail]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+The barbell rises three inches, makes direct eye contact, and returns to the rack with legal authority.
+s You survived. That is the lowest possible form of victory.
+y I will put it on my resume.
+s Do not. I will check.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayParkourGood]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+You clear the last gap, land badly, recover worse, and somehow make it look intentional.
+lu Efficient. I may put that in a memo.
+y Please title it: Mortal Briefly Useful.
+lu Already drafted.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayParkourFail]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+You miss a platform and are caught by a safety net made of disappointed hands.
+lu You fell with memorable commitment.
+y That sounds almost positive.
+lu It is not. But it is memorable.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayPoolGood]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+You keep running after the treadmill catches fire, which seems to impress the treadmill more than the staff.
+Imp Attendant: Congratulations. The machine has marked you as technically alive.
+y That is the nicest thing a machine has ever said to me.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayPoolFail]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+You last almost a full minute before sliding off the treadmill with the grace of wet laundry.
+Imp Attendant: Do not worry. The floor signs the liability waiver for you.
+y I hate premium wellness.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayReadGood]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+You spot a recursive footnote hiding inside another footnote like a coward.
+b Oh. That was actually a very good observation.
+y I understood half of it.
+b In Archives work, that is basically fluency.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayReadFail]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+You open a book upside down. The book takes this personally and turns your bookmark into ash.
+b That answer is wrong, but in an educational direction.
+y Is that better than regular wrong?
+b Marginally. Please cherish marginally.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayChillGood]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+For one impossible moment, Hell goes quiet. Even Molly whispers.
+m Whoa. You got inner peace hands.
+y I do not know what that means.
+m Me neither, but I felt it in my punching soul.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayChillFail]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+Your mind clears completely, then immediately fills with the phrase bone chandelier on repeat.
+m Your aura fell down the stairs, but it got back up.
+y Inspirational?
+m Injured, but inspirational.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayPartyGood]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+You work the room so well a duke of pestilence asks if you have representation.
+li Look at you. Charming without immediately requiring legal counsel.
+y Is that rare?
+li In Hell? That is basically marriage material. Do not panic.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[DayPartyFail]
+============================================================
+
+H-Phone: {{_lastCheckText}}.
+[Gameplay/UI action]
+H-Phone: {{_lastChangeText}}.
+You deliver a compliment so awkward it somehow becomes a minor haunting.
+li Rough landing, but cute debris field.
+y I died less dramatically than that sentence.
+li Good. Then we can rebuild you with better lighting.
+[Gameplay/UI action]
+[Conditional: if true go to Night1Texting, otherwise go to DayNext]
+
+============================================================
+[HPhoneClose]
+============================================================
+
+[Gameplay/UI action]
+→ Jump to DayNext
+
+============================================================
+[LilySincere]
+============================================================
+
+[Gameplay/UI action]
+y Honestly? This is overwhelming.
+li Hell Chilis?
+y Hell. Dying. You. The phone. The fact that my afterlife has scheduling software.
+li Mm. Fair. Most people panic louder.
+y Is that good?
+li It is quieter.
+For a second, Lily’s smile softens into something less polished.
+li Careful. Keep listening like that and I might develop standards.
+→ Jump to LilyDinner
+
+============================================================
+[LilyFlirt]
+============================================================
+
+[Gameplay/UI action]
+y Honestly? I think you brought me here because the lighting makes me look edible.
+li It does. Tragically edible.
+y Tragically?
+li I have a type. It usually ends badly.
+y For them?
+li For the furniture.
+Lily raises her glass.
+li To doomed chemistry.
+y To whatever this is.
+→ Jump to LilyDinner
+
+============================================================
+[LilyDinner]
+============================================================
+
+The screaming fajitas arrive. They are, unfortunately, screaming.
+y What is screaming about the fajitas?
+Hellbilly Server: The fajitas.
+li Ignore it. Food gets dramatic here.
+You try to eat normally. Lily does not. Lily eats like rules are suggestions made by cowards.
+li So what do you want tonight?
+y That is a very broad question.
+li I am a very broad woman.
+y That came out wrong.
+li Did it?
+The air between you changes. It has probably been changing since she picked this place.
+y I know what I am supposed to say.
+li Boring already.
+y I am supposed to say I want to get to know you.
+li Terrible. Predictable. Four out of ten.
+y But true.
+That catches her. Not much. Just enough.
+li Careful.
+
+Choice prompt: What do you tell Lily?
+- Tell her you want her tonight. (go to LilyHotelInvite)
+- Ask what she actually wants. (go to LilyAskReal)
+- Say you want to slow down. (go to LilyGoodnight)
+
+============================================================
+[LilyAskReal]
+============================================================
+
+[Gameplay/UI action]
+y I want to know what you actually want.
+Lily laughs too loud.
+li Oh, gross. Emotional accuracy. In public. At a Hehis.
+y You asked for honesty.
+li I asked you for honesty. Do not weaponize mine.
+She drums her nails against the table.
+li What I want is easy. It is supposed to be easy.
+y And what is that?
+li I want to not think for a while. I want to be wanted without being investigated.
+y I can do that.
+li That was either kind or stupid.
+y I am versatile.
+li Come on, before I accidentally respect you in public.
+→ Jump to LilyHotelInvite
+
+============================================================
+[LilyGoodnight]
+============================================================
+
+[Gameplay/UI action]
+y I think I should say goodnight.
+Lily blinks.
+li Oh.
+y Is that bad?
+li No. Unexpected.
+y I like you. And I want to remember tonight without wondering if I sprinted into it because everything else was insane.
+Lily looks at you for a long moment.
+li That was almost mature.
+y I hated it too.
+She steps closer and kisses your cheek. It is brief, warm, and almost careful.
+li For the record, I would have been amazing.
+y I believe you.
+li You should. I am a professional hazard.
+li Next time, maybe ask me something real again.
+y You hated that.
+li I know. It was terrible. Do it anyway.
+H-Phone: Lily Affection +2.
+→ Jump to BigD_Message
+
+============================================================
+[LilyHotelInvite]
+============================================================
+
+The street outside Hehis is warm, smoky, and alive with distant sirens that sound less like emergencies and more like nightlife.
+Lily walks beside you, close enough that her fingers keep almost brushing yours.
+li You know this is a terrible idea, right?
+y I have had a busy week for terrible ideas.
+li I am not secretly wholesome.
+y I did not assume you were.
+li I am not secretly waiting for the right person to fix me.
+y Good. I do not have tools.
+li I am not a prize you unlock by choosing the correct dialogue options.
+y That one feels personally targeted.
+li It is. You have protagonist disease.
+The hotel rises ahead, all black glass and red light, like a luxury resort built by someone who hated sleep.
+
+Choice prompt: Last chance:
+- Go upstairs with Lily. (go to LilyUpstairs)
+- Slow down and say goodnight. (go to LilyGoodnight)
+
+============================================================
+[LilyUpstairs]
+============================================================
+
+[Gameplay/UI action]
+[Gameplay/UI action]
+The elevator ride is silent except for infernal jazz playing from nowhere.
+y Is the elevator music flirting with me?
+li It flirts with everyone. Do not feel special.
+Her room smells like expensive perfume, smoke, and something sweet enough to be a warning.
+There are red curtains, black sheets, and a minibar chained shut.
+li Still yes?
+y Still yes.
+li Good.
+She kisses you.
+The kiss is not shy. Lily is not shy. But underneath the confidence, there is a strange precision to it, like effort is where the truth leaks in.
+The night becomes heat, laughter, bad decisions made carefully, and the sense that Lily is very good at giving everything except the part of herself that might stay.
+Later, the room is quiet. Hell is never actually quiet, but this is close.
+Lily lies beside you, one arm over her eyes.
+li Well.
+y Well?
+li Congratulations. You survived me.
+y Barely.
+li Correct answer.
+y Are you okay?
+li Mhm.
+Too fast.
+y Lily.
+li Do not do that.
+y Do what?
+li Say my name like there is a person attached.
+That lands harder than she probably meant it to.
+
+Choice prompt: Afterward:
+- Tell her you are not asking for forever. (go to LilyAftercareStay)
+- Tell her she does not have to joke. (go to LilyAftercareHonest)
+- Ask if this was a mistake. (go to LilyAftercareDoubt)
+
+============================================================
+[LilyAftercareStay]
+============================================================
+
+[Gameplay/UI action]
+y I am not asking for forever.
+li Good.
+y I am asking if you are still here.
+li I am literally in the bed.
+y That is not what I meant.
+Lily looks away.
+li I am here. For tonight.
+y Tonight is enough.
+li Do not make enough sound romantic.
+y I will try to make it sound administratively acceptable.
+li Better.
+→ Jump to LilyMorningHook
+
+============================================================
+[LilyAftercareHonest]
+============================================================
+
+[Gameplay/UI action]
+y You do not have to joke right now.
+Lily goes still.
+li That is an incredibly rude thing to say to a woman in her own bed.
+y Is it?
+li Yes. Jokes are load-bearing.
+y I noticed.
+li Do not get smug. I will throw you out a window and call it ventilation.
+y I am not smug.
+li Then what are you?
+y Here.
+That shuts her up. Not magically. Just enough that the room changes.
+li You are making this difficult.
+y What?
+li Leaving before anything matters.
+→ Jump to LilyMorningHook
+
+============================================================
+[LilyAftercareDoubt]
+============================================================
+
+[Gameplay/UI action]
+y Was this a mistake?
+Lily smiles. It is the wrong smile.
+li Oh, babe. Most fun things are.
+y That is not an answer.
+li It is if you are hot enough.
+y Lily.
+Her smile falters.
+li I do not know.
+The honesty is so sudden it feels like the room loses pressure.
+li It was not a mistake. But if you treat it like destiny, I will make it one.
+y Understood.
+→ Jump to LilyMorningHook
+
+============================================================
+[LilyMorningHook]
+============================================================
+
+You wake before Hell’s fake morning fully bleeds through the curtains.
+For one impossible second, you forget where you are.
+Then the minibar growls.
+y Right. Hell.
+Lily is already awake, sitting at the edge of the bed with her back to you, posture too composed.
+li You snore.
+y I died yesterday.
+li Not an excuse.
+y Are we doing awkward morning?
+li I am excellent at awkward morning. I have certifications.
+She starts gathering her things even though this is clearly her room.
+y Are you leaving your own room?
+li Temporarily. Dramatically. For pacing.
+y Lily.
+She stops at the door.
+li Last night was fun.
+y You said that already.
+li Because it is the safe part.
+y What is the unsafe part?
+Her hand rests on the doorknob.
+li That I might want to see what happens if it is not only fun.
+She says it without turning around, like eye contact would make it too true.
+li Do not make a big thing out of that.
+y I would never.
+li Liar.
+H-Phone: Lily Affection increased.
+H-Phone: Lily added a contact nickname for you: Bad Idea.
+→ Jump to BigD_Message
+
+============================================================
+[LucySerious]
+============================================================
+
+[Gameplay/UI action]
+y Show me what needs sorting.
+lu Unexpectedly useful. Disturbing, but useful.
+You help her mark forms: Still Screaming, Screaming But Productive, and Promotable Screaming.
+→ Jump to LucyDiner
+
+============================================================
+[LucyTease]
+============================================================
+
+[Gameplay/UI action]
+y You know most people do not schedule dates in compliance folders.
+lu Most people are inefficient.
+y Most people are happier.
+lu Citation needed.
+→ Jump to LucyDiner
+
+============================================================
+[LucyDiner]
+============================================================
+
+Lucys stomach growls. The sound is dignified, furious, and immediately denied.
+lu That was the building.
+y The building wants fries?
+lu We are going to Sinnys.
+lu Do not let the kitschy exterior fool you. This place is an affront to culinary order.
+y Then why are we here?
+lu Because their milkshakes are transcendent and I contain multitudes.
+A blob of infernal chili splatters Lucys blazer.
+
+Choice prompt: Food fight response?
+- Defuse the food fight. (go to LucyDefuse)
+- Escalate the food fight. (go to LucyEscalate)
+
+============================================================
+[LucyDefuse]
+============================================================
+
+[Gameplay/UI action]
+y Everyone breathe. Nobody needs to die over chili.
+lu This blazer is an Ayperor Autocure original.
+y Nobody needs to die permanently over chili.
+lu Acceptable revision.
+→ Jump to LucyEnd
+
+============================================================
+[LucyEscalate]
+============================================================
+
+[Gameplay/UI action]
+y Permission to become a problem?
+lu Denied.
+y Too late.
+You fling a napkin dispenser. Lucy stares, horrified, then delighted against her will.
+lu You absolute agent of infinite chaos.
+→ Jump to LucyEnd
+
+============================================================
+[SamHumor]
+============================================================
+
+[Gameplay/UI action]
+y Hey now, the General and I are just here for casual circle-burning mayhem.
+Sam blinks, then exhales through her nose.
+s Poorly articulated. But acceptable.
+→ Jump to SamBowling
+
+============================================================
+[SamIntimidate]
+============================================================
+
+[Gameplay/UI action]
+y I am going to stand over here where I am less throwable.
+s Wise.
+The bouncer apologizes to every god it no longer believes in.
+→ Jump to SamBowling
+
+============================================================
+[SamBowling]
+============================================================
+
+At the rental counter, Sam receives the Squintyblinker 9000: a black bowling ball covered in blinking eyes.
+y That ball needs a priest.
+s That ball needs discipline.
+s What shall be your first sacrifice to sacred pinsport? Full ritual challenge, or a tactical handicap?
+
+Choice prompt: Bowling strategy?
+- Accept the full challenge. (go to SamFullChallenge)
+- Ask for rail-guides. (go to SamHandicap)
+
+============================================================
+[SamFullChallenge]
+============================================================
+
+[Gameplay/UI action]
+y No mercy. Unleash the ritual.
+s Brave. Foolish. Efficient.
+→ Jump to SamEnd
+
+============================================================
+[SamHandicap]
+============================================================
+
+y Maybe a slight tactical handicap for unit cohesion?
+s Very well. Even elite soldiers begin with humiliating training wheels.
+→ Jump to SamEnd
+
+============================================================
+[BelleReassure]
+============================================================
+
+[Gameplay/UI action]
+y Hey. You asked for help. That is not horrible. That is honest.
+b Honest sounds less shameful when you say it.
+→ Jump to BelleCarts
+
+============================================================
+[BelleJoke]
+============================================================
+
+[Gameplay/UI action]
+y For what it is worth, these people deserve consequences.
+b Thank you. I have always said cart abandonment is civilizations quietest confession.
+→ Jump to BelleCarts
+
+============================================================
+[BelleCarts]
+============================================================
+
+You and Belle sort spectral carts into categories: Lazy, Raining, I Have Kids, and Just A Bad Person.
+b Careful with that one. It still has a purse in it.
+y Is the purse cursed?
+b Worse. It contains expired coupons.
+
+Choice prompt: Sorting style?
+- Suggest a faster system. (go to BelleFaster)
+- Follow Belles exact system. (go to BellePatient)
+
+============================================================
+[BelleFaster]
+============================================================
+
+[Gameplay/UI action]
+y What if we sort by intent instead of cart size?
+b That...might work.
+b Please do not be smarter than me too quickly. I am fragile today.
+→ Jump to BelleEnd
+
+============================================================
+[BellePatient]
+============================================================
+
+[Gameplay/UI action]
+y Show me your system. I will follow your lead.
+b You will?
+y You are the archivist.
+b Right. Yes. I am. Sorry. Thank you.
+→ Jump to BelleEnd
+
+============================================================
+[MollyAgree]
+============================================================
+
+[Gameplay/UI action]
+y Lets do this crazy thing.
+m OH YEAH! That is the energy! Welcome to the main event!
+→ Jump to MollyAxeRange
+
+============================================================
+[MollySafe]
+============================================================
+
+[Gameplay/UI action]
+y Define safe.
+m Nobody important dies twice.
+y That did not help.
+→ Jump to MollyAxeRange
+
+============================================================
+[MollyAxeRange]
+============================================================
+
+The Infernal Axe Throwing Range smells like hot metal, sweat, and liability waivers.
+m They call me Demon Destroyer for a reason.
+y Because you destroy demons?
+m Because I destroy expectations. And sometimes demons. And once a buffet.
+The floor explodes.
+Kezavaldraak: FOOLISH DEMONS! Your games have awakened Kezavaldraak from volcanic slumber!
+m Well, well, if it is not my oldest frenemy.
+y You know him?
+m I owe him money. Or he owes me money. We disagree loudly.
+
+Choice prompt: Help Molly?
+- Trash-talk Kezavaldraak. (go to MollyTrashTalk)
+- Support Molly directly. (go to MollySupport)
+
+============================================================
+[MollyTrashTalk]
+============================================================
+
+[Gameplay/UI action]
+y Hey, gecko-breath! Didnt your pit momma teach you not to make a scene on date night?
+m That was disgusting. I loved every syllable.
+→ Jump to MollyEnd
+
+============================================================
+[MollySupport]
+============================================================
+
+[Gameplay/UI action]
+y Mollys got this. I am just here to witness greatness and maybe hold her hair.
+m Ohhh, sweet emotional support with a side of violence. My favorite combo meal.
+→ Jump to MollyEnd

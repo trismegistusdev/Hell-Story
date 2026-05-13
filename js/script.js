@@ -48,7 +48,8 @@ monogatari.assets('music', {
  */
 monogatari.assets('scenes', {
     'office': 'office.jpg',
-    'traffic': 'traffic.jpg'
+    'traffic': 'traffic.jpg',
+    'hellLanding': 'hell_landing_bg_placeholder.jpg'
 });
 
 
@@ -143,6 +144,45 @@ function setVar(varName, value) {
                 const storage = monogatari.storage();
                 storage[varName] = this._oldValue;
                 monogatari.storage(storage);
+                return true;
+            }
+        }
+    };
+}
+
+// Plays a short comic overlay over the current scene, then removes it.
+// Keep this generic: story labels only need showChaosEffect('semi'), etc.
+function showChaosEffect(type, duration = 1300) {
+    return {
+        Function: {
+            Apply: function() {
+                return new Promise((resolve) => {
+                    const oldOverlay = document.querySelector('.hell-story-chaos-overlay');
+
+                    if (oldOverlay) {
+                        oldOverlay.remove();
+                    }
+
+                    const overlay = document.createElement('div');
+                    overlay.className = `hell-story-chaos-overlay hell-story-chaos--${type}`;
+                    overlay.innerHTML = `
+                        <div class="hell-story-chaos__road"></div>
+                        <div class="hell-story-chaos__car"></div>
+                        <div class="hell-story-chaos__main"></div>
+                        <div class="hell-story-chaos__fx"></div>
+                        <div class="hell-story-chaos__caption"></div>
+                    `;
+
+                    document.body.appendChild(overlay);
+
+                    window.setTimeout(() => {
+                        overlay.remove();
+                        resolve(true);
+                    }, duration);
+                });
+            },
+            Reverse: function() {
+                document.querySelector('.hell-story-chaos-overlay')?.remove();
                 return true;
             }
         }
@@ -1065,22 +1105,27 @@ monogatari.script({
         'Your beat-up sedan tears down the interstate, music blaring, windshield wipers losing a war against the rain.',
         'y Okay. Home. Shower. Food. Maybe stare at a wall for two hours and call it self-care.',
         'Ahead, a semi-truck jackknifes across four lanes.',
+        showChaosEffect('semi', 1200),
         'y Whoa, shit!',
         'You swerve at the last second. The car lifts onto two wheels, threads through flying sparks, and lands clean.',
         'y Okay. Cool. Normal Tuesday.',
         'The highway collapses into a sinkhole.',
+        showChaosEffect('sinkhole', 1250),
         'y That is less normal.',
         'You floor it. For one impossible second, a trail of hellfire burns under your tires and carries you across.',
         'y What the actual fu-',
         'A biker gang bursts out of the rain behind you, guns blazing.',
+        showChaosEffect('bikers', 1200),
         'y I AM SORRY! I DID NOT MEAN TO CUT YOU OFF OR WHATEVER!',
         'Explosions. Drifts. Screaming. A brief moment where reality pixelates like the universe is buffering.',
         'y No no no. I am not dying to lag.',
         'Somehow, you make it home.',
         'y I made it. I actually made it through that entire impossible gauntlet of bullsh-',
         'Your foot hits a banana peel on the welcome mat.',
+        showChaosEffect('banana', 1150),
         'y ...No.',
         'Concrete rushes up to greet you with professional enthusiasm.',
+        showChaosEffect('falling', 1600),
         'stop music traffic',
         'show scene #000000 with fadeIn',
         'jump CrashLanding'
@@ -1088,9 +1133,10 @@ monogatari.script({
 
     'CrashLanding': [
         'wait 1000',
-        'show scene #5a0505 with fadeIn',
+        'show scene hellLanding with fadeIn',
         'You fall through smoke, heat, screaming wind, and at least three layers of municipal zoning violation.',
         'You crash through a wooden announcer table in an explosion of splinters and demonic confetti.',
+        showChaosEffect('confetti', 1250),
         'show character m normal at introFarLeft with fadeIn',
         'show character s normal at introLeft with fadeIn',
         'show character li normal at introCenter with fadeIn',
