@@ -237,13 +237,20 @@ button:hover {
  */
 @media (prefers-reduced-motion: no-preference) {
 	#monogatari.hell-story-speaking-bounce-enabled [data-screen="game"] [data-character].focus {
-		animation: hell-story-speaking-hint 0.75s ease-in-out infinite;
+		animation: hell-story-speaking-hint 0.57s ease-out 1;
 	}
 }
 
 @keyframes hell-story-speaking-hint {
-	0%, 100% { filter: brightness(1); }
-	50% { filter: brightness(1.14); }
+	0%, 100% {
+		translate: 0 0;
+	}
+	35% {
+		translate: 0 -18px;
+	}
+	65% {
+		translate: 0 4px;
+	}
 }
 
 /* Other Images Styles */
