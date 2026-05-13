@@ -1138,10 +1138,10 @@ monogatari.script({
             Dialog: 'Pick a daytime activity. Blocks left: {{dayStamina}}',
             Gym: { Text: 'Train with Sam (STR)', Do: 'jump DayGym' },
             Parkour: { Text: 'Obstacle course with Lucy (DEX)', Do: 'jump DayParkour' },
-            Pool: { Text: 'Lava pool with Lily (CON)', Do: 'jump DayPool' },
+            Pool: { Text: 'Endurance drill with Sam (CON)', Do: 'jump DayPool' },
             Read: { Text: 'Archives with Belle (INT)', Do: 'jump DayRead' },
             Chill: { Text: 'Meditation with Molly (WIS)', Do: 'jump DayChill' },
-            Party: { Text: 'Social club with Lucy (RIZZ)', Do: 'jump DayParty' },
+            Party: { Text: 'Social club with Lily (RIZZ)', Do: 'jump DayParty' },
             Work: { Text: 'Earn souls at Hell temp work', Do: 'jump DayWork' },
             Phone: { Text: 'Check H-Phone', Do: 'jump HPhone' }
         }
@@ -1172,10 +1172,10 @@ monogatari.script({
 
                     if (!s.didGymToday) choices.Gym = { Text: 'Train with Sam (STR)', Do: 'jump DayGym' };
                     if (!s.didParkourToday) choices.Parkour = { Text: 'Obstacle course with Lucy (DEX)', Do: 'jump DayParkour' };
-                    if (!s.didPoolToday) choices.Pool = { Text: 'Lava pool with Lily (CON)', Do: 'jump DayPool' };
+                    if (!s.didPoolToday) choices.Pool = { Text: 'Endurance drill with Sam (CON)', Do: 'jump DayPool' };
                     if (!s.didReadToday) choices.Read = { Text: 'Archives with Belle (INT)', Do: 'jump DayRead' };
                     if (!s.didChillToday) choices.Chill = { Text: 'Meditation with Molly (WIS)', Do: 'jump DayChill' };
-                    if (!s.didPartyToday) choices.Party = { Text: 'Social club with Lucy (RIZZ)', Do: 'jump DayParty' };
+                    if (!s.didPartyToday) choices.Party = { Text: 'Social club with Lily (RIZZ)', Do: 'jump DayParty' };
                     if (!s.didWorkToday) choices.Work = { Text: 'Earn souls at Hell temp work', Do: 'jump DayWork' };
                     choices.Phone = { Text: 'Check H-Phone', Do: 'jump HPhone' };
 
@@ -1227,17 +1227,17 @@ monogatari.script({
     'DayParkourFail': ['H-Phone: {{_lastCheckText}}.', changeVar('DEXTERITY', 1), 'H-Phone: {{_lastChangeText}}.', 'You miss a platform and are caught by a safety net made of disappointed hands.', 'lu You fell with memorable commitment.', 'y That sounds almost positive.', 'lu It is not. But it is memorable.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayPool': [
-        'show scene #7a0808 with fadeIn',
+        'show scene #2b1111 with fadeIn',
         setVar('didPoolToday', true),
-        'show character li normal at bigLeft with fadeIn',
-        'li Come on, gorgeous. Lava swimming is mostly confidence.',
-        'The lava pool bubbles like soup that learned malice. Lily dips one toe in and sighs like it is bathwater.',
-        'li If you pass out, try to do it dramatically. I respect presentation.',
+        'show character s normal at bigLeft with fadeIn',
+        's Endurance is not glamorous. Good. Glamour gets soldiers killed.',
+        'Sam leads you to a training yard where the air is hot enough to make your regrets sweat.',
+        's Hold formation. Breathe through pain. If your body complains, outrank it.',
         statCheck('CONSTITUTION', 5),
         { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayPoolGood', False: 'jump DayPoolFail' }}
     ],
-    'DayPoolGood': ['H-Phone: {{_lastCheckText}}.', changeVar('CONSTITUTION', 1), 'H-Phone: {{_lastChangeText}}.', changeVar('lilyAffection', 1), 'H-Phone: {{_lastChangeText}}.', 'You make it across the pool with only light smoking and a new respect for sunscreen theology.', 'li Look at you, not melting. Very attractive.', 'y My organs are singing.', 'li Good. Means they are committed.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
-    'DayPoolFail': ['H-Phone: {{_lastCheckText}}.', changeVar('CONSTITUTION', 1), 'H-Phone: {{_lastChangeText}}.', 'You last twelve seconds before climbing out with the dignity of a wet french fry.', 'li A little crispy, but still cute.', 'y I think my skeleton has a sunburn.', 'li That is how you know the spa package is working.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPoolGood': ['H-Phone: {{_lastCheckText}}.', changeVar('CONSTITUTION', 1), 'H-Phone: {{_lastChangeText}}.', changeVar('samAffection', 1), 'H-Phone: {{_lastChangeText}}.', 'You hold the stance until your legs tremble, then keep holding out of pure spite.', 's Good. Pain made a request. You denied it.', 'y I think my knees are filing an appeal.', 's Overruled.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPoolFail': ['H-Phone: {{_lastCheckText}}.', changeVar('CONSTITUTION', 1), 'H-Phone: {{_lastChangeText}}.', 'You last almost a full minute before folding like a lawn chair with student debt.', 's You collapsed after the hard part began.', 'y Was there an easy part?', 's No. That was optimism leaving your body.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayRead': [
         'show scene #221133 with fadeIn',
@@ -1268,15 +1268,15 @@ monogatari.script({
     'DayParty': [
         'show scene #330033 with fadeIn',
         setVar('didPartyToday', true),
-        'show character lu normal at bigLeft with fadeIn',
-        'lu Networking is just flirting with consequences.',
-        'The social club is packed with demons exchanging business cards, gossip, and legally binding compliments.',
-        'lu Charm them. Do not promise your soul. Apparently that matters.',
+        'show character li normal at bigLeft with fadeIn',
+        'li Rizz is not about lines, sweetheart. It is about making bad ideas sound like destiny.',
+        'The social club is packed with demons exchanging gossip, drinks, and eye contact with dangerous financial terms.',
+        'li Go charm someone. If they offer your soul a timeshare, smile and walk away.',
         statCheck('RIZZ', 5),
         { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayPartyGood', False: 'jump DayPartyFail' }}
     ],
-    'DayPartyGood': ['H-Phone: {{_lastCheckText}}.', changeVar('RIZZ', 1), 'H-Phone: {{_lastChangeText}}.', changeVar('lucyAffection', 1), 'H-Phone: {{_lastChangeText}}.', 'You work the room so well a duke of pestilence asks if you have representation.', 'lu Hm. You may be useful in rooms with appetizers.', 'y Is that your highest praise?', 'lu It is comfortably upper-middle.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
-    'DayPartyFail': ['H-Phone: {{_lastCheckText}}.', changeVar('RIZZ', 1), 'H-Phone: {{_lastChangeText}}.', 'You tell a joke so bad three imps clap out of pity and one files a noise complaint.', 'lu Painful, but recoverable. Like most public speaking.', 'y I died less dramatically than that joke.', 'lu Yes. Work on that.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPartyGood': ['H-Phone: {{_lastCheckText}}.', changeVar('RIZZ', 1), 'H-Phone: {{_lastChangeText}}.', changeVar('lilyAffection', 1), 'H-Phone: {{_lastChangeText}}.', 'You work the room so well a duke of pestilence asks if you have representation.', 'li Look at you. Charming without immediately requiring legal counsel.', 'y Is that rare?', 'li In Hell? That is basically marriage material. Do not panic.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPartyFail': ['H-Phone: {{_lastCheckText}}.', changeVar('RIZZ', 1), 'H-Phone: {{_lastChangeText}}.', 'You deliver a compliment so awkward it somehow becomes a minor haunting.', 'li Rough landing, but cute debris field.', 'y I died less dramatically than that sentence.', 'li Good. Then we can rebuild you with better lighting.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'HPhone': [
         'show scene #111111 with fadeIn',
