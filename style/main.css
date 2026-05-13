@@ -1151,3 +1151,264 @@ input[type=range]::-ms-fill-upper {
 	20%, 50% { opacity: 0.72; }
 	70% { opacity: 0.2; }
 }
+
+/* ===== MOBILE RESPONSIVE FIXES ===== */
+@media screen and (max-width: 48em) {
+	[data-component="text-box"] {
+		left: 50%;
+		bottom: 2.1rem;
+		width: calc(100vw - 1.4rem);
+		min-height: 5.8rem;
+		padding: 0.65rem 0.8rem;
+		font-size: 0.78rem;
+	}
+
+	[data-ui="who"] {
+		font-size: 1.05rem;
+	}
+
+	[data-component="choice-container"] {
+		left: 0.5rem !important;
+		right: 0.5rem !important;
+		width: auto !important;
+		display: flex !important;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.35rem;
+		padding: 0.25rem;
+	}
+
+	[data-component="choice-container"] button {
+		min-width: 0;
+		max-width: calc(50vw - 0.8rem);
+		padding: 0.5rem 0.55rem;
+		font-size: 0.66rem;
+		line-height: 1.2;
+		white-space: normal;
+	}
+
+	[data-component="quick-menu"] {
+		bottom: 0.15rem;
+		max-width: calc(100vw - 0.7rem);
+		padding: 0.16rem 0.35rem;
+		gap: 0.25rem;
+		overflow: hidden;
+	}
+
+	[data-component="quick-menu"] span {
+		font-size: 0.52rem;
+	}
+
+	#gameplay-stats-hud {
+		top: 0.25rem;
+		right: 0.25rem;
+		min-width: 5.8rem;
+		max-width: 6.3rem;
+		padding: 0.28rem 0.35rem;
+		font-size: 0.46rem;
+		line-height: 1.08;
+		border-width: 1px;
+	}
+
+	.gameplay-stats-hud__title {
+		font-size: 0.42rem;
+		padding-bottom: 0.16rem;
+		margin-bottom: 0.18rem;
+	}
+
+	.gameplay-stats-hud__row {
+		gap: 0.05rem 0.35rem;
+	}
+
+	.gameplay-stats-hud__list + .gameplay-stats-hud__list {
+		margin-top: 0.22rem;
+		padding-top: 0.22rem;
+	}
+
+	.hell-story-hphone {
+		right: 0.35rem;
+		bottom: 4.1rem;
+		transform-origin: bottom right;
+		scale: 0.58;
+	}
+
+	.hell-story-stat-overlay {
+		align-items: flex-start;
+		padding: 0.55rem;
+		overflow-y: auto;
+	}
+
+	.hell-story-stat-screen {
+		width: min(22rem, 96vw);
+		padding: 0.8rem;
+		border-radius: 0.75rem;
+	}
+
+	.hell-story-stat-screen h2 {
+		font-size: 1.1rem;
+		margin-bottom: 0.35rem;
+	}
+
+	.hell-story-stat-points {
+		margin-bottom: 0.7rem;
+		font-size: 0.74rem;
+	}
+
+	.hell-story-stat-points span {
+		font-size: 1rem;
+	}
+
+	.hell-story-stat-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.45rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.hell-story-stat-card {
+		padding: 0.52rem;
+		border-radius: 0.55rem;
+	}
+
+	.hell-story-stat-card p {
+		margin-bottom: 0.42rem;
+		font-size: 0.66rem;
+	}
+
+	.hell-story-stat-card span {
+		font-size: 0.84rem;
+	}
+
+	.hell-story-stat-card button {
+		width: calc(50% - 0.18rem);
+		padding: 0.38rem 0;
+		font-size: 0.68rem;
+	}
+
+	.hell-story-stat-card button + button {
+		margin-left: 0.22rem;
+	}
+
+	.hell-story-stat-confirm-row button {
+		min-width: 0;
+		width: 100%;
+		padding: 0.55rem 0.8rem;
+		font-size: 0.72rem;
+	}
+
+	[data-screen="game"] [data-character].introFarLeft,
+	[data-screen="game"] [data-character].introLeft,
+	[data-screen="game"] [data-character].introCenter,
+	[data-screen="game"] [data-character].introRight,
+	[data-screen="game"] [data-character].introFarRight {
+		bottom: 118px;
+		max-height: 34vh;
+	}
+}
+
+@media screen and (max-width: 30em) {
+	[data-component="choice-container"] button {
+		max-width: calc(100vw - 1.2rem);
+		width: calc(100vw - 1.2rem);
+	}
+
+	.hell-story-hphone {
+		scale: 0.48;
+		right: 0.15rem;
+		bottom: 3.65rem;
+	}
+
+	#gameplay-stats-hud {
+		max-width: 5.5rem;
+		min-width: 5.2rem;
+		font-size: 0.4rem;
+	}
+}
+
+/* ===== MOBILE CORRECTIONS FROM PHONE TESTING ===== */
+@media screen and (max-width: 48em) {
+	[data-component="text-box"] {
+		bottom: 0.95rem !important;
+		min-height: 4.7rem;
+		width: calc(100vw - 1.4rem);
+	}
+
+	[data-component="choice-container"] {
+		bottom: 6.05rem !important;
+		left: 0.45rem !important;
+		right: 0.45rem !important;
+		max-height: 7.6rem;
+		overflow-y: auto;
+		align-content: flex-end;
+	}
+
+	[data-component="choice-container"] button {
+		max-width: calc(33.333vw - 0.65rem);
+		min-width: calc(33.333vw - 0.65rem);
+		padding: 0.45rem 0.35rem;
+		font-size: 0.58rem;
+	}
+
+	[data-component="quick-menu"] {
+		bottom: 0.05rem;
+		scale: 0.82;
+		transform: translateX(-61%);
+	}
+
+	.hell-story-hphone {
+		scale: 0.38;
+		right: 0.05rem;
+		bottom: 4.45rem;
+	}
+
+	#monogatari:has([data-screen="main"].active) {
+		background-position: 50% -1.6rem;
+		background-size: auto 78%;
+	}
+
+	[data-screen="main"] main-menu {
+		bottom: 4.9rem;
+		gap: 0.65rem;
+	}
+
+	[data-screen="main"] button {
+		padding: 0.42rem 1.05rem;
+		font-size: 0.8rem;
+	}
+}
+
+@media screen and (max-width: 30em) {
+	[data-component="text-box"] {
+		bottom: 0.85rem !important;
+		min-height: 4.45rem;
+		font-size: 0.68rem;
+	}
+
+	[data-component="choice-container"] {
+		bottom: 5.7rem !important;
+		max-height: 6.8rem;
+	}
+
+	[data-component="choice-container"] button {
+		max-width: calc(50vw - 0.75rem);
+		min-width: calc(50vw - 0.75rem);
+		width: calc(50vw - 0.75rem);
+		font-size: 0.56rem;
+		padding: 0.42rem 0.3rem;
+	}
+
+	.hell-story-hphone {
+		scale: 0.32;
+		right: -0.05rem;
+		bottom: 4.15rem;
+	}
+
+	#monogatari:has([data-screen="main"].active) {
+		background-position: 50% -0.8rem;
+		background-size: auto 70%;
+	}
+
+	[data-screen="main"] main-menu {
+		bottom: 4.2rem;
+		gap: 0.45rem;
+	}
+}
