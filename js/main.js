@@ -12,7 +12,42 @@ const { $_ready } = Monogatari;
  * when the player has not asked the OS for reduced motion.
  */
 function initSpeakingSpriteBounce() {
-  document.getElementById('monogatari')?.classList.add('hell-story-speaking-bounce-enabled');
+  const host = document.getElementById('monogatari');
+  let currentSpeaker = null;
+
+  if (!host) {
+    return;
+  }
+
+  host.classList.add('hell-story-speaking-bounce-enabled');
+
+  function bounceSpeakingSprite(sprite) {
+    sprite.classList.add('hell-story-speaking-bounce');
+
+    window.setTimeout(() => {
+      sprite.classList.remove('hell-story-speaking-bounce');
+    }, 650);
+  }
+
+  function refreshSpeakingSprite() {
+    const speaker = host.querySelector('[data-screen="game"] [data-character].focus');
+
+    if (speaker && speaker !== currentSpeaker) {
+      currentSpeaker = speaker;
+      bounceSpeakingSprite(speaker);
+    }
+
+    if (!speaker) {
+      currentSpeaker = null;
+    }
+  }
+
+  const observer = new MutationObserver(() => {
+    window.requestAnimationFrame(refreshSpeakingSprite);
+  });
+
+  observer.observe(host, { subtree: true, attributes: true, attributeFilter: ['class'] });
+  refreshSpeakingSprite();
 }
 
 /**

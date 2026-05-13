@@ -185,7 +185,13 @@ button:hover {
 
 /* Character Images Styles */
 [data-screen="game"] [data-character] {
+	opacity: 1 !important;
+	visibility: visible !important;
+}
 
+[data-screen="game"] [data-character]:not(.focus) {
+	opacity: 1 !important;
+	visibility: visible !important;
 }
 
 /* ===== STORY SPRITE POSITIONS =====
