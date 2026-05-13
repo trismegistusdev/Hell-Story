@@ -74,6 +74,7 @@ monogatari.storage({
     player: { name: '' },
     completedStatSpread: false,
     lilyAffection: 0, lucyAffection: 0, mollyAffection: 0, belleAffection: 0, samAffection: 0,
+    sleptWithLilyNight1: false,
     receivedHPhone: false,
     STRENGTH: 1, DEXTERITY: 1, CONSTITUTION: 1, INTELLIGENCE: 1, WISDOM: 1, RIZZ: 1,
     dayStamina: 6, money: 10,
@@ -233,13 +234,59 @@ function showHPhoneUI(mode = 'home') {
 
                 const isReceived = mode === 'received';
                 const isMessage = mode === 'message';
-                const title = isReceived ? 'H-PHONE' : 'AGENDA-666';
-                const subtitle = isReceived ? 'NEW DEVICE BOUND' : isMessage ? 'Encrypted Message' : 'Inferno OS';
+                const isShop = mode === 'shop';
+                const title = isReceived ? 'H-PHONE' : isShop ? 'Hell-Mazon' : 'Messages';
+                const subtitle = isReceived ? 'NEW DEVICE BOUND' : isShop ? 'Spiritually binding cart' : 'Agenda-666 Threads';
                 const body = isReceived
                     ? 'Soul signature linked. Warranty void in all known realms.'
-                    : isMessage
-                        ? 'Unknown sender detected. Message integrity: suspicious.'
+                    : isShop
+                        ? 'Recommended for you: cursed subscriptions, suspicious tonics, and one-click regret.'
                         : `Souls: ${storage.money || 0} | Blocks: ${storage.dayStamina || 0}`;
+                const threads = isReceived
+                    ? [
+                        { name: 'System', preview: 'Inferno OS setup complete.', active: true },
+                        { name: 'HELL SQUAD', preview: 'Group chat invite pending.', active: false }
+                    ]
+                    : isShop
+                        ? [
+                            { name: 'Hell-Mazon', preview: 'Cart empty. Temptation full.', active: true },
+                            { name: 'Deals', preview: 'Buy one soul waiver, get one curse.', active: false }
+                        ]
+                        : [
+                            { name: 'Unknown', preview: isMessage ? 'Enjoying orientation?' : 'Encrypted sender detected.', active: true },
+                            { name: 'HELL SQUAD', preview: 'Lily, Lucy, Sam, Belle, Molly', active: false },
+                            { name: 'Agenda-666', preview: 'Nightly affinity stabilization required.', active: false }
+                        ];
+                const threadMarkup = threads.map((thread) => `
+                    <div class="hell-story-hphone__thread${thread.active ? ' hell-story-hphone__thread--active' : ''}">
+                        <div class="hell-story-hphone__avatar">${thread.name.charAt(0)}</div>
+                        <div>
+                            <strong>${thread.name}</strong>
+                            <span>${thread.preview}</span>
+                        </div>
+                    </div>
+                `).join('');
+                const chatMarkup = isReceived
+                    ? `
+                        <div class="hell-story-hphone__bubble hell-story-hphone__bubble--them">Welcome to Inferno OS.</div>
+                        <div class="hell-story-hphone__bubble hell-story-hphone__bubble--them">Device owner: {{player.name}}</div>
+                        <div class="hell-story-hphone__bubble hell-story-hphone__bubble--you">Why is it warm?</div>
+                        <div class="hell-story-hphone__bubble hell-story-hphone__bubble--them">Feature, not bug.</div>
+                    `
+                    : isShop
+                        ? `
+                            <div class="hell-story-hphone__bubble hell-story-hphone__bubble--them">Hell-Mazon is loading.</div>
+                            <div class="hell-story-hphone__bubble hell-story-hphone__bubble--them">Please accept spiritually binding cookies.</div>
+                            <div class="hell-story-hphone__bubble hell-story-hphone__bubble--you">Absolutely not.</div>
+                        `
+                        : `
+                            <div class="hell-story-hphone__bubble hell-story-hphone__bubble--them">Enjoying orientation?</div>
+                            <div class="hell-story-hphone__bubble hell-story-hphone__bubble--you">Absolutely not.</div>
+                            <div class="hell-story-hphone__bubble hell-story-hphone__bubble--them">Good. Honest answers are rare down here.</div>
+                        `;
+                const appMarkup = ['Log', 'Save', 'Load', 'Settings', 'Quit'].map((app) => `
+                    <button type="button" class="hell-story-hphone__app" data-hphone-app="${app}">${app}</button>
+                `).join('');
 
                 phone.innerHTML = `
                     <div class="hell-story-hphone__bezel">
@@ -249,22 +296,42 @@ function showHPhoneUI(mode = 'home') {
                                 <span>HELL LLC</span>
                                 <span>66%</span>
                             </div>
-                            <div class="hell-story-hphone__sigil"></div>
-                            <h2>${title}</h2>
-                            <p class="hell-story-hphone__subtitle">${subtitle}</p>
+                            <header class="hell-story-hphone__header">
+                                <div class="hell-story-hphone__sigil"></div>
+                                <div>
+                                    <h2>${title}</h2>
+                                    <p class="hell-story-hphone__subtitle">${subtitle}</p>
+                                </div>
+                            </header>
                             <p class="hell-story-hphone__body">${body}</p>
-                            <div class="hell-story-hphone__apps">
-                                <span>Agenda</span>
-                                <span>Hell-Mazon</span>
-                                <span>Messages</span>
-                                <span>Stats</span>
+                            <div class="hell-story-hphone__text-ui">
+                                <section class="hell-story-hphone__threads">
+                                    ${threadMarkup}
+                                </section>
+                                <section class="hell-story-hphone__chat">
+                                    ${chatMarkup}
+                                </section>
                             </div>
+                            <nav class="hell-story-hphone__apps">
+                                ${appMarkup}
+                            </nav>
                         </div>
                         <div class="hell-story-hphone__home"></div>
                     </div>
                 `;
 
                 document.body.appendChild(phone);
+                phone.querySelectorAll('[data-hphone-app]').forEach((button) => {
+                    button.addEventListener('click', () => {
+                        const app = button.dataset.hphoneApp.toLowerCase();
+                        const quickMenuButtons = [...document.querySelectorAll('[data-component="quick-menu"] span')];
+                        const target = quickMenuButtons.find((item) => item.textContent.trim().toLowerCase().includes(app));
+
+                        if (target) {
+                            target.click();
+                        }
+                    });
+                });
                 return true;
             },
             Reverse: function() {
@@ -1213,7 +1280,7 @@ monogatari.script({
             Dialog: 'Pick a daytime activity. Blocks left: {{dayStamina}}',
             Gym: { Text: 'Train with Sam (STR)', Do: 'jump DayGym' },
             Parkour: { Text: 'Obstacle course with Lucy (DEX)', Do: 'jump DayParkour' },
-            Pool: { Text: 'Endurance drill with Sam (CON)', Do: 'jump DayPool' },
+            Pool: { Text: 'Infernal endurance trial (CON)', Do: 'jump DayPool' },
             Read: { Text: 'Archives with Belle (INT)', Do: 'jump DayRead' },
             Chill: { Text: 'Meditation with Molly (WIS)', Do: 'jump DayChill' },
             Party: { Text: 'Social club with Lily (RIZZ)', Do: 'jump DayParty' },
@@ -1247,7 +1314,7 @@ monogatari.script({
 
                     if (!s.didGymToday) choices.Gym = { Text: 'Train with Sam (STR)', Do: 'jump DayGym' };
                     if (!s.didParkourToday) choices.Parkour = { Text: 'Obstacle course with Lucy (DEX)', Do: 'jump DayParkour' };
-                    if (!s.didPoolToday) choices.Pool = { Text: 'Endurance drill with Sam (CON)', Do: 'jump DayPool' };
+                    if (!s.didPoolToday) choices.Pool = { Text: 'Infernal endurance trial (CON)', Do: 'jump DayPool' };
                     if (!s.didReadToday) choices.Read = { Text: 'Archives with Belle (INT)', Do: 'jump DayRead' };
                     if (!s.didChillToday) choices.Chill = { Text: 'Meditation with Molly (WIS)', Do: 'jump DayChill' };
                     if (!s.didPartyToday) choices.Party = { Text: 'Social club with Lily (RIZZ)', Do: 'jump DayParty' };
@@ -1304,15 +1371,16 @@ monogatari.script({
     'DayPool': [
         'show scene #2b1111 with fadeIn',
         setVar('didPoolToday', true),
-        'show character s normal at bigLeft with fadeIn',
-        's Endurance is not glamorous. Good. Glamour gets soldiers killed.',
-        'Sam leads you to a training yard where the air is hot enough to make your regrets sweat.',
-        's Hold formation. Breathe through pain. If your body complains, outrank it.',
+        'The Infernal Wellness Annex offers a free endurance assessment, which is suspicious because nothing in Hell is free except consequences.',
+        'An imp in a visor points you toward a treadmill made of bone, brass, and obvious OSHA violations.',
+        'Imp Attendant: Run until the machine respects you, collapses, or requests legal counsel.',
+        'y Which one usually happens first?',
+        'Imp Attendant: Depends how funny you are.',
         statCheck('CONSTITUTION', 5),
         { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayPoolGood', False: 'jump DayPoolFail' }}
     ],
-    'DayPoolGood': ['H-Phone: {{_lastCheckText}}.', changeVar('CONSTITUTION', 1), 'H-Phone: {{_lastChangeText}}.', changeVar('samAffection', 1), 'H-Phone: {{_lastChangeText}}.', 'You hold the stance until your legs tremble, then keep holding out of pure spite.', 's Good. Pain made a request. You denied it.', 'y I think my knees are filing an appeal.', 's Overruled.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
-    'DayPoolFail': ['H-Phone: {{_lastCheckText}}.', changeVar('CONSTITUTION', 1), 'H-Phone: {{_lastChangeText}}.', 'You last almost a full minute before folding like a lawn chair with student debt.', 's You collapsed after the hard part began.', 'y Was there an easy part?', 's No. That was optimism leaving your body.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPoolGood': ['H-Phone: {{_lastCheckText}}.', changeVar('CONSTITUTION', 1), 'H-Phone: {{_lastChangeText}}.', 'You keep running after the treadmill catches fire, which seems to impress the treadmill more than the staff.', 'Imp Attendant: Congratulations. The machine has marked you as technically alive.', 'y That is the nicest thing a machine has ever said to me.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPoolFail': ['H-Phone: {{_lastCheckText}}.', changeVar('CONSTITUTION', 1), 'H-Phone: {{_lastChangeText}}.', 'You last almost a full minute before sliding off the treadmill with the grace of wet laundry.', 'Imp Attendant: Do not worry. The floor signs the liability waiver for you.', 'y I hate premium wellness.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayRead': [
         'show scene #221133 with fadeIn',
@@ -1356,6 +1424,7 @@ monogatari.script({
     'HPhone': [
         'show scene #111111 with fadeIn',
         showHPhoneUI('home'),
+        'y The H-Phone opens to a glowing message thread list.',
         'y Money: {{money}} souls.',
         { Choice: {
             Dialog: 'H-Phone',
@@ -1381,6 +1450,7 @@ monogatari.script({
     'Night1Texting': [
         'clear',
         'show scene #111111 with fadeIn',
+        showHPhoneUI('message'),
         'H-Phone: AGENDA-666: Nightly Affinity Stabilization Required.',
         'lu Translation: pick someone before your entropy turns into a class-action lawsuit.',
         'li Pick someone fun.',
@@ -1397,42 +1467,285 @@ monogatari.script({
         }}
     ],
 
+    /* ===== LILY NIGHT 1 ROUTE =====
+     * Design goal:
+     * - Lily can sleep with the player on Night 1, which subverts dating-sim pacing.
+     * - The flag sleptWithLilyNight1 records that physical intimacy happened.
+     * - Future Lily scenes should use that flag for callbacks/emotional texture, not a separate route.
+     */
     'DateLily1': [
         'clear',
+        hideHPhoneUI(),
         'show scene #ff6b6b with fadeIn',
         'show character li normal at bigLeft with fadeIn',
         'y So this is where you wanted to meet?',
-        'li Oh yeah, I love this place.',
+        'li Obviously. Hell Chilis. Technically condemned, spiritually franchised, and emotionally unsafe after 9 PM.',
         'You look up at the sign. It was clearly supposed to say Hell Chilis, but half the letters are burned out. It now reads: HEHIS.',
-        'y Your favorite place, huh?',
-        'li The food is okay, but I am really here for the 3PM happy hour.',
-        'y It is 9 PM.',
-        'li Exactly. In Hell, happy hour is a legally contested state of mind.',
+        'y It says Hehis.',
+        'li It says whatever you need it to say, babe.',
+        'Inside, the restaurant glows with red neon, fake leather booths, and the quiet despair of a thousand first dates pretending not to check their phones.',
+        'Hellbilly Server: Welcome to Hehis. Our specials tonight are screaming fajitas, bottomless sin-chips, and molten chocolate regret cake.',
+        'li Two drinks. Something pink, dangerous, and financially irresponsible.',
+        'y You come here often?',
+        'li Only when I want something cheap, loud, and bad for me.',
+        'She smiles like the punchline already happened.',
+        'li So. Tell me something honest.',
         { Choice: {
-            Dialog: 'How do you play this?',
-            Sincere: { Text: 'Ask what she actually likes here.', Do: 'jump LilySincere' },
-            Flirt: { Text: 'Flirt back aggressively.', Do: 'jump LilyFlirt' }
+            Dialog: 'What do you give Lily?',
+            Sincere: { Text: 'Admit this is overwhelming.', Do: 'jump LilySincere' },
+            Flirt: { Text: 'Flirt back and keep it light.', Do: 'jump LilyFlirt' }
         }}
     ],
-    'LilySincere': [changeVar('lilyAffection', 2), 'y What do you actually like about this place?', 'li Actually?', 'For half a second, her smile slips.', 'li Nobody expects anything real here. There is comfort in that.', 'y That sounded almost honest.', 'li Careful. Keep listening like that and I might develop standards.', 'jump LilyDinner'],
-    'LilyFlirt': [changeVar('lilyAffection', 1), 'y I thought you brought me here because the lighting makes me look edible.', 'li It does. Tragically edible.', 'li But do not get cocky. I have sent cuter mortals to worse restaurants.', 'jump LilyDinner'],
+
+    // Sincere opening: higher affection because the player meets Lily with honesty early.
+    'LilySincere': [
+        changeVar('lilyAffection', 2),
+        'y Honestly? This is overwhelming.',
+        'li Hell Chilis?',
+        'y Hell. Dying. You. The phone. The fact that my afterlife has scheduling software.',
+        'li Mm. Fair. Most people panic louder.',
+        'y Is that good?',
+        'li It is quieter.',
+        'For a second, Lily’s smile softens into something less polished.',
+        'li Careful. Keep listening like that and I might develop standards.',
+        'jump LilyDinner'
+    ],
+
+    // Flirty opening: still positive, but Lily stays more in her comfortable performance mode.
+    'LilyFlirt': [
+        changeVar('lilyAffection', 1),
+        'y Honestly? I think you brought me here because the lighting makes me look edible.',
+        'li It does. Tragically edible.',
+        'y Tragically?',
+        'li I have a type. It usually ends badly.',
+        'y For them?',
+        'li For the furniture.',
+        'Lily raises her glass.',
+        'li To doomed chemistry.',
+        'y To whatever this is.',
+        'jump LilyDinner'
+    ],
+
+    // Shared dinner beat. Both openings converge here so the route stays clean.
     'LilyDinner': [
-        'Hellbilly Server: Welcome to Hehis. Tonight we have screaming fajitas and one legally distinct molten chocolate regret cake.',
+        'The screaming fajitas arrive. They are, unfortunately, screaming.',
         'y What is screaming about the fajitas?',
         'Hellbilly Server: The fajitas.',
-        'li Two drinks. Something pink, dangerous, and financially irresponsible.',
+        'li Ignore it. Food gets dramatic here.',
+        'You try to eat normally. Lily does not. Lily eats like rules are suggestions made by cowards.',
+        'li So what do you want tonight?',
+        'y That is a very broad question.',
+        'li I am a very broad woman.',
+        'y That came out wrong.',
+        'li Did it?',
+        'The air between you changes. It has probably been changing since she picked this place.',
+        'y I know what I am supposed to say.',
+        'li Boring already.',
+        'y I am supposed to say I want to get to know you.',
+        'li Terrible. Predictable. Four out of ten.',
+        'y But true.',
+        'That catches her. Not much. Just enough.',
+        'li Careful.',
         { Choice: {
-            Dialog: 'Dinner plan?',
-            Normal: { Text: 'Try to have a normal dinner.', Do: 'jump LilyNormalDinner' },
-            Leave: { Text: 'Leave before the fajitas testify.', Do: 'jump LilyLeaveDinner' }
+            Dialog: 'What do you tell Lily?',
+            Tonight: { Text: 'Tell her you want her tonight.', Do: 'jump LilyHotelInvite' },
+            Real: { Text: 'Ask what she actually wants.', Do: 'jump LilyAskReal' },
+            Slow: { Text: 'Say you want to slow down.', Do: 'jump LilyGoodnight' }
         }}
     ],
-    'LilyNormalDinner': [changeVar('lilyAffection', 1), 'y We could try to have a normal dinner.', 'li Normal?', 'She repeats the word like you handed her a bird with no bones.', 'li Fine. But if this becomes emotionally healthy, I am blaming you.', 'jump LilyEnd'],
-    'LilyLeaveDinner': [changeVar('lilyAffection', 1), 'y We could get out of here before the fajitas start naming names.', 'li Bold. Impulsive. Terrible for digestion. I approve.', 'jump LilyEnd'],
-    'LilyEnd': ['The date ends in a neon haze of bad drinks, worse appetizers, and Lily laughing harder than she seems to expect.', 'li You are strange, mortal.', 'y That good?', 'li That is undecided.', 'She brushes a hand over yours. The touch is practiced. The hesitation afterward is not.', 'li Maybe next time we try somewhere with fewer laminated menus.', 'jump BigD_Message'],
+
+    // Asking the real question does not branch away; it reframes the same hotel decision with more vulnerability.
+    'LilyAskReal': [
+        changeVar('lilyAffection', 1),
+        'y I want to know what you actually want.',
+        'Lily laughs too loud.',
+        'li Oh, gross. Emotional accuracy. In public. At a Hehis.',
+        'y You asked for honesty.',
+        'li I asked you for honesty. Do not weaponize mine.',
+        'She drums her nails against the table.',
+        'li What I want is easy. It is supposed to be easy.',
+        'y And what is that?',
+        'li I want to not think for a while. I want to be wanted without being investigated.',
+        'y I can do that.',
+        'li That was either kind or stupid.',
+        'y I am versatile.',
+        'li Come on, before I accidentally respect you in public.',
+        'jump LilyHotelInvite'
+    ],
+
+    // Player can choose not to sleep with Lily. This is valid and still rewards emotional care.
+    'LilyGoodnight': [
+        changeVar('lilyAffection', 2),
+        'y I think I should say goodnight.',
+        'Lily blinks.',
+        'li Oh.',
+        'y Is that bad?',
+        'li No. Unexpected.',
+        'y I like you. And I want to remember tonight without wondering if I sprinted into it because everything else was insane.',
+        'Lily looks at you for a long moment.',
+        'li That was almost mature.',
+        'y I hated it too.',
+        'She steps closer and kisses your cheek. It is brief, warm, and almost careful.',
+        'li For the record, I would have been amazing.',
+        'y I believe you.',
+        'li You should. I am a professional hazard.',
+        'li Next time, maybe ask me something real again.',
+        'y You hated that.',
+        'li I know. It was terrible. Do it anyway.',
+        'H-Phone: Lily Affection +2.',
+        'jump BigD_Message'
+    ],
+
+    // This branch sets the only new route flag. Later scenes can check it for callbacks.
+    'LilyHotelInvite': [
+        'show scene #330000 with fadeIn',
+        'The street outside Hehis is warm, smoky, and alive with distant sirens that sound less like emergencies and more like nightlife.',
+        'Lily walks beside you, close enough that her fingers keep almost brushing yours.',
+        'li You know this is a terrible idea, right?',
+        'y I have had a busy week for terrible ideas.',
+        'li I am not secretly wholesome.',
+        'y I did not assume you were.',
+        'li I am not secretly waiting for the right person to fix me.',
+        'y Good. I do not have tools.',
+        'li I am not a prize you unlock by choosing the correct dialogue options.',
+        'y That one feels personally targeted.',
+        'li It is. You have protagonist disease.',
+        'The hotel rises ahead, all black glass and red light, like a luxury resort built by someone who hated sleep.',
+        { Choice: {
+            Dialog: 'Last chance:',
+            Upstairs: { Text: 'Go upstairs with Lily.', Do: 'jump LilyUpstairs' },
+            Goodnight: { Text: 'Slow down and say goodnight.', Do: 'jump LilyGoodnight' }
+        }}
+    ],
+
+    // Night 1 hookup: physical intimacy happens early, but emotional intimacy remains unresolved.
+    'LilyUpstairs': [
+        setVar('sleptWithLilyNight1', true),
+        changeVar('lilyAffection', 2),
+        'show scene #220000 with fadeIn',
+        'The elevator ride is silent except for infernal jazz playing from nowhere.',
+        'y Is the elevator music flirting with me?',
+        'li It flirts with everyone. Do not feel special.',
+        'Her room smells like expensive perfume, smoke, and something sweet enough to be a warning.',
+        'There are red curtains, black sheets, and a minibar chained shut.',
+        'li Still yes?',
+        'y Still yes.',
+        'li Good.',
+        'She kisses you.',
+        'The kiss is not shy. Lily is not shy. But underneath the confidence, there is a strange precision to it, like effort is where the truth leaks in.',
+        'The night becomes heat, laughter, bad decisions made carefully, and the sense that Lily is very good at giving everything except the part of herself that might stay.',
+        'show scene #000000 with fadeIn',
+        'Later, the room is quiet. Hell is never actually quiet, but this is close.',
+        'Lily lies beside you, one arm over her eyes.',
+        'li Well.',
+        'y Well?',
+        'li Congratulations. You survived me.',
+        'y Barely.',
+        'li Correct answer.',
+        'y Are you okay?',
+        'li Mhm.',
+        'Too fast.',
+        'y Lily.',
+        'li Do not do that.',
+        'y Do what?',
+        'li Say my name like there is a person attached.',
+        'That lands harder than she probably meant it to.',
+        { Choice: {
+            Dialog: 'Afterward:',
+            Stay: { Text: 'Tell her you are not asking for forever.', Do: 'jump LilyAftercareStay' },
+            Honest: { Text: 'Tell her she does not have to joke.', Do: 'jump LilyAftercareHonest' },
+            Doubt: { Text: 'Ask if this was a mistake.', Do: 'jump LilyAftercareDoubt' }
+        }}
+    ],
+
+    // Aftercare choices adjust affection, but all converge to one morning hook.
+    'LilyAftercareStay': [
+        changeVar('lilyAffection', 1),
+        'y I am not asking for forever.',
+        'li Good.',
+        'y I am asking if you are still here.',
+        'li I am literally in the bed.',
+        'y That is not what I meant.',
+        'Lily looks away.',
+        'li I am here. For tonight.',
+        'y Tonight is enough.',
+        'li Do not make enough sound romantic.',
+        'y I will try to make it sound administratively acceptable.',
+        'li Better.',
+        'jump LilyMorningHook'
+    ],
+
+    'LilyAftercareHonest': [
+        changeVar('lilyAffection', 2),
+        'y You do not have to joke right now.',
+        'Lily goes still.',
+        'li That is an incredibly rude thing to say to a woman in her own bed.',
+        'y Is it?',
+        'li Yes. Jokes are load-bearing.',
+        'y I noticed.',
+        'li Do not get smug. I will throw you out a window and call it ventilation.',
+        'y I am not smug.',
+        'li Then what are you?',
+        'y Here.',
+        'That shuts her up. Not magically. Just enough that the room changes.',
+        'li You are making this difficult.',
+        'y What?',
+        'li Leaving before anything matters.',
+        'jump LilyMorningHook'
+    ],
+
+    'LilyAftercareDoubt': [
+        changeVar('lilyAffection', 1),
+        'y Was this a mistake?',
+        'Lily smiles. It is the wrong smile.',
+        'li Oh, babe. Most fun things are.',
+        'y That is not an answer.',
+        'li It is if you are hot enough.',
+        'y Lily.',
+        'Her smile falters.',
+        'li I do not know.',
+        'The honesty is so sudden it feels like the room loses pressure.',
+        'li It was not a mistake. But if you treat it like destiny, I will make it one.',
+        'y Understood.',
+        'jump LilyMorningHook'
+    ],
+
+    // Morning hook establishes the long-term Lily route question: what happens after the easy part?
+    'LilyMorningHook': [
+        'show scene #330000 with fadeIn',
+        'You wake before Hell’s fake morning fully bleeds through the curtains.',
+        'For one impossible second, you forget where you are.',
+        'Then the minibar growls.',
+        'y Right. Hell.',
+        'Lily is already awake, sitting at the edge of the bed with her back to you, posture too composed.',
+        'li You snore.',
+        'y I died yesterday.',
+        'li Not an excuse.',
+        'y Are we doing awkward morning?',
+        'li I am excellent at awkward morning. I have certifications.',
+        'She starts gathering her things even though this is clearly her room.',
+        'y Are you leaving your own room?',
+        'li Temporarily. Dramatically. For pacing.',
+        'y Lily.',
+        'She stops at the door.',
+        'li Last night was fun.',
+        'y You said that already.',
+        'li Because it is the safe part.',
+        'y What is the unsafe part?',
+        'Her hand rests on the doorknob.',
+        'li That I might want to see what happens if it is not only fun.',
+        'She says it without turning around, like eye contact would make it too true.',
+        'li Do not make a big thing out of that.',
+        'y I would never.',
+        'li Liar.',
+        'H-Phone: Lily Affection increased.',
+        'H-Phone: Lily added a contact nickname for you: Bad Idea.',
+        'jump BigD_Message'
+    ],
 
     'DateLucy1': [
         'clear',
+        hideHPhoneUI(),
         'show scene #8b0000 with fadeIn',
         'show character lu normal at bigLeft with fadeIn',
         'lu Come in. Do not touch anything that glows, bleeds, or has a tab labeled Q4 Suffering.',
@@ -1474,6 +1787,7 @@ monogatari.script({
 
     'DateSam1': [
         'clear',
+        hideHPhoneUI(),
         'show scene #ff4500 with fadeIn',
         'show character s normal at bigLeft with fadeIn',
         's A date? You test the limits of my unholy patience.',
@@ -1511,6 +1825,7 @@ monogatari.script({
 
     'DateBelle1': [
         'clear',
+        hideHPhoneUI(),
         'show scene #9370db with fadeIn',
         'show character b normal at bigLeft with fadeIn',
         'b You came.',
@@ -1551,6 +1866,7 @@ monogatari.script({
 
     'DateMolly1': [
         'clear',
+        hideHPhoneUI(),
         'show scene #ffb6c1 with fadeIn',
         'show character m normal at bigLeft with fadeIn',
         'm Whats up, meatbag? It is your girl Molly, the one and only Demon Destroyer!',
