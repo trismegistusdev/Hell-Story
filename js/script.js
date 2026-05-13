@@ -1118,7 +1118,10 @@ monogatari.script({
         showChaosEffect('bikers', 1200),
         'y I AM SORRY! I DID NOT MEAN TO CUT YOU OFF OR WHATEVER!',
         'Explosions. Drifts. Screaming. A brief moment where reality pixelates like the universe is buffering.',
+        showChaosEffect('glitch', 800),
         'y No no no. I am not dying to lag.',
+        'stop music traffic',
+        'show scene #000000 with fadeIn',
         'Somehow, you make it home.',
         'y I made it. I actually made it through that entire impossible gauntlet of bullsh-',
         'Your foot hits a banana peel on the welcome mat.',
@@ -1126,7 +1129,6 @@ monogatari.script({
         'y ...No.',
         'Concrete rushes up to greet you with professional enthusiasm.',
         showChaosEffect('falling', 1600),
-        'stop music traffic',
         'show scene #000000 with fadeIn',
         'jump CrashLanding'
     ],
