@@ -216,6 +216,77 @@ function checkStaminaAndRoute() {
     };
 }
 
+function showHPhoneUI(mode = 'home') {
+    return {
+        Function: {
+            Apply: function() {
+                const storage = monogatari.storage();
+                const existing = document.getElementById('hell-story-hphone');
+
+                if (existing) {
+                    existing.remove();
+                }
+
+                const phone = document.createElement('aside');
+                phone.id = 'hell-story-hphone';
+                phone.className = `hell-story-hphone hell-story-hphone--${mode}`;
+
+                const isReceived = mode === 'received';
+                const isMessage = mode === 'message';
+                const title = isReceived ? 'H-PHONE' : 'AGENDA-666';
+                const subtitle = isReceived ? 'NEW DEVICE BOUND' : isMessage ? 'Encrypted Message' : 'Inferno OS';
+                const body = isReceived
+                    ? 'Soul signature linked. Warranty void in all known realms.'
+                    : isMessage
+                        ? 'Unknown sender detected. Message integrity: suspicious.'
+                        : `Souls: ${storage.money || 0} | Blocks: ${storage.dayStamina || 0}`;
+
+                phone.innerHTML = `
+                    <div class="hell-story-hphone__bezel">
+                        <div class="hell-story-hphone__speaker"></div>
+                        <div class="hell-story-hphone__screen">
+                            <div class="hell-story-hphone__status">
+                                <span>HELL LLC</span>
+                                <span>66%</span>
+                            </div>
+                            <div class="hell-story-hphone__sigil"></div>
+                            <h2>${title}</h2>
+                            <p class="hell-story-hphone__subtitle">${subtitle}</p>
+                            <p class="hell-story-hphone__body">${body}</p>
+                            <div class="hell-story-hphone__apps">
+                                <span>Agenda</span>
+                                <span>Hell-Mazon</span>
+                                <span>Messages</span>
+                                <span>Stats</span>
+                            </div>
+                        </div>
+                        <div class="hell-story-hphone__home"></div>
+                    </div>
+                `;
+
+                document.body.appendChild(phone);
+                return true;
+            },
+            Reverse: function() {
+                document.getElementById('hell-story-hphone')?.remove();
+                return true;
+            }
+        }
+    };
+}
+
+function hideHPhoneUI() {
+    return {
+        Function: {
+            Apply: function() {
+                document.getElementById('hell-story-hphone')?.remove();
+                return true;
+            },
+            Reverse: () => true
+        }
+    };
+}
+
 /* ===== SHOP SYSTEM =====
  * To add an item, copy one item line and change name/price/buffs/debuffs/desc.
  * Stat names must match storage exactly:
@@ -1080,6 +1151,7 @@ monogatari.script({
         'y That sounds expensive.',
         's You will need this.',
         setVar('receivedHPhone', true),
+        showHPhoneUI('received'),
         'Sam hands you a black glass phone. It is warm, heavy, and faintly screaming.',
         's H-Phone. Obsidian glass. Recycled legion armor casing. Inferno OS.',
         'li The screen is powered by tortured souls, but in a cute way.',
@@ -1089,6 +1161,7 @@ monogatari.script({
         'lu Every night, you will receive invitations through Agenda-666. Choose one of us. We gather affinity data and stabilize your entropy.',
         'y You are making dating sound like a tax audit.',
         'lu Most intimacy is.',
+        hideHPhoneUI(),
         'jump UnknownMessage1'
     ],
 
@@ -1099,6 +1172,7 @@ monogatari.script({
         'The room is luxurious in the way a haunted casino is luxurious. Velvet sheets. Bone chandelier. A minibar labeled DO NOT MAKE EYE CONTACT.',
         'y Okay. Dead. Hell. Hot demons. Government problem. Phone made of screaming.',
         'y *BUZZ*',
+        showHPhoneUI('message'),
         'Unknown: Ah, there you are.',
         'y Who is this?',
         'Unknown: Someone with a vested interest in your continued instability.',
@@ -1108,6 +1182,7 @@ monogatari.script({
         'y Is this a threat?',
         'Unknown: Think of it as paternal encouragement from a stranger.',
         'The message deletes itself.',
+        hideHPhoneUI(),
         'y I hate that paternal was the worst word in there.',
         'jump NextMorning'
     ],
@@ -1280,21 +1355,24 @@ monogatari.script({
 
     'HPhone': [
         'show scene #111111 with fadeIn',
+        showHPhoneUI('home'),
         'y Money: {{money}} souls.',
         { Choice: {
             Dialog: 'H-Phone',
             Shop: { Text: 'Browse Hell-Mazon', Do: 'jump HellMazon' },
             Messages: { Text: 'Check Messages', Do: 'jump HPhoneMessages' },
-            Return: { Text: 'Put Phone Away', Do: 'jump DayNext' }
+            Return: { Text: 'Put Phone Away', Do: 'jump HPhoneClose' }
         }}
     ],
-    'HPhoneMessages': ['Unknown: Enjoying orientation?', 'y Absolutely not.', 'Unknown: Good. Honest answers are rare down here.', 'jump HPhone'],
+    'HPhoneClose': [hideHPhoneUI(), 'jump DayNext'],
+    'HPhoneMessages': [showHPhoneUI('message'), 'Unknown: Enjoying orientation?', 'y Absolutely not.', 'Unknown: Good. Honest answers are rare down here.', 'jump HPhone'],
     'HPhoneSocials': ['y Hell social media is just thirst traps and municipal warnings.', 'jump HPhone'],
     'HPhone_WithItem': ['jump HPhone'],
     'HPhone_NoItem': ['jump HPhone'],
 
     'HellMazon': [
         'show scene #441100 with fadeIn',
+        showHPhoneUI('shop'),
         'y Hell-Mazon loads a suspicious black market page.',
         'y Maybe later. The app keeps asking whether I consent to spiritually binding cookies.',
         'jump HPhone'
