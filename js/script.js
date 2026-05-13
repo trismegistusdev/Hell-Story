@@ -400,26 +400,26 @@ function showStatAllocation() {
                 return new Promise((resolve) => {
                     const overlay = document.createElement('div');
                     overlay.id = 'stat-allocation-overlay';
-                    overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; display:flex; align-items:center; justify-content:center;';
+                    overlay.className = 'hell-story-stat-overlay';
                     
                     const STATS = ['STRENGTH', 'DEXTERITY', 'CONSTITUTION', 'INTELLIGENCE', 'WISDOM', 'RIZZ'];
                     const statLabels = { STRENGTH: 'STR', DEXTERITY: 'DEX', CONSTITUTION: 'CON', INTELLIGENCE: 'INT', WISDOM: 'WIS', RIZZ: 'RIZZ' };
                     
                     const statBoxes = STATS.map(stat => `
-                        <div style="padding:15px; background:#2a2a2a; border-radius:5px;">
-                            <p style="font-size:18px; margin-bottom:10px;"><strong>${statLabels[stat]}:</strong> <span data-stat-value="${stat}" style="color:#4ecdc4; font-size:20px; font-weight:bold;">1</span></p>
-                            <button type="button" data-add="${stat}" style="padding:8px 20px; margin-right:10px; font-size:16px; cursor:pointer; background:#4ecdc4; border:none; border-radius:5px; color:#000; font-weight:bold;">+</button>
-                            <button type="button" data-sub="${stat}" style="padding:8px 20px; font-size:16px; cursor:pointer; background:#ff6b6b; border:none; border-radius:5px; color:#fff; font-weight:bold;">-</button>
+                        <div class="hell-story-stat-card">
+                            <p><strong>${statLabels[stat]}:</strong> <span data-stat-value="${stat}">1</span></p>
+                            <button type="button" data-add="${stat}">+</button>
+                            <button type="button" data-sub="${stat}">-</button>
                         </div>
                     `).join('');
                     
                     overlay.innerHTML = `
-                        <div id="stat-screen" style="padding:40px; max-width:700px; background:#1a1a1a; color:#fff; border:2px solid #888; border-radius:10px; box-shadow:0 0 30px rgba(0,0,0,0.8);">
-                            <h2 style="text-align:center; margin-bottom:20px; font-size:28px;">Allocate Your Stats</h2>
-                            <p style="text-align:center; font-size:18px; margin-bottom:30px;">You have <span id="points-left" style="color:#ff6b6b; font-weight:bold; font-size:24px;">10</span> points remaining</p>
-                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:30px;">${statBoxes}</div>
-                            <div style="text-align:center;">
-                                <button type="button" id="confirm-stats" disabled style="padding:15px 40px; font-size:20px; background:#555; border:none; border-radius:5px; color:#fff; font-weight:bold; cursor:not-allowed;">Confirm Stats</button>
+                        <div id="stat-screen" class="hell-story-stat-screen">
+                            <h2>Allocate Your Stats</h2>
+                            <p class="hell-story-stat-points">You have <span id="points-left">10</span> points remaining</p>
+                            <div class="hell-story-stat-grid">${statBoxes}</div>
+                            <div class="hell-story-stat-confirm-row">
+                                <button type="button" id="confirm-stats" disabled>Confirm Stats</button>
                             </div>
                         </div>
                     `;
@@ -444,9 +444,6 @@ function showStatAllocation() {
                         
                         const confirmBtn = overlay.querySelector('#confirm-stats');
                         confirmBtn.disabled = points !== 0;
-                        confirmBtn.style.background = points === 0 ? '#95e1d3' : '#555';
-                        confirmBtn.style.cursor = points === 0 ? 'pointer' : 'not-allowed';
-                        confirmBtn.style.color = points === 0 ? '#000' : '#fff';
                         confirmBtn.textContent = points === 0 ? 'Confirm Stats' : `Use all ${points} points`;
                     };
                     
