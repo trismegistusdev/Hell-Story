@@ -1166,7 +1166,7 @@ monogatari.script({
 
     'DemonIntroductions': [
         'clear',
-        'show scene #2b0505 with fadeIn',
+        'show scene hellLanding with fadeIn',
         'show character lu normal at bigLeft with fadeIn',
         'lu Lucy. Executive authority, strategic oversight, infernal operations. If something in Hell is broken, it is usually because someone failed to obey my very clear memo.',
         'y So you are in charge?',
@@ -1243,7 +1243,7 @@ monogatari.script({
     ],
 
     'HotelAndPhone': [
-        'show scene #880808 with fadeIn',
+        'show scene hellLanding with fadeIn',
         'show character m normal at introFarLeft with fadeIn',
         'show character s normal at introLeft with fadeIn',
         'show character li normal at introCenter with fadeIn',
