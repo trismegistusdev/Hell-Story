@@ -112,6 +112,7 @@ function changeVar(varName, amount) {
                 const storage = monogatari.storage();
                 this._oldValue = storage[varName];
                 storage[varName] = (storage[varName] || 0) + amount;
+                storage._lastChangeText = `${varName} ${amount >= 0 ? '+' : ''}${amount}`;
                 monogatari.storage(storage);
                 return true;
             },
@@ -164,7 +165,8 @@ function statCheck(statName, difficulty) {
                     _lastTotal: total,
                     _lastDifficulty: difficulty,
                     _lastSuccess: total >= difficulty,
-                    _lastStatName: statName
+                    _lastStatName: statName,
+                    _lastCheckText: `${statName} Check: ${statValue} + ${roll} = ${total} vs ${difficulty} (${total >= difficulty ? 'SUCCESS' : 'FAIL'})`
                 });
                 
                 monogatari.storage(storage);
@@ -1149,79 +1151,132 @@ monogatari.script({
         'clear',
         'show scene #330000 with fadeIn',
         'H-Phone: Daytime blocks left: {{dayStamina}}.',
-        'jump DayChoice_All'
+        'jump DayChoiceRouter'
     ],
-    'DayChoiceRouter': ['jump DayChoice_All'],
-    'DayChoice_Filtered': ['jump DayChoice_All'],
+    'DayChoiceRouter': [{
+        Conditional: {
+            Condition: () => {
+                const s = monogatari.storage();
+                return !s.didGymToday && !s.didReadToday && !s.didChillToday && !s.didWorkToday && !s.didParkourToday && !s.didPoolToday && !s.didPartyToday;
+            },
+            True: 'jump DayChoice_All',
+            False: 'jump DayChoice_Filtered'
+        }
+    }],
+    'DayChoice_Filtered': [
+        {
+            Function: {
+                Apply: function() {
+                    const s = monogatari.storage();
+                    const choices = { Dialog: 'Pick a daytime activity. Blocks left: {{dayStamina}}' };
+
+                    if (!s.didGymToday) choices.Gym = { Text: 'Train with Sam (STR)', Do: 'jump DayGym' };
+                    if (!s.didParkourToday) choices.Parkour = { Text: 'Obstacle course with Lucy (DEX)', Do: 'jump DayParkour' };
+                    if (!s.didPoolToday) choices.Pool = { Text: 'Lava pool with Lily (CON)', Do: 'jump DayPool' };
+                    if (!s.didReadToday) choices.Read = { Text: 'Archives with Belle (INT)', Do: 'jump DayRead' };
+                    if (!s.didChillToday) choices.Chill = { Text: 'Meditation with Molly (WIS)', Do: 'jump DayChill' };
+                    if (!s.didPartyToday) choices.Party = { Text: 'Social club with Lucy (RIZZ)', Do: 'jump DayParty' };
+                    if (!s.didWorkToday) choices.Work = { Text: 'Earn souls at Hell temp work', Do: 'jump DayWork' };
+                    choices.Phone = { Text: 'Check H-Phone', Do: 'jump HPhone' };
+
+                    monogatari.script()['DayChoice_Dynamic'] = [{ Choice: choices }];
+                    return true;
+                },
+                Reverse: () => true
+            }
+        },
+        'jump DayChoice_Dynamic'
+    ],
 
     'DayWork': [
         'show scene #3b2a10 with fadeIn',
+        setVar('didWorkToday', true),
         'A Hell temp agency makes you alphabetize screams by urgency.',
         'y Earned 5 souls and one new stress twitch.',
         changeVar('money', 5),
+        'H-Phone: {{_lastChangeText}}.',
         changeVar('dayStamina', -1),
         checkStaminaAndRoute()
     ],
 
     'DayGym': [
         'show scene #000000 with fadeIn',
+        setVar('didGymToday', true),
         'show character s normal at bigLeft with fadeIn',
         's Spot me, recruit. If the weights scream, scream louder.',
+        'A barbell chained in silver rattles on the rack. Every plate has a tiny face and every tiny face looks judgmental.',
+        's Lift clean. Breathe correctly. Do not flirt with spinal injury.',
+        'y That was my whole plan.',
         statCheck('STRENGTH', 5),
         { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayGymGood', False: 'jump DayGymFail' }}
     ],
-    'DayGymGood': [changeVar('STRENGTH', 1), changeVar('samAffection', 1), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}}]', 's Adequate. Disturbingly adequate.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
-    'DayGymFail': [changeVar('STRENGTH', 1), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}}]', 's You survived. That is the lowest possible form of victory.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayGymGood': ['H-Phone: {{_lastCheckText}}.', changeVar('STRENGTH', 1), 'H-Phone: {{_lastChangeText}}.', changeVar('samAffection', 1), 'H-Phone: {{_lastChangeText}}.', 'You get the bar up. The screaming weights go briefly silent, like they are embarrassed on your behalf.', 's Adequate. Disturbingly adequate.', 'y Was that a compliment?', 's It was a tactical observation. Treasure it quietly.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayGymFail': ['H-Phone: {{_lastCheckText}}.', changeVar('STRENGTH', 1), 'H-Phone: {{_lastChangeText}}.', 'The barbell rises three inches, makes direct eye contact, and returns to the rack with legal authority.', 's You survived. That is the lowest possible form of victory.', 'y I will put it on my resume.', 's Do not. I will check.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayParkour': [
         'show scene #111111 with fadeIn',
+        setVar('didParkourToday', true),
         'show character lu normal at bigLeft with fadeIn',
         'lu The obstacle course is legally distinct from a murder maze.',
+        'The course unfolds across rooftops, swinging chains, tax forms, and one rotating saw labeled TEAM BUILDING.',
+        'lu Fast is useful. Controlled is rare. Try to be both, or at least entertaining.',
         statCheck('DEXTERITY', 5),
         { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayParkourGood', False: 'jump DayParkourFail' }}
     ],
-    'DayParkourGood': [changeVar('DEXTERITY', 1), changeVar('lucyAffection', 1), 'lu Efficient. I may put that in a memo.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
-    'DayParkourFail': [changeVar('DEXTERITY', 1), 'lu You fell with memorable commitment.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayParkourGood': ['H-Phone: {{_lastCheckText}}.', changeVar('DEXTERITY', 1), 'H-Phone: {{_lastChangeText}}.', changeVar('lucyAffection', 1), 'H-Phone: {{_lastChangeText}}.', 'You clear the last gap, land badly, recover worse, and somehow make it look intentional.', 'lu Efficient. I may put that in a memo.', 'y Please title it: Mortal Briefly Useful.', 'lu Already drafted.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayParkourFail': ['H-Phone: {{_lastCheckText}}.', changeVar('DEXTERITY', 1), 'H-Phone: {{_lastChangeText}}.', 'You miss a platform and are caught by a safety net made of disappointed hands.', 'lu You fell with memorable commitment.', 'y That sounds almost positive.', 'lu It is not. But it is memorable.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayPool': [
         'show scene #7a0808 with fadeIn',
+        setVar('didPoolToday', true),
         'show character li normal at bigLeft with fadeIn',
         'li Come on, gorgeous. Lava swimming is mostly confidence.',
+        'The lava pool bubbles like soup that learned malice. Lily dips one toe in and sighs like it is bathwater.',
+        'li If you pass out, try to do it dramatically. I respect presentation.',
         statCheck('CONSTITUTION', 5),
         { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayPoolGood', False: 'jump DayPoolFail' }}
     ],
-    'DayPoolGood': [changeVar('CONSTITUTION', 1), changeVar('lilyAffection', 1), 'li Look at you, not melting. Very attractive.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
-    'DayPoolFail': [changeVar('CONSTITUTION', 1), 'li A little crispy, but still cute.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPoolGood': ['H-Phone: {{_lastCheckText}}.', changeVar('CONSTITUTION', 1), 'H-Phone: {{_lastChangeText}}.', changeVar('lilyAffection', 1), 'H-Phone: {{_lastChangeText}}.', 'You make it across the pool with only light smoking and a new respect for sunscreen theology.', 'li Look at you, not melting. Very attractive.', 'y My organs are singing.', 'li Good. Means they are committed.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPoolFail': ['H-Phone: {{_lastCheckText}}.', changeVar('CONSTITUTION', 1), 'H-Phone: {{_lastChangeText}}.', 'You last twelve seconds before climbing out with the dignity of a wet french fry.', 'li A little crispy, but still cute.', 'y I think my skeleton has a sunburn.', 'li That is how you know the spa package is working.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayRead': [
         'show scene #221133 with fadeIn',
+        setVar('didReadToday', true),
         'show character b normal at bigLeft with fadeIn',
         'b Please do not breathe on the cursed indexes. They are sensitive.',
+        'Belle places three books in front of you. One whispers your name, one bites the table, and one has already filed a complaint.',
+        'b We are looking for a missing clause in your damnation record. If it screams, cite it properly.',
         statCheck('INTELLIGENCE', 5),
         { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayReadGood', False: 'jump DayReadFail' }}
     ],
-    'DayReadGood': [changeVar('INTELLIGENCE', 1), changeVar('belleAffection', 1), 'b Oh. That was actually a very good observation.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
-    'DayReadFail': [changeVar('INTELLIGENCE', 1), 'b That answer is wrong, but in an educational direction.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayReadGood': ['H-Phone: {{_lastCheckText}}.', changeVar('INTELLIGENCE', 1), 'H-Phone: {{_lastChangeText}}.', changeVar('belleAffection', 1), 'H-Phone: {{_lastChangeText}}.', 'You spot a recursive footnote hiding inside another footnote like a coward.', 'b Oh. That was actually a very good observation.', 'y I understood half of it.', 'b In Archives work, that is basically fluency.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayReadFail': ['H-Phone: {{_lastCheckText}}.', changeVar('INTELLIGENCE', 1), 'H-Phone: {{_lastChangeText}}.', 'You open a book upside down. The book takes this personally and turns your bookmark into ash.', 'b That answer is wrong, but in an educational direction.', 'y Is that better than regular wrong?', 'b Marginally. Please cherish marginally.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayChill': [
         'show scene #113322 with fadeIn',
+        setVar('didChillToday', true),
         'show character m normal at bigLeft with fadeIn',
         'm Meditation means sitting still until the urge to body-slam destiny passes.',
+        'The garden is quiet except for distant screams, wind chimes made of tiny ribs, and Molly cracking her knuckles at enlightenment.',
+        'm Close your eyes. If you see your inner demon, suplex it with kindness.',
         statCheck('WISDOM', 5),
         { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayChillGood', False: 'jump DayChillFail' }}
     ],
-    'DayChillGood': [changeVar('WISDOM', 1), changeVar('mollyAffection', 1), 'm Whoa. You got inner peace hands.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
-    'DayChillFail': [changeVar('WISDOM', 1), 'm Your aura fell down the stairs, but it got back up.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayChillGood': ['H-Phone: {{_lastCheckText}}.', changeVar('WISDOM', 1), 'H-Phone: {{_lastChangeText}}.', changeVar('mollyAffection', 1), 'H-Phone: {{_lastChangeText}}.', 'For one impossible moment, Hell goes quiet. Even Molly whispers.', 'm Whoa. You got inner peace hands.', 'y I do not know what that means.', 'm Me neither, but I felt it in my punching soul.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayChillFail': ['H-Phone: {{_lastCheckText}}.', changeVar('WISDOM', 1), 'H-Phone: {{_lastChangeText}}.', 'Your mind clears completely, then immediately fills with the phrase bone chandelier on repeat.', 'm Your aura fell down the stairs, but it got back up.', 'y Inspirational?', 'm Injured, but inspirational.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayParty': [
         'show scene #330033 with fadeIn',
+        setVar('didPartyToday', true),
         'show character lu normal at bigLeft with fadeIn',
         'lu Networking is just flirting with consequences.',
+        'The social club is packed with demons exchanging business cards, gossip, and legally binding compliments.',
+        'lu Charm them. Do not promise your soul. Apparently that matters.',
         statCheck('RIZZ', 5),
         { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump DayPartyGood', False: 'jump DayPartyFail' }}
     ],
-    'DayPartyGood': [changeVar('RIZZ', 1), changeVar('lucyAffection', 1), 'lu Hm. You may be useful in rooms with appetizers.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
-    'DayPartyFail': [changeVar('RIZZ', 1), 'lu Painful, but recoverable. Like most public speaking.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPartyGood': ['H-Phone: {{_lastCheckText}}.', changeVar('RIZZ', 1), 'H-Phone: {{_lastChangeText}}.', changeVar('lucyAffection', 1), 'H-Phone: {{_lastChangeText}}.', 'You work the room so well a duke of pestilence asks if you have representation.', 'lu Hm. You may be useful in rooms with appetizers.', 'y Is that your highest praise?', 'lu It is comfortably upper-middle.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
+    'DayPartyFail': ['H-Phone: {{_lastCheckText}}.', changeVar('RIZZ', 1), 'H-Phone: {{_lastChangeText}}.', 'You tell a joke so bad three imps clap out of pity and one files a noise complaint.', 'lu Painful, but recoverable. Like most public speaking.', 'y I died less dramatically than that joke.', 'lu Yes. Work on that.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'HPhone': [
         'show scene #111111 with fadeIn',
