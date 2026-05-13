@@ -118,12 +118,51 @@ button:hover {
 
 /* Main Menu Styling */
 [data-screen="main"] {
+	--hell-story-menu-hover-scale: 1.16;
+}
 
+[data-screen="main"] main-menu {
+	left: 50%;
+	right: auto;
+	bottom: 7.25rem;
+	transform: translateX(-50%);
+	align-items: center;
+	gap: 3rem;
 }
 
 /* Main Menu Buttons Styling */
 [data-screen="main"] button {
+	transition: transform 160ms ease, color 160ms ease, text-shadow 160ms ease;
+	transform-origin: center;
+	will-change: transform;
+}
 
+[data-screen="main"] button:hover,
+[data-screen="main"] button:focus-visible {
+	transform: scale(var(--hell-story-menu-hover-scale));
+	text-shadow: 0 0 0.55rem rgba(255, 28, 28, 0.85);
+}
+
+#monogatari:has([data-screen="main"].active) {
+	background-position: 50% -9rem;
+	animation: hell-story-logo-idle-bounce 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#monogatari:has([data-screen="main"].active) {
+		animation: none;
+	}
+}
+
+@keyframes hell-story-logo-idle-bounce {
+	0%, 100% {
+		background-position: 50% -9rem;
+		background-size: auto 100%;
+	}
+	50% {
+		background-position: 50% -9rem;
+		background-size: auto 105%;
+	}
 }
 
 /**
