@@ -387,6 +387,7 @@ function hideHPhoneUI() {
         Function: {
             Apply: function() {
                 document.getElementById('hell-story-hphone')?.remove();
+                document.querySelectorAll('.hell-story-hphone').forEach((phone) => phone.remove());
                 return true;
             },
             Reverse: () => true
@@ -829,6 +830,8 @@ monogatari.script({
                     
                     storage.boughtItemToday = true;
                     storage.money -= item.price;
+                    document.getElementById('hell-story-hphone')?.remove();
+                    document.querySelectorAll('.hell-story-hphone').forEach((phone) => phone.remove());
                     
                     const effects = [...Object.entries(item.buffs).map(([s, v]) => `${s} +${v}`), ...Object.entries(item.debuffs).map(([s, v]) => `${s} ${v}`)];
                     storage._effectText = effects.join(', ');
