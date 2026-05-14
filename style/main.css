@@ -38,9 +38,9 @@ body {
 	color: var(--hell-ui-cream);
 }
 
-/* ===== GAMEPLAY STATS HUD (Monster Roadtrip–style strip) =====
+/* ===== GAMEPLAY STATS HUD (Monster Roadtripâ€“style strip) =====
  * Shown only on the game screen after stat allocation (storage.completedStatSpread).
- * Position/size here. Core vs affection rows: js/main.js → GAMEPLAY_HUD_CORE_ROWS / GAMEPLAY_HUD_AFFECTION_ROWS.
+ * Position/size here. Core vs affection rows: js/main.js â†’ GAMEPLAY_HUD_CORE_ROWS / GAMEPLAY_HUD_AFFECTION_ROWS.
  * Hide affection block: #gameplay-stats-hud-affection { display: none !important; }
  */
 #gameplay-stats-hud {
@@ -592,7 +592,7 @@ button:hover {
 
 /**
  * Speaking indicator: Monogatari adds `.focus` to whoever is talking.
- * Only a soft brightness pulse — no transform, bottom, or margin — so sprites
+ * Only a soft brightness pulse â€” no transform, bottom, or margin â€” so sprites
  * stay locked to their positions and do not flicker when `.focus` is cleared
  * between dialogue lines (motion on those properties caused blink + float bugs).
  */
@@ -1337,7 +1337,7 @@ input[type=range]::-ms-fill-upper {
 		left: 0.45rem !important;
 		right: 0.45rem !important;
 		max-height: 7.6rem;
-		overflow-y: auto;
+		overflow-y: clip;
 		align-content: flex-end;
 	}
 
