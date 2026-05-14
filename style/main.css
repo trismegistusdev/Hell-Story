@@ -1412,3 +1412,75 @@ input[type=range]::-ms-fill-upper {
 		gap: 0.45rem;
 	}
 }
+
+
+/* Final clean dialogue box layout: one full-width panel, centered readable content. */
+#monogatari > visual-novel > game-screen > text-box,
+[data-component="text-box"],
+text-box {
+	left: 0 !important;
+	right: 0 !important;
+	bottom: 1.55rem !important;
+	width: 100% !important;
+	max-width: none !important;
+	min-height: 10.8rem !important;
+	transform: none !important;
+	box-sizing: border-box !important;
+	border-left: 0 !important;
+	border-right: 0 !important;
+	border-radius: 0 !important;
+	background: linear-gradient(180deg, rgba(35, 12, 13, 0.96), rgba(12, 12, 12, 0.98)) !important;
+	box-shadow: 0 -0.45rem 1.3rem rgba(0, 0, 0, 0.78) !important;
+	backdrop-filter: none !important;
+}
+
+game-screen::after,
+#monogatari > visual-novel > game-screen > text-box::before,
+[data-component="text-box"]::before,
+text-box::before {
+	content: none !important;
+	display: none !important;
+}
+
+text-box [data-content="name"],
+[data-ui="who"] {
+	max-width: 82rem !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	padding: 0.55rem 2.5rem 0.35rem !important;
+	text-align: center !important;
+	justify-content: center !important;
+	box-sizing: border-box !important;
+}
+
+text-box [data-content="text"],
+text-box [data-content="dialog"],
+text-box [data-ui="say"],
+text-box p {
+	max-width: 82rem !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	padding-left: 2.5rem !important;
+	padding-right: 2.5rem !important;
+	text-align: left !important;
+	box-sizing: border-box !important;
+}
+
+@media screen and (max-width: 48em) {
+	#monogatari > visual-novel > game-screen > text-box,
+	[data-component="text-box"],
+	text-box {
+		bottom: 0.95rem !important;
+		min-height: 4.7rem !important;
+	}
+
+	text-box [data-content="name"],
+	[data-ui="who"],
+	text-box [data-content="text"],
+	text-box [data-content="dialog"],
+	text-box [data-ui="say"],
+	text-box p {
+		padding-left: 1rem !important;
+		padding-right: 1rem !important;
+	}
+}
