@@ -78,7 +78,7 @@ monogatari.storage({
     sleptWithLilyNight1: false,
     receivedHPhone: false,
     STRENGTH: 1, DEXTERITY: 1, CONSTITUTION: 1, INTELLIGENCE: 1, WISDOM: 1, RIZZ: 1,
-    dayStamina: 6, money: 10,
+    currentDay: 1, dayStamina: 6, money: 10,
     didGymToday: false, didReadToday: false, didChillToday: false, didWorkToday: false, 
     didParkourToday: false, didPoolToday: false, didPartyToday: false,
     boughtItemToday: false,
@@ -399,31 +399,23 @@ function hideHPhoneUI() {
  * Stat names must match storage exactly:
  * STRENGTH, DEXTERITY, CONSTITUTION, INTELLIGENCE, WISDOM, RIZZ
  */
-const SHOP_ITEMS = [
-    { name: 'Expired Hellfire Energy Drink', price: 3, buffs: { STRENGTH: 1, CONSTITUTION: 1 }, debuffs: { WISDOM: -1 }, desc: '+1 STR, +1 CON, -1 WIS' },
-    { name: 'Demonic Brain Pills', price: 4, buffs: { INTELLIGENCE: 2 }, debuffs: { STRENGTH: -1 }, desc: '+2 INT, -1 STR' },
-    { name: 'Cursed Protein Powder', price: 4, buffs: { STRENGTH: 2 }, debuffs: { INTELLIGENCE: -1 }, desc: '+2 STR, -1 INT' },
-    { name: 'Suspicious Love Potion', price: 5, buffs: { RIZZ: 2 }, debuffs: { CONSTITUTION: -1 }, desc: '+2 RIZZ, -1 CON' },
-    { name: 'Meditation Incense (Slightly Toxic)', price: 3, buffs: { WISDOM: 1, RIZZ: 1 }, debuffs: { DEXTERITY: -1 }, desc: '+1 WIS, +1 RIZZ, -1 DEX' },
-    { name: 'Shady Coffee from the 9th Circle', price: 3, buffs: { DEXTERITY: 1, INTELLIGENCE: 1 }, debuffs: { RIZZ: -1 }, desc: '+1 DEX, +1 INT, -1 RIZZ' },
-    { name: 'Blessed Demon Steroids', price: 6, buffs: { STRENGTH: 2, CONSTITUTION: 1 }, debuffs: { WISDOM: -1, RIZZ: -1 }, desc: '+2 STR, +1 CON, -1 WIS, -1 RIZZ' },
-    { name: 'Ancient Wisdom Scrolls', price: 7, buffs: { WISDOM: 2, INTELLIGENCE: 1 }, debuffs: { STRENGTH: -1, DEXTERITY: -1 }, desc: '+2 WIS, +1 INT, -1 STR, -1 DEX' },
-    { name: 'Charm School Graduation Certificate', price: 8, buffs: { RIZZ: 3 }, debuffs: { CONSTITUTION: -1, STRENGTH: -1 }, desc: '+3 RIZZ, -1 CON, -1 STR' },
-    { name: 'Parkour Training Manual', price: 6, buffs: { DEXTERITY: 2, STRENGTH: 1 }, debuffs: { INTELLIGENCE: -1, WISDOM: -1 }, desc: '+2 DEX, +1 STR, -1 INT, -1 WIS' },
-    { name: 'IQ Boosting Headband', price: 7, buffs: { INTELLIGENCE: 3 }, debuffs: { RIZZ: -1, DEXTERITY: -1 }, desc: '+3 INT, -1 RIZZ, -1 DEX' },
-    { name: 'Balanced Breakfast from Hell', price: 6, buffs: { STRENGTH: 1, DEXTERITY: 1, CONSTITUTION: 1 }, debuffs: { INTELLIGENCE: -1, WISDOM: -1 }, desc: '+1 STR, +1 DEX, +1 CON, -1 INT, -1 WIS' },
-    { name: 'Divine Elixir of Power', price: 10, buffs: { STRENGTH: 3, CONSTITUTION: 2 }, debuffs: { INTELLIGENCE: -2, RIZZ: -1 }, desc: '+3 STR, +2 CON, -2 INT, -1 RIZZ' },
-    { name: 'Philosopher\'s Stone Fragment', price: 12, buffs: { INTELLIGENCE: 3, WISDOM: 2 }, debuffs: { STRENGTH: -2, CONSTITUTION: -1 }, desc: '+3 INT, +2 WIS, -2 STR, -1 CON' },
-    { name: 'Succubus Training Course', price: 11, buffs: { RIZZ: 4, WISDOM: 1 }, debuffs: { STRENGTH: -2, CONSTITUTION: -1 }, desc: '+4 RIZZ, +1 WIS, -2 STR, -1 CON' },
-    { name: 'Ninja Reflexes Serum', price: 10, buffs: { DEXTERITY: 4 }, debuffs: { CONSTITUTION: -2, WISDOM: -1 }, desc: '+4 DEX, -2 CON, -1 WIS' },
-    { name: 'Fortitude Tonic of the Damned', price: 9, buffs: { CONSTITUTION: 4, STRENGTH: 1 }, debuffs: { DEXTERITY: -2, RIZZ: -1 }, desc: '+4 CON, +1 STR, -2 DEX, -1 RIZZ' },
-    { name: 'Mystery Box from Satan', price: 5, buffs: { STRENGTH: 3, INTELLIGENCE: 3 }, debuffs: { CONSTITUTION: -3, WISDOM: -2 }, desc: '+3 STR, +3 INT, -3 CON, -2 WIS (RISKY!)' },
-    { name: 'All-Stats Energy Bar', price: 15, buffs: { STRENGTH: 2, DEXTERITY: 2, CONSTITUTION: 2, INTELLIGENCE: 2, WISDOM: 2, RIZZ: 2 }, debuffs: {}, desc: '+2 ALL STATS (NO DEBUFFS!)' },
-    { name: 'Cursed Monkey Paw', price: 1, buffs: { RIZZ: 5 }, debuffs: { STRENGTH: -2, DEXTERITY: -2, CONSTITUTION: -2 }, desc: '+5 RIZZ, -2 STR/DEX/CON (CURSED!)' }
-];
+const SHOP_ITEM_POOLS = {
+    day1: [
+        { name: 'Microwaved Sinner Burrito', price: 3, buffs: { CONSTITUTION: 1 }, debuffs: { RIZZ: -1 }, desc: '+1 CON, -1 RIZZ' },
+        { name: 'Off-Brand Demon Adderall', price: 4, buffs: { INTELLIGENCE: 1, DEXTERITY: 1 }, debuffs: { WISDOM: -1 }, desc: '+1 INT, +1 DEX, -1 WIS' },
+        { name: 'Confidence Cologne: Brimstone Noir', price: 4, buffs: { RIZZ: 2 }, debuffs: { CONSTITUTION: -1 }, desc: '+2 RIZZ, -1 CON' }
+    ],
+    default: [
+        { name: 'Expired Hellfire Energy Drink', price: 3, buffs: { STRENGTH: 1, CONSTITUTION: 1 }, debuffs: { WISDOM: -1 }, desc: '+1 STR, +1 CON, -1 WIS' },
+        { name: 'Meditation Incense (Slightly Toxic)', price: 3, buffs: { WISDOM: 1, RIZZ: 1 }, debuffs: { DEXTERITY: -1 }, desc: '+1 WIS, +1 RIZZ, -1 DEX' },
+        { name: 'Shady Coffee from the 9th Circle', price: 3, buffs: { DEXTERITY: 1, INTELLIGENCE: 1 }, debuffs: { RIZZ: -1 }, desc: '+1 DEX, +1 INT, -1 RIZZ' }
+    ]
+};
 
 function pickDailyShopItems() {
-    return [...SHOP_ITEMS].sort(() => Math.random() - 0.5).slice(0, 2);
+    const storage = monogatari.storage();
+    const pool = SHOP_ITEM_POOLS[`day${storage.currentDay || 1}`] || SHOP_ITEM_POOLS.default;
+    return [pool[Math.floor(Math.random() * pool.length)]];
 }
 
 function generateDailyShopItems() {
@@ -770,12 +762,12 @@ monogatari.script({
                         monogatari.storage(storage);
                     }
                     
-                    const choices = { Dialog: 'Today\'s Deals' };
+                    const choices = { Dialog: 'Hell-Mazon Daily Deal' };
                     
                     storage.dailyShopItems.forEach((item, i) => {
                         const key = storage.money >= item.price ? `Item${i+1}` : `Item${i+1}Locked`;
                         choices[key] = {
-                            Text: `${item.name} - ${item.price} (${storage.money >= item.price ? item.desc : 'TOO EXPENSIVE'})`,
+                            Text: `${item.name} - ${item.price} souls | ${storage.money >= item.price ? item.desc : 'TOO EXPENSIVE'} | Instant Delivery`,
                             Do: storage.money >= item.price ? `jump BuyItem${i+1}` : 'jump CantAfford'
                         };
                     });
@@ -848,10 +840,11 @@ monogatari.script({
             }
         },
         'show scene #8b0000 with fadeIn',
-        'y PURCHASED!',
+        'y PURCHASED! Hell-Mazon instant delivery detonates politely in your hand.',
         'y Consumed: {{_purchasedItem.name}}',
         'y {{_effectText}}',
         'y Money: {{money}}',
+        hideHPhoneUI(),
         'jump DayNext'
     ],
 
@@ -1488,8 +1481,7 @@ monogatari.script({
         'show scene #441100 with fadeIn',
         showHPhoneUI('shop'),
         'y Hell-Mazon loads a suspicious black market page.',
-        'y Maybe later. The app keeps asking whether I consent to spiritually binding cookies.',
-        'jump HPhone'
+        { Conditional: { Condition: () => monogatari.storage().boughtItemToday, True: 'jump HellMazon_AlreadyBought', False: 'jump HellMazon_Shop' }}
     ],
 
     'Night1Texting': [
