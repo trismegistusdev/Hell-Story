@@ -1,4 +1,4 @@
-/**
+﻿/**
  * =============================================================================
  * This is the file where all your styling should go in.
  * Instead of modifying the styles found in the monogatari.css file or others,
@@ -38,9 +38,9 @@ body {
 	color: var(--hell-ui-cream);
 }
 
-/* ===== GAMEPLAY STATS HUD (Monster Roadtripâ€“style strip) =====
+/* ===== GAMEPLAY STATS HUD (Monster RoadtripÃ¢â‚¬â€œstyle strip) =====
  * Shown only on the game screen after stat allocation (storage.completedStatSpread).
- * Position/size here. Core vs affection rows: js/main.js â†’ GAMEPLAY_HUD_CORE_ROWS / GAMEPLAY_HUD_AFFECTION_ROWS.
+ * Position/size here. Core vs affection rows: js/main.js Ã¢â€ â€™ GAMEPLAY_HUD_CORE_ROWS / GAMEPLAY_HUD_AFFECTION_ROWS.
  * Hide affection block: #gameplay-stats-hud-affection { display: none !important; }
  */
 #gameplay-stats-hud {
@@ -116,8 +116,7 @@ body {
 	right: 2rem;
 	bottom: 5.5rem;
 	z-index: 20;
-	pointer-events: auto;
-	filter: drop-shadow(0 1.2rem 1.4rem rgba(0, 0, 0, 0.65));
+	pointer-events: auto;
 	animation: hell-story-hphone-enter 360ms ease-out both;
 }
 
@@ -592,7 +591,7 @@ button:hover {
 
 /**
  * Speaking indicator: Monogatari adds `.focus` to whoever is talking.
- * Only a soft brightness pulse â€” no transform, bottom, or margin â€” so sprites
+ * Only a soft brightness pulse Ã¢â‚¬â€ no transform, bottom, or margin Ã¢â‚¬â€ so sprites
  * stay locked to their positions and do not flicker when `.focus` is cleared
  * between dialogue lines (motion on those properties caused blink + float bugs).
  */
@@ -1482,5 +1481,163 @@ text-box p {
 	text-box p {
 		padding-left: 1rem !important;
 		padding-right: 1rem !important;
+	}
+}
+
+/* Cinematic title sting after the opening fall. */
+.hell-story-logo-sting {
+	position: fixed;
+	inset: 0;
+	z-index: 10000;
+	display: grid;
+	place-items: center;
+	pointer-events: none;
+	overflow: hidden;
+	color: #fff0e8;
+	background:
+		radial-gradient(circle at 50% 58%, rgba(255, 48, 58, 0.32), transparent 28%),
+		radial-gradient(circle at 50% 100%, rgba(255, 116, 24, 0.24), transparent 38%),
+		#020202;
+	animation: hell-story-logo-sting-screen 2.8s ease-in-out forwards;
+}
+
+.hell-story-logo-sting__embers {
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(circle, rgba(255, 186, 92, 0.85) 0 0.14rem, transparent 0.16rem) 8% 80% / 7rem 7rem,
+		radial-gradient(circle, rgba(255, 48, 58, 0.78) 0 0.12rem, transparent 0.15rem) 22% 90% / 5rem 6rem,
+		radial-gradient(circle, rgba(255, 240, 232, 0.65) 0 0.08rem, transparent 0.12rem) 60% 86% / 9rem 8rem;
+	filter: blur(0.02rem);
+	animation: hell-story-logo-embers 2.8s linear forwards;
+}
+
+.hell-story-logo-sting__seal {
+	display: none;
+}
+
+
+
+
+
+.hell-story-logo-sting__logo {
+	position: relative;
+	z-index: 1;
+	width: min(46rem, 86vw);
+	height: auto;
+	animation: hell-story-logo-title 2.8s cubic-bezier(.2,.9,.2,1) forwards;
+}
+
+.hell-story-logo-sting__subtitle {
+	position: absolute;
+	top: calc(50% + clamp(2.3rem, 7vw, 5.2rem));
+	left: 1rem;
+	right: 1rem;
+	font-size: clamp(0.72rem, 2vw, 1.05rem);
+	font-weight: 800;
+	letter-spacing: 0.2em;
+	text-align: center;
+	text-transform: uppercase;
+	color: rgba(255, 184, 188, 0.88);
+	text-shadow: 0 0 0.85rem rgba(255, 48, 58, 0.8);
+	animation: hell-story-logo-subtitle 2.8s ease-in-out forwards;
+}
+
+@keyframes hell-story-logo-sting-screen {
+	0% { opacity: 0; filter: blur(0.4rem); }
+	14%, 78% { opacity: 1; filter: blur(0); }
+	100% { opacity: 0; filter: blur(0.85rem); }
+}
+
+@keyframes hell-story-logo-title {
+	0% { opacity: 0; transform: scale(2.2) rotate(-2deg); letter-spacing: 0.4em; }
+	18% { opacity: 1; transform: scale(0.92) rotate(0deg); letter-spacing: 0.08em; }
+	32%, 76% { opacity: 1; transform: scale(1); }
+	88% { opacity: 1; transform: scale(1.05); }
+	100% { opacity: 0; transform: scale(0.25) rotate(4deg); }
+}
+
+@keyframes hell-story-logo-subtitle {
+	0%, 28% { opacity: 0; transform: translateY(0.8rem); }
+	40%, 76% { opacity: 1; transform: translateY(0); }
+	100% { opacity: 0; transform: translateY(-0.5rem); }
+}
+
+@keyframes hell-story-logo-seal {
+	0% { opacity: 0; transform: scale(0.25) rotate(-90deg); }
+	22%, 76% { opacity: 1; transform: scale(1) rotate(0deg); }
+	100% { opacity: 0; transform: scale(1.7) rotate(35deg); }
+}
+
+@keyframes hell-story-logo-embers {
+	0% { opacity: 0; transform: translateY(8rem); }
+	18%, 82% { opacity: 1; }
+	100% { opacity: 0; transform: translateY(-10rem); }
+}
+
+
+
+@media screen and (max-width: 48em), screen and (max-height: 32em) {
+	.hell-story-stat-overlay {
+		align-items: flex-start;
+		justify-content: center;
+		height: 100dvh;
+		max-height: 100dvh;
+		padding: max(0.45rem, env(safe-area-inset-top)) 0.45rem max(2.5rem, env(safe-area-inset-bottom));
+		overflow-x: hidden;
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+		touch-action: pan-y;
+	}
+
+	.hell-story-stat-screen {
+		width: min(21rem, 96vw);
+		margin: 0 auto 2rem;
+		padding: 0.6rem;
+		max-height: none;
+	}
+
+	.hell-story-stat-screen h2 {
+		font-size: 0.95rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.hell-story-stat-points {
+		margin-bottom: 0.45rem;
+		font-size: 0.66rem;
+	}
+
+	.hell-story-stat-grid {
+		gap: 0.32rem;
+		margin-bottom: 0.55rem;
+	}
+
+	.hell-story-stat-card {
+		padding: 0.38rem;
+	}
+
+	.hell-story-stat-card p {
+		margin-bottom: 0.28rem;
+		font-size: 0.6rem;
+	}
+
+	.hell-story-stat-card span {
+		font-size: 0.74rem;
+	}
+
+	.hell-story-stat-card button {
+		min-height: 2rem;
+		padding: 0.25rem 0;
+		font-size: 0.62rem;
+	}
+
+	.hell-story-stat-confirm-row {
+		padding-bottom: 0.5rem;
+	}
+
+	.hell-story-stat-confirm-row button {
+		min-height: 2.2rem;
+		padding: 0.42rem 0.7rem;
+		font-size: 0.66rem;
 	}
 }

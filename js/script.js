@@ -189,6 +189,38 @@ function showChaosEffect(type, duration = 1300) {
     };
 }
 
+function showHellStoryLogoSting(duration = 2600) {
+    return {
+        Function: {
+            Apply: function() {
+                return new Promise((resolve) => {
+                    document.querySelector('.hell-story-logo-sting')?.remove();
+
+                    const overlay = document.createElement('div');
+                    overlay.className = 'hell-story-logo-sting';
+                    overlay.innerHTML = `
+                        <div class="hell-story-logo-sting__embers"></div>
+                        <div class="hell-story-logo-sting__seal"></div>
+                        <img class="hell-story-logo-sting__logo" src="assets/images/hellstorylogo.jpg" alt="Hell Story">
+                        <div class="hell-story-logo-sting__subtitle">A DEMON DATING SIM</div>
+                    `;
+
+                    document.body.appendChild(overlay);
+
+                    window.setTimeout(() => {
+                        overlay.remove();
+                        resolve(true);
+                    }, duration);
+                });
+            },
+            Reverse: function() {
+                document.querySelector('.hell-story-logo-sting')?.remove();
+                return true;
+            }
+        }
+    };
+}
+
 // Runs a stat check and saves the result in _lastRoll/_lastTotal/etc.
 // Example: statCheck('STRENGTH', 5),
 function statCheck(statName, difficulty) {
@@ -1126,6 +1158,7 @@ monogatari.script({
         'Concrete rushes up to greet you with professional enthusiasm.',
         showChaosEffect('falling', 1600),
         'show scene #000000 with fadeIn',
+        showHellStoryLogoSting(2800),
         'jump CrashLanding'
     ],
 
@@ -1965,4 +1998,8 @@ monogatari.script({
         'end'
     ]
 });
+
+
+
+
 
