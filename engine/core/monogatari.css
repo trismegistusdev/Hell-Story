@@ -14287,13 +14287,12 @@ text-box {
     position: absolute;
     bottom: 0;
     color: #fff;
-    margin: 1em 1em;
+    margin: 1em 0;
     border: #b11f1b ridge 10px;
     border-radius: 1em;
     left: 15%;
 }
 #monogatari > visual-novel > game-screen > text-box {
-    width: 66.5%;
     background: #212121;
 }
 

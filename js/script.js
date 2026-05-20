@@ -29,6 +29,8 @@
 
 /* ===== MUSIC FILES =====
  * These names point to files in assets/music.
+ * Day 1 uses stable keys here so you can replace filenames without touching story labels.
+ * Keep the key on the left the same; change only the filename on the right when adding final tracks.
  * Example: 'office': 'office.mp3' means the script can use:
  *   'play music office with loop'
  */
@@ -36,11 +38,21 @@ monogatari.assets('music', {
     'title': 'title.mp3',
     'menu': 'menu.mp3',
     'office': 'office.mp3',
-    'traffic': 'traffic.mp3'
+    'traffic': 'traffic.mp3',
+    'hellAmbient': 'traffic.mp3',
+    'dayFreeTime': 'office.mp3',
+    'nightText': 'menu.mp3',
+    'dateLily': 'menu.mp3',
+    'dateLucy': 'menu.mp3',
+    'dateSam': 'traffic.mp3',
+    'dateBelle': 'office.mp3',
+    'dateMolly': 'traffic.mp3'
 });
 
 /* ===== BACKGROUND SCENE FILES =====
  * These names point to files in assets/scenes.
+ * Day 1 background placeholders are centralized here for easy art replacement.
+ * Keep the key on the left the same; change only the filename on the right when adding final art.
  * To add one:
  * 1. Put the image in assets/scenes.
  * 2. Add it here like 'bedroom': 'bedroom.jpg',
@@ -49,8 +61,27 @@ monogatari.assets('music', {
 monogatari.assets('scenes', {
     'office': 'office.jpg',
     'traffic': 'traffic.jpg',
-    'hellLanding': 'hell_landing_bg_placeholder.jpg'
+    'hellLanding': 'hell_landing_bg_placeholder.jpg',
+    'hellOrientation': 'hell_landing_bg_placeholder.jpg',
+    'hphoneChat': 'hell_landing_bg_placeholder.jpg',
+    'hellMorning': 'hell_landing_bg_placeholder.jpg',
+    'hellmazon': 'hell_landing_bg_placeholder.jpg',
+    'dayWork': 'office.jpg',
+    'dayGym': 'hell_landing_bg_placeholder.jpg',
+    'dayParkour': 'hell_landing_bg_placeholder.jpg',
+    'dayPool': 'hell_landing_bg_placeholder.jpg',
+    'dayLibrary': 'hell_landing_bg_placeholder.jpg',
+    'dayMeditation': 'hell_landing_bg_placeholder.jpg',
+    'daySocialClub': 'hell_landing_bg_placeholder.jpg',
+    'dateLilyRoom': 'hell_landing_bg_placeholder.jpg',
+    'dateLucyLounge': 'hell_landing_bg_placeholder.jpg',
+    'dateSamArena': 'hell_landing_bg_placeholder.jpg',
+    'dateBelleArchive': 'hell_landing_bg_placeholder.jpg',
+    'dateMollyWorkshop': 'hell_landing_bg_placeholder.jpg'
 });
+
+/* Sound effects intentionally start empty so missing audio files cannot break the demo. Add keys here only after the matching file exists in assets/sounds. */
+monogatari.assets('sounds', {});
 
 
 /* ===== NOTIFICATIONS & MESSAGES =====
@@ -541,7 +572,9 @@ function showStatAllocation() {
     };
 }
 
-/* ===== MAIN SCRIPT / STORY FLOW =====
+/* ===== PROTOTYPE SCRIPT / REFERENCE FLOW =====
+ * This older block is kept as reference material only. The active Day 1 demo is the later block marked PLAYABLE DAY 1 REWRITE.
+ * If two labels have the same name, Monogatari uses the later definition, so edit the later active block for demo changes.
  * This is the main place to write your script.
  *
  * Each label is a scene/section. The format is:
@@ -678,7 +711,7 @@ monogatari.script({
      * This starts the free-time/activity loop.
      * The player chooses daytime activities until stamina reaches 0.
      */
-    'NextMorning': ['clear', 'show scene #f7f6f6 with fadeIn', 'y New day. Stamina: {{dayStamina}}', 'jump DayChoiceRouter'],
+    'NextMorning': ['clear', 'show scene hellMorning with fadeIn', 'y New day. Stamina: {{dayStamina}}', 'jump DayChoiceRouter'],
     'DayNext': ['y Stamina: {{dayStamina}}', 'jump DayChoiceRouter'],
 
     // Decides whether to show all day choices or hide activities already done.
@@ -776,7 +809,7 @@ monogatari.script({
      * If you only want to write story, skip this.
      */
     'HellMazon': [
-        'show scene #ff4500 with fadeIn',
+        'show scene hellmazon with fadeIn',
         'y Hell-Mazon!',
         { Conditional: { Condition: () => monogatari.storage().boughtItemToday, True: 'jump HellMazon_AlreadyBought', False: 'jump HellMazon_Shop' }}
     ],
@@ -874,7 +907,7 @@ monogatari.script({
                 Reverse: () => true
             }
         },
-        'show scene #8b0000 with fadeIn',
+        'show scene hellmazon with fadeIn',
         'y PURCHASED! Hell-Mazon instant delivery detonates politely in your hand.',
         'y Consumed: {{_purchasedItem.name}}',
         'y {{_effectText}}',
@@ -893,7 +926,7 @@ monogatari.script({
      * 6. Call checkStaminaAndRoute().
      */
     'DayWork': [
-        'show scene #f5deb3 with fadeIn',
+        'show scene dayWork with fadeIn',
         setVar('didWorkToday', true),
         {
             Function: {
@@ -914,7 +947,7 @@ monogatari.script({
 
     // STR activity: Gym with Sam.
     'DayGym': [
-        'show scene #000000 with fadeIn',
+        'show scene dayGym with fadeIn',
         setVar('didGymToday', true),
         'show character s normal at bigLeft with fadeIn',
         's Spot me?',
@@ -1001,7 +1034,7 @@ monogatari.script({
      */
     'Night1Texting': [
         'clear',
-        'show scene #111111 with fadeIn',
+        'show scene hellOrientation with fadeIn',
         'y Phone buzzing!',
         'y Everyone wants to hang out!',
         {
@@ -1020,7 +1053,7 @@ monogatari.script({
      * Date labels are written compactly right now, but they work the same way:
      * dialogue lines, choices, stat checks, then a jump to the next label.
      */
-    'DateLily1': ['clear', 'show scene #ff6b6b with fadeIn', 'li You made it!', 'li Truth or dare?', { Choice: { Dialog: 'Choose:', Truth: { Text: 'Truth (WIS)', Do: 'jump LilyTruth' }, Dare: { Text: 'Dare (RIZZ)', Do: 'jump LilyDare' }}}],
+    'DateLily1': ['clear', 'show scene dateLilyRoom with fadeIn', 'li You made it!', 'li Truth or dare?', { Choice: { Dialog: 'Choose:', Truth: { Text: 'Truth (WIS)', Do: 'jump LilyTruth' }, Dare: { Text: 'Dare (RIZZ)', Do: 'jump LilyDare' }}}],
     'LilyTruth': [statCheck('WISDOM', 5), { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump LilyTruthGood', False: 'jump LilyTruthBad' }}],
     'LilyTruthGood': [changeVar('lilyAffection', 2), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]', 'li Wow... that was honest.', 'jump LilyDate2'],
     'LilyTruthBad': [changeVar('lilyAffection', 1), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]', 'li Oh... okay.', 'jump LilyDate2'],
@@ -1034,7 +1067,7 @@ monogatari.script({
     'LilyEnd': ['li Tonight was wonderful!', 'jump BigD_Message'],
 
     // Lucy date path.
-    'DateLucy1': ['clear', 'show scene #8b0000 with fadeIn', 'lu Ready for real Hell?', 'lu Drinking game?', { Choice: { Dialog: 'Join?', Join: { Text: 'Join (CON)', Do: 'jump LucyDrink' }, Watch: { Text: 'Watch', Do: 'jump LucyDate2' }}}],
+    'DateLucy1': ['clear', 'show scene hellmazon with fadeIn', 'lu Ready for real Hell?', 'lu Drinking game?', { Choice: { Dialog: 'Join?', Join: { Text: 'Join (CON)', Do: 'jump LucyDrink' }, Watch: { Text: 'Watch', Do: 'jump LucyDate2' }}}],
     'LucyDrink': [statCheck('CONSTITUTION', 5), { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump LucyDrinkGood', False: 'jump LucyDrinkBad' }}],
     'LucyDrinkGood': [changeVar('lucyAffection', 2), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]', 'lu YOOO! Beast mode!', 'jump LucyDate2'],
     'LucyDrinkBad': [changeVar('lucyAffection', 1), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]', 'lu Easy there!', 'jump LucyDate2'],
@@ -1045,7 +1078,7 @@ monogatari.script({
     'LucyEnd': ['lu Tonight was fun.', 'jump BigD_Message'],
 
     // Sam date path.
-    'DateSam1': ['clear', 'show scene #ff4500 with fadeIn', 's Ready for combat?', 's Bet 20 souls?', { Choice: { Dialog: 'Bet?', Bet: { Text: 'Bet (WIS)', Do: 'jump SamBet' }, Pass: { Text: 'Just watch', Do: 'jump SamDate2' }}}],
+    'DateSam1': ['clear', 'show scene hellmazon with fadeIn', 's Ready for combat?', 's Bet 20 souls?', { Choice: { Dialog: 'Bet?', Bet: { Text: 'Bet (WIS)', Do: 'jump SamBet' }, Pass: { Text: 'Just watch', Do: 'jump SamDate2' }}}],
     'SamBet': [statCheck('WISDOM', 4), { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump SamBetGood', False: 'jump SamBetBad' }}],
     'SamBetGood': [changeVar('samAffection', 2), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]', 's You called it! Impressive.', 'jump SamDate2'],
     'SamBetBad': [changeVar('samAffection', 1), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]', 's Better luck next time.', 'jump SamDate2'],
@@ -1056,7 +1089,7 @@ monogatari.script({
     'SamEnd': ['s Tonight was solid.', 'jump BigD_Message'],
 
     // Belle date path.
-    'DateBelle1': ['clear', 'show scene #9370db with fadeIn', 'b Welcome!', 'b Ancient puzzle!', { Choice: { Dialog: 'Solve it?', Solve: { Text: 'Solve (INT)', Do: 'jump BellePuzzle' }, Watch: { Text: 'Let Belle', Do: 'jump BelleDate2' }}}],
+    'DateBelle1': ['clear', 'show scene dateBelleArchive with fadeIn', 'b Welcome!', 'b Ancient puzzle!', { Choice: { Dialog: 'Solve it?', Solve: { Text: 'Solve (INT)', Do: 'jump BellePuzzle' }, Watch: { Text: 'Let Belle', Do: 'jump BelleDate2' }}}],
     'BellePuzzle': [statCheck('INTELLIGENCE', 5), { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump BellePuzzleGood', False: 'jump BellePuzzleBad' }}],
     'BellePuzzleGood': [changeVar('belleAffection', 2), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]', 'b Brilliant!', 'jump BelleDate2'],
     'BellePuzzleBad': [changeVar('belleAffection', 1), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]', 'b Quite tricky!', 'jump BelleDate2'],
@@ -1067,7 +1100,7 @@ monogatari.script({
     'BelleEnd': ['b Absolutely delightful!', 'jump BigD_Message'],
 
     // Molly date path.
-    'DateMolly1': ['clear', 'show scene #ffb6c1 with fadeIn', 'm You came!', 'm Pick a movie!', { Choice: { Dialog: 'Genre?', Horror: { Text: 'Horror (CON)', Do: 'jump MollyHorror' }, Romance: { Text: 'Romance (RIZZ)', Do: 'jump MollyRomance' }}}],
+    'DateMolly1': ['clear', 'show scene dateMollyWorkshop with fadeIn', 'm You came!', 'm Pick a movie!', { Choice: { Dialog: 'Genre?', Horror: { Text: 'Horror (CON)', Do: 'jump MollyHorror' }, Romance: { Text: 'Romance (RIZZ)', Do: 'jump MollyRomance' }}}],
     'MollyHorror': [statCheck('CONSTITUTION', 4), { Conditional: { Condition: () => monogatari.storage()._lastSuccess, True: 'jump MollyHorrorGood', False: 'jump MollyHorrorBad' }}],
     'MollyHorrorGood': [changeVar('mollyAffection', 2), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€œ]', 'm So brave!', 'jump MollyDate2'],
     'MollyHorrorBad': [changeVar('mollyAffection', 1), 'y [Roll {{_lastRoll}}+{{_lastStat}}={{_lastTotal}} vs {{_lastDifficulty}} Ã¢Å“â€”]', 'm We\'re both scared!', 'jump MollyDate2'],
@@ -1100,11 +1133,14 @@ monogatari.script({
 });
 
 /* ===== PLAYABLE DAY 1 REWRITE =====
+ * EDIT THIS BLOCK for Day 1 demo story, background, music, and route fixes.
  * This second script block replaces the rough prototype flow above with the
  * consolidated first-day script from FIRST_DAY_SCRIPT_DRAFT.md.
  *
  * The older block is still above as reference material, but these labels use
  * the same names, so this is the version the game should play.
+ * Named backgrounds like hellMorning/dateLilyRoom are registered at the top of this file.
+ * Plain color scenes like #000000 are intentional transition cards, not missing art slots.
  */
 monogatari.script({
     'Start': [
@@ -1226,7 +1262,7 @@ monogatari.script({
 
     'InfernalOrientation': [
         'clear',
-        'show scene #111111 with fadeIn',
+        'show scene hellOrientation with fadeIn',
         'show character b normal at bigLeft with fadeIn',
         'b Before anything else, we need to classify you.',
         'y As what?',
@@ -1330,7 +1366,7 @@ monogatari.script({
 
     'NextMorning': [
         'clear',
-        'show scene #330000 with fadeIn',
+        'show scene hellMorning with fadeIn',
         setVar('dayStamina', 3),
         'show character m normal at introFarLeft with fadeIn',
         'show character s normal at introLeft with fadeIn',
@@ -1365,7 +1401,7 @@ monogatari.script({
 
     'DayNext': [
         'clear',
-        'show scene #330000 with fadeIn',
+        'show scene hellMorning with fadeIn',
         'H-Phone: Daytime blocks left: {{dayStamina}}.',
         'jump DayChoiceRouter'
     ],
@@ -1405,7 +1441,7 @@ monogatari.script({
     ],
 
     'DayWork': [
-        'show scene #3b2a10 with fadeIn',
+        'show scene dayWork with fadeIn',
         setVar('didWorkToday', true),
         'A Hell temp agency makes you alphabetize screams by urgency.',
         'y Earned 5 souls and one new stress twitch.',
@@ -1416,7 +1452,7 @@ monogatari.script({
     ],
 
     'DayGym': [
-        'show scene #000000 with fadeIn',
+        'show scene dayGym with fadeIn',
         setVar('didGymToday', true),
         'show character s normal at bigLeft with fadeIn',
         's Spot me, recruit. If the weights scream, scream louder.',
@@ -1430,7 +1466,7 @@ monogatari.script({
     'DayGymFail': ['H-Phone: {{_lastCheckText}}.', changeVar('STRENGTH', 1), 'H-Phone: {{_lastChangeText}}.', 'The barbell rises three inches, makes direct eye contact, and returns to the rack with legal authority.', 's You survived. That is the lowest possible form of victory.', 'y I will put it on my resume.', 's Do not. I will check.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayParkour': [
-        'show scene #111111 with fadeIn',
+        'show scene dayParkour with fadeIn',
         setVar('didParkourToday', true),
         'show character lu normal at bigLeft with fadeIn',
         'lu The obstacle course is legally distinct from a murder maze.',
@@ -1443,7 +1479,7 @@ monogatari.script({
     'DayParkourFail': ['H-Phone: {{_lastCheckText}}.', changeVar('DEXTERITY', 1), 'H-Phone: {{_lastChangeText}}.', 'You miss a platform and are caught by a safety net made of disappointed hands.', 'lu You fell with memorable commitment.', 'y That sounds almost positive.', 'lu It is not. But it is memorable.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayPool': [
-        'show scene #2b1111 with fadeIn',
+        'show scene dayPool with fadeIn',
         setVar('didPoolToday', true),
         'The Infernal Wellness Annex offers a free endurance assessment, which is suspicious because nothing in Hell is free except consequences.',
         'An imp in a visor points you toward a treadmill made of bone, brass, and obvious OSHA violations.',
@@ -1457,7 +1493,7 @@ monogatari.script({
     'DayPoolFail': ['H-Phone: {{_lastCheckText}}.', changeVar('CONSTITUTION', 1), 'H-Phone: {{_lastChangeText}}.', 'You last almost a full minute before sliding off the treadmill with the grace of wet laundry.', 'Imp Attendant: Do not worry. The floor signs the liability waiver for you.', 'y I hate premium wellness.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayRead': [
-        'show scene #221133 with fadeIn',
+        'show scene dayLibrary with fadeIn',
         setVar('didReadToday', true),
         'show character b normal at bigLeft with fadeIn',
         'b Please do not breathe on the cursed indexes. They are sensitive.',
@@ -1470,7 +1506,7 @@ monogatari.script({
     'DayReadFail': ['H-Phone: {{_lastCheckText}}.', changeVar('INTELLIGENCE', 1), 'H-Phone: {{_lastChangeText}}.', 'You open a book upside down. The book takes this personally and turns your bookmark into ash.', 'b That answer is wrong, but in an educational direction.', 'y Is that better than regular wrong?', 'b Marginally. Please cherish marginally.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayChill': [
-        'show scene #113322 with fadeIn',
+        'show scene dayMeditation with fadeIn',
         setVar('didChillToday', true),
         'show character m normal at bigLeft with fadeIn',
         'm Meditation means sitting still until the urge to body-slam destiny passes.',
@@ -1483,7 +1519,7 @@ monogatari.script({
     'DayChillFail': ['H-Phone: {{_lastCheckText}}.', changeVar('WISDOM', 1), 'H-Phone: {{_lastChangeText}}.', 'Your mind clears completely, then immediately fills with the phrase bone chandelier on repeat.', 'm Your aura fell down the stairs, but it got back up.', 'y Inspirational?', 'm Injured, but inspirational.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'DayParty': [
-        'show scene #330033 with fadeIn',
+        'show scene daySocialClub with fadeIn',
         setVar('didPartyToday', true),
         'show character li normal at bigLeft with fadeIn',
         'li Rizz is not about lines, sweetheart. It is about making bad ideas sound like destiny.',
@@ -1496,7 +1532,7 @@ monogatari.script({
     'DayPartyFail': ['H-Phone: {{_lastCheckText}}.', changeVar('RIZZ', 1), 'H-Phone: {{_lastChangeText}}.', 'You deliver a compliment so awkward it somehow becomes a minor haunting.', 'li Rough landing, but cute debris field.', 'y I died less dramatically than that sentence.', 'li Good. Then we can rebuild you with better lighting.', changeVar('dayStamina', -1), checkStaminaAndRoute()],
 
     'HPhone': [
-        'show scene #111111 with fadeIn',
+        'show scene hellOrientation with fadeIn',
         showHPhoneUI('home'),
         'y The H-Phone opens to a glowing message thread list.',
         'y Money: {{money}} souls.',
@@ -1514,7 +1550,7 @@ monogatari.script({
     'HPhone_NoItem': ['jump HPhone'],
 
     'HellMazon': [
-        'show scene #441100 with fadeIn',
+        'show scene hellmazon with fadeIn',
         showHPhoneUI('shop'),
         'y Hell-Mazon loads a suspicious black market page.',
         { Conditional: { Condition: () => monogatari.storage().boughtItemToday, True: 'jump HellMazon_AlreadyBought', False: 'jump HellMazon_Shop' }}
@@ -1522,7 +1558,7 @@ monogatari.script({
 
     'Night1Texting': [
         'clear',
-        'show scene #111111 with fadeIn',
+        'show scene hellOrientation with fadeIn',
         showHPhoneUI('message'),
         'H-Phone: AGENDA-666: Nightly Affinity Stabilization Required.',
         'lu Translation: pick someone before your entropy turns into a class-action lawsuit.',
@@ -1549,7 +1585,7 @@ monogatari.script({
     'DateLily1': [
         'clear',
         hideHPhoneUI(),
-        'show scene #ff6b6b with fadeIn',
+        'show scene dateLilyRoom with fadeIn',
         'show character li normal at bigLeft with fadeIn',
         'y So this is where you wanted to meet?',
         'li Obviously. Hell Chilis. Technically condemned, spiritually franchised, and emotionally unsafe after 9 PM.',
@@ -1671,7 +1707,7 @@ monogatari.script({
 
     // This branch sets the only new route flag. Later scenes can check it for callbacks.
     'LilyHotelInvite': [
-        'show scene #330000 with fadeIn',
+        'show scene dateLilyRoom with fadeIn',
         'The street outside Hehis is warm, smoky, and alive with distant sirens that sound less like emergencies and more like nightlife.',
         'Lily walks beside you, close enough that her fingers keep almost brushing yours.',
         'li You know this is a terrible idea, right?',
@@ -1695,7 +1731,7 @@ monogatari.script({
     'LilyUpstairs': [
         setVar('sleptWithLilyNight1', true),
         changeVar('lilyAffection', 2),
-        'show scene #220000 with fadeIn',
+        'show scene dateLilyRoom with fadeIn',
         'The elevator ride is silent except for infernal jazz playing from nowhere.',
         'y Is the elevator music flirting with me?',
         'li It flirts with everyone. Do not feel special.',
@@ -1785,7 +1821,7 @@ monogatari.script({
 
     // Morning hook establishes the long-term Lily route question: what happens after the easy part?
     'LilyMorningHook': [
-        'show scene #330000 with fadeIn',
+        'show scene dateLilyRoom with fadeIn',
         'You wake before Hell’s fake morning fully bleeds through the curtains.',
         'For one impossible second, you forget where you are.',
         'Then the minibar growls.',
@@ -1819,7 +1855,7 @@ monogatari.script({
     'DateLucy1': [
         'clear',
         hideHPhoneUI(),
-        'show scene #8b0000 with fadeIn',
+        'show scene dateLucyLounge with fadeIn',
         'show character lu normal at bigLeft with fadeIn',
         'lu Come in. Do not touch anything that glows, bleeds, or has a tab labeled Q4 Suffering.',
         'Lucys office looks less like a workplace and more like a cathedral built to worship deadlines.',
@@ -1843,7 +1879,7 @@ monogatari.script({
         'lu That was the building.',
         'y The building wants fries?',
         'lu We are going to Sinnys.',
-        'show scene #552222 with fadeIn',
+        'show scene dateLucyLounge with fadeIn',
         'lu Do not let the kitschy exterior fool you. This place is an affront to culinary order.',
         'y Then why are we here?',
         'lu Because their milkshakes are transcendent and I contain multitudes.',
@@ -1861,7 +1897,7 @@ monogatari.script({
     'DateSam1': [
         'clear',
         hideHPhoneUI(),
-        'show scene #ff4500 with fadeIn',
+        'show scene dateSamArena with fadeIn',
         'show character s normal at bigLeft with fadeIn',
         's A date? You test the limits of my unholy patience.',
         'y I am just calling it like I see it. So are we going bowling or not?',
@@ -1899,7 +1935,7 @@ monogatari.script({
     'DateBelle1': [
         'clear',
         hideHPhoneUI(),
-        'show scene #9370db with fadeIn',
+        'show scene dateBelleArchive with fadeIn',
         'show character b normal at bigLeft with fadeIn',
         'b You came.',
         'y You sound surprised.',
@@ -1940,7 +1976,7 @@ monogatari.script({
     'DateMolly1': [
         'clear',
         hideHPhoneUI(),
-        'show scene #ffb6c1 with fadeIn',
+        'show scene dateMollyWorkshop with fadeIn',
         'show character m normal at bigLeft with fadeIn',
         'm Whats up, meatbag? It is your girl Molly, the one and only Demon Destroyer!',
         'y Should I be wearing protective gear?',
@@ -1998,6 +2034,12 @@ monogatari.script({
         'end'
     ]
 });
+
+
+
+
+
+
 
 
 
