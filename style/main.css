@@ -1641,3 +1641,179 @@ text-box p {
 		font-size: 0.66rem;
 	}
 }
+
+/* ===== FINAL UI PERFECTION PASS ===== */
+#monogatari {
+	--hell-ui-panel-strong: linear-gradient(180deg, rgba(38, 8, 10, 0.97), rgba(7, 7, 7, 0.98));
+	--hell-ui-panel-glass: linear-gradient(180deg, rgba(35, 10, 12, 0.92), rgba(7, 7, 7, 0.94));
+	--hell-ui-button: linear-gradient(180deg, rgba(72, 12, 15, 0.96), rgba(18, 5, 6, 0.98));
+	--hell-ui-button-hot: linear-gradient(180deg, var(--hell-ui-red-hot), var(--hell-ui-red-dark));
+	--hell-ui-radius-sm: 0.55rem;
+	--hell-ui-radius-md: 0.85rem;
+	--hell-ui-radius-lg: 1rem;
+	--hell-ui-focus: 0 0 0 2px rgba(255, 240, 232, 0.18), 0 0 1rem rgba(255, 48, 58, 0.7);
+}
+
+#monogatari button,
+#monogatari [role="button"],
+.hell-story-stat-card button,
+.hell-story-stat-confirm-row button,
+.hell-story-hphone__app,
+[data-component="choice-container"] button,
+[data-screen="main"] button,
+[data-component="save-slot"] button {
+	color: var(--hell-ui-cream, #fff0e8);
+	background: var(--hell-ui-button);
+	border: 1px solid var(--hell-ui-border, rgba(255, 42, 48, 0.78));
+	border-radius: var(--hell-ui-radius-sm);
+	box-shadow: 0 0.18rem 0.65rem rgba(0, 0, 0, 0.62), inset 0 0 0.55rem rgba(255, 48, 58, 0.08);
+	font-weight: 800;
+	letter-spacing: 0.055em;
+	text-shadow: 0 0 0.3rem rgba(255, 48, 58, 0.32);
+	transition: transform 140ms ease, color 140ms ease, border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+
+#monogatari button:hover,
+#monogatari button:focus-visible,
+#monogatari [role="button"]:hover,
+#monogatari [role="button"]:focus-visible,
+.hell-story-stat-card button:hover:not(:disabled),
+.hell-story-stat-card button:focus-visible:not(:disabled),
+.hell-story-stat-confirm-row button:hover:not(:disabled),
+.hell-story-stat-confirm-row button:focus-visible:not(:disabled),
+.hell-story-hphone__app:hover,
+.hell-story-hphone__app:focus-visible,
+[data-component="choice-container"] button:hover,
+[data-component="choice-container"] button:focus-visible,
+[data-screen="main"] button:hover,
+[data-screen="main"] button:focus-visible,
+[data-component="save-slot"] button:hover,
+[data-component="save-slot"] button:focus-visible {
+	color: #ffffff;
+	background: var(--hell-ui-button-hot);
+	border-color: var(--hell-ui-red-hot, #ff303a);
+	box-shadow: var(--hell-ui-focus);
+	transform: translateY(-0.08rem);
+}
+
+#monogatari button:disabled,
+.hell-story-stat-card button:disabled,
+.hell-story-stat-confirm-row button:disabled {
+	opacity: 0.42;
+	cursor: not-allowed;
+	filter: grayscale(0.4);
+	transform: none;
+}
+
+[data-component="choice-container"] {
+	gap: 0.5rem;
+}
+
+[data-component="choice-container"] button {
+	text-transform: none;
+}
+
+[data-component="text-box"],
+.hell-story-stat-screen,
+[data-component="save-slot"] figure,
+.hell-story-hphone__bezel,
+#gameplay-stats-hud {
+	background: var(--hell-ui-panel-strong);
+	border-color: var(--hell-ui-border, rgba(255, 42, 48, 0.78));
+	box-shadow: var(--hell-ui-glow, 0 0 0.85rem rgba(255, 28, 36, 0.55));
+}
+
+.hell-story-stat-card,
+.hell-story-hphone__body,
+.hell-story-hphone__threads,
+.hell-story-hphone__chat {
+	background: rgba(0, 0, 0, 0.42);
+	border: 1px solid rgba(255, 48, 58, 0.34);
+	box-shadow: inset 0 0 0.85rem rgba(255, 48, 58, 0.08);
+}
+
+[data-ui="who"],
+.hell-story-stat-screen h2,
+.gameplay-stats-hud__title,
+.hell-story-hphone h2 {
+	color: #ff8a8f;
+	text-shadow: 0 0 0.65rem rgba(255, 48, 58, 0.75);
+}
+
+[data-component="quick-menu"] {
+	background: rgba(6, 6, 6, 0.86);
+	border-color: rgba(255, 48, 58, 0.42);
+	box-shadow: 0 0 0.7rem rgba(255, 28, 36, 0.22), 0 0.35rem 1rem rgba(0, 0, 0, 0.65);
+}
+
+[data-component="quick-menu"] span {
+	color: var(--hell-ui-cream, #fff0e8);
+}
+
+[data-component="quick-menu"] span:hover,
+[data-component="quick-menu"] span:focus-visible {
+	color: #ffb0b3;
+	text-shadow: 0 0 0.55rem rgba(255, 48, 58, 0.85);
+}
+
+[data-screen="main"] button {
+	border-radius: 999px;
+	text-transform: uppercase;
+}
+
+[data-screen="main"] button:hover,
+[data-screen="main"] button:focus-visible {
+	transform: scale(var(--hell-story-menu-hover-scale, 1.12));
+}
+
+[data-component="save-slot"] figure:hover,
+[data-component="save-slot"] figure:focus-within,
+.hell-story-stat-card:hover {
+	border-color: var(--hell-ui-red-hot, #ff303a);
+	box-shadow: var(--hell-ui-glow, 0 0 0.85rem rgba(255, 28, 36, 0.55));
+}
+
+.hell-story-hphone__screen {
+	border-color: rgba(255, 48, 58, 0.36);
+}
+
+.hell-story-hphone__thread--active,
+.hell-story-hphone__bubble--them {
+	border: 1px solid rgba(255, 48, 58, 0.36);
+}
+
+.hell-story-hphone__bubble--you {
+	color: #fff0e8;
+	background: linear-gradient(180deg, rgba(255, 48, 58, 0.95), rgba(141, 13, 20, 0.98));
+	border: 1px solid rgba(255, 176, 179, 0.42);
+}
+
+input,
+select,
+textarea {
+	color: var(--hell-ui-cream, #fff0e8);
+	background: rgba(8, 8, 8, 0.92);
+	border: 1px solid rgba(255, 48, 58, 0.45);
+	border-radius: var(--hell-ui-radius-sm, 0.55rem);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+	outline: none;
+	border-color: var(--hell-ui-red-hot, #ff303a);
+	box-shadow: var(--hell-ui-focus);
+}
+
+@media screen and (max-width: 48em) {
+	#monogatari button,
+	[data-component="choice-container"] button,
+	.hell-story-stat-card button,
+	.hell-story-stat-confirm-row button {
+		min-height: 2.15rem;
+	}
+
+	[data-component="choice-container"] {
+		gap: 0.35rem;
+	}
+}
