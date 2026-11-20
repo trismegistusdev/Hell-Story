@@ -1042,6 +1042,15 @@ UNKNOWN: Potential.
 UNKNOWN: Goodnight, kid.
 [The message deletes itself.]
 YOU: Kid?
+YOU: *BUZZ*
+THE BEAST: Hello. Sorry. He forgot the paperwork.
+YOU: Who is this?
+THE BEAST: His associate. I do the files. He does the laughing.
+THE BEAST: Form 666-B, at your earliest inconvenience. It is already late.
+YOU: 666-B?
+THE BEAST: Ronald Wilson Reagan. Six letters. Six letters. Six letters. I did not pick the number.
+THE BEAST: They call me the Beast. It is a joke. I failed to start the apocalypse once and now it is my whole personality.
+[The message deletes itself. It apologizes first.]
 [For one second, the room feels colder than Hell should be.]
 [Somewhere far below, or above, or behind the world, someone laughs.]
 [DAY 1 COMPLETE]
@@ -1050,4 +1059,5 @@ YOU: Kid?
 NOTES FOR THE TONIGHT SESSION (11 p.m.):
 - The Hell-Mazon shop purchase labels (HellMazon_Shop, BuyItem1, BuyItem2, ProcessPurchase) still live in the older prototype block of js/script.js, not in the Day 1 rewrite. Do not delete the prototype block without moving those labels first.
 - The H-Phone menu's Socials option (HPhoneSocials) exists in code but is not reachable from the menu.
+- Ronald Reagan gag lines in the Ending — BigD message scene (THE BEAST) are intentional, added Nov 20 — do not remove.
 - This file is a reading copy only. Edits belong in js/script.js; keep this file in sync by hand if the script changes.
