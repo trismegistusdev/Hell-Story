@@ -417,6 +417,7 @@ YOU: I am not asking for forever.
 YOU: I am asking if you are still here.
 LILY: I am literally in the bed.
 LILY: I am here. For tonight.
+LILY: I used to be good at forever. I retired.
 YOU: Tonight is enough.
 [Continues to: Morning after.]
 
@@ -436,6 +437,7 @@ LILY: Leaving before anything matters.
 [You wake before Hell's fake morning fully bleeds through the curtains.]
 [For one impossible second, you forget where you are.]
 [Lily is already awake, sitting at the edge of the bed with her back to you, posture too composed.]
+[Her thumb rubs the bare ring finger of her left hand, out of habit.]
 LILY: You snore.
 YOU: I died yesterday.
 LILY: Not an excuse.
@@ -500,6 +502,7 @@ YOU: A lighthouse keeper.
 LUCY: Isolated. Predictable. One job: warn people before they crash.
 YOU: That is the most Lucy sentence I have ever heard.
 LUCY: Thank you. I rehearsed it for two centuries.
+LUCY: I have always been good with light. It is the falling I am bad at.
 [Continues to: Dinner at Sinny's.]
 
 -- Why you --
@@ -589,6 +592,7 @@ LUCY: In an unprecedented way.
 LUCY: {{player.name}}.
 YOU: Yes?
 LUCY: Do not make me regret the paperwork.
+[She turns to go, then stops. For a second, she looks up, like she is checking the sky for something that is not there anymore.]
 [H-Phone: Lucy Affection increased.]
 [H-Phone: Lucy sent you Form 88-C. It just says: APPROVED.]
 [Continues to: Ending — BigD message.]
@@ -618,6 +622,7 @@ SAM: Poorly articulated. But acceptable.
 YOU: I am going to stand over here where I am less throwable.
 SAM: Wise.
 [The bouncer apologizes to every god it no longer believes in.]
+SAM: Save some for Michael. He collects them.
 [Continues to: Bowling.]
 
 -- Bowling --
@@ -704,6 +709,9 @@ YOU: How does someone become a general in Hell?
 SAM: You survive. Then you survive again. Then one day someone hands you a rank and you realize surviving was the easy part.
 YOU: And the hard part?
 SAM: Deciding what is worth surviving for.
+YOU: Did anyone ever take the rank from you?
+SAM: ...
+[Her grip tightens around her glass. She does not answer.]
 [She looks at you for a moment, like she is deciding whether you count.]
 SAM: Do not make me say it twice.
 YOU: Say what twice?
@@ -802,6 +810,7 @@ YOU: "On a rainy Tuesday, a tired man held a door open for a woman carrying groc
 BELLE: See? That is a whole story. In one sentence.
 YOU: It is a good sentence.
 BELLE: It is the best sentence in the building. I checked. I check every day.
+BELLE: I used to keep the bright ones. Then they reassigned me.
 YOU: What else is in the good section?
 BELLE: A returned wallet. A compliment someone meant. A library book returned forty years late, with an apology note.
 YOU: Forty years?
@@ -868,6 +877,7 @@ BELLE: Pending review. By me. I approved it.
 BELLE: Here. So you can find your way back. To the Archives. To... this.
 YOU: Thank you, Belle.
 BELLE: Next time, I will take you somewhere normal. I have heard of a place with no filing system at all. It sounds terrifying. I am very excited.
+BELLE: Somewhere with windows, maybe. I miss windows.
 YOU: I will hold you to that.
 BELLE: Please do. Nobody ever holds me to anything except deadlines.
 [H-Phone: Belle Affection increased.]
@@ -983,6 +993,7 @@ YOU: Why do you fight everything? Kezavaldraak, the buffet, the ceiling?
 MOLLY: Because if I am the loudest thing in the room, nobody notices I am scared.
 YOU: Scared of what?
 MOLLY: Of being boring. Of being the girl nobody picks. So I make sure they cannot look away.
+MOLLY: I had a different name, once. A quiet one. I traded it in.
 YOU: I am looking.
 MOLLY: Yeah. You are. Do not stop.
 [Continues to: Goodnight, Molly.]
@@ -993,6 +1004,7 @@ YOU: What do you do when you are not fighting or throwing axes?
 MOLLY: I collect stickers.
 YOU: Stickers.
 MOLLY: Do not laugh. They are extremely cool stickers.
+MOLLY: The shiny ones are my favorite. I like things that catch the light.
 YOU: I was not laughing.
 MOLLY: Good. Because I will show you my collection next time, and you WILL be impressed.
 YOU: Can I see them?
