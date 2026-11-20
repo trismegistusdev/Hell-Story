@@ -1,0 +1,1041 @@
+HELL STORY — DAY 1 (PLAYABLE SCRIPT)
+=====================================
+Readable copy of the Day 1 rewrite in js/script.js (from "PLAYABLE DAY 1 REWRITE" to the end of the file).
+The game code is the source of truth, not this file. The older prototype block in the code is not included here.
+Player lines are marked YOU. {{player.name}} is the name the player types at the start.
+
+SCENE: OFFICE INTRO
+[The fluorescent lights buzz like trapped insects above a maze of beige cubicles.]
+[Your monitor displays a spreadsheet so dense it seems less like data and more like a curse.]
+[Name input: "What is your name?" — the answer is saved as {{player.name}}.]
+YOU: Thanks for holding, this is {{player.name}} with Aeroplex Supply Solutions. One moment while I pull up your account details.
+CALLER: This is unacceptable! I need those EKG leads by tomorrow and you people never have anything in stock!
+YOU: Absolutely, I understand how frustrating that must be.
+CALLER: You do not understand. You have not understood anything for roughly three fiscal quarters.
+YOU: Six more hours.
+[Six hours later, you remove your headset with the haunted delicacy of a bomb technician.]
+YOU: Freedom. Temporary, legally distinct freedom.
+[Outside, a wild-eyed street preacher shoves a hand-painted sign in your face.]
+STREET PREACHER: Sinners! Blasphemers! Hell awaits! Eternal punishment!
+YOU: Buddy, I just got out of a nine-hour headset shift. You are going to have to sell me on the downside.
+
+SCENE: COMMUTE
+[Your beat-up sedan tears down the interstate, music blaring, windshield wipers losing a war against the rain.]
+YOU: Okay. Home. Shower. Food. Maybe stare at a wall for two hours and call it self-care.
+[Ahead, a semi-truck jackknifes across four lanes.]
+YOU: Whoa, shit!
+[You swerve at the last second. The car lifts onto two wheels, threads through flying sparks, and lands clean.]
+YOU: Okay. Cool. Normal Tuesday.
+[The highway collapses into a sinkhole.]
+YOU: That is less normal.
+[You floor it. For one impossible second, a trail of hellfire burns under your tires and carries you across.]
+YOU: What the actual fu-
+[A biker gang bursts out of the rain behind you, guns blazing.]
+YOU: I AM SORRY! I DID NOT MEAN TO CUT YOU OFF OR WHATEVER!
+[Explosions. Drifts. Screaming. A brief moment where reality pixelates like the universe is buffering.]
+YOU: No no no. I am not dying to lag.
+[Somehow, you make it home.]
+YOU: I made it. I actually made it through that entire impossible gauntlet of bullsh-
+[Your foot hits a banana peel on the welcome mat.]
+YOU: ...No.
+[Concrete rushes up to greet you with professional enthusiasm.]
+[HELL STORY logo sting.]
+
+SCENE: CRASH LANDING
+[You fall through smoke, heat, screaming wind, and at least three layers of municipal zoning violation.]
+[You crash through a wooden announcer table in an explosion of splinters and demonic confetti.]
+[All five girls appear at once: Molly, Sam, Lily, Belle, Lucy.]
+MOLLY: OH YEAH! Did everybody see that supreme spitfire bomb through my custom announcer table?!
+SAM: For the last time, Molly, this is not one of your ridiculous wrestling exhibitions. That was an actual soul.
+LILY: And still intact. Impressive. Also potentially snack material.
+BELLE: A human soul crash-landed directly into the Ninth Circle? That defies every trans-dimensional intake ordinance I have ever catalogued.
+LUCY: Or it means our onboarding department finally processed my VIP requisition.
+SAM: They do not look VIP. They look like raw recruitment material.
+MOLLY: They look like they owe me one announcer table.
+YOU: Am I dead?
+LUCY: Technically, yes.
+YOU: Am I in Hell?
+LILY: Technically, deliciously yes.
+YOU: Am I supposed to be on fire?
+BELLE: That is actually an excellent question, and I hate that I do not have the answer.
+[For the first time, all five demons look worried.]
+
+SCENE: INTRODUCTIONS
+[Lucy steps forward.]
+LUCY: Lucy. Executive authority, strategic oversight, infernal operations. If something in Hell is broken, it is usually because someone failed to obey my very clear memo.
+YOU: So you are in charge?
+LUCY: Obviously.
+[Sam steps forward.]
+SAM: Sam. Field Marshal of the Fallen Host. You will address me with respect, posture, and a basic willingness to survive.
+YOU: Do I get a helmet?
+SAM: Not with that tone.
+[Lily steps forward.]
+LILY: Lily. Vice, temptation, pleasure, bad decisions, good stories. I make eternity bearable, or at least memorable.
+YOU: That sounds like a warning.
+LILY: That was me being polite.
+[Belle steps forward.]
+BELLE: Belle. Archivist, compliance researcher, custodian of arcane records. I am sorry about all of this, unless you caused it, in which case I am still sorry but more judgmental.
+[Molly steps forward.]
+MOLLY: Molly! Demolition sweetheart, wrestling menace, certified chaos enthusiast. If it explodes, suplexes, or screams, I probably know a guy.
+YOU: I have never been more afraid of the phrase sweetheart.
+MOLLY: Aww, you are learning already!
+
+SCENE: ORIENTATION
+BELLE: Before anything else, we need to classify you.
+YOU: As what?
+BELLE: That is the problem.
+LUCY: Every soul has a category. Gluttons, tyrants, frauds, influencers who filmed apology videos in parked cars.
+LILY: People who say we should hang sometime and never mean it.
+SAM: Men who leave shopping carts loose in parking lots.
+BELLE: That is actually one of our largest archive wings.
+YOU: So what am I?
+BELLE: Unclear. The system lists you as: Pending, unstable, probably expensive.
+LUCY: That is not a category. That is a budget meeting.
+BELLE: I am going to run a manual aptitude spread. Strength, Dexterity, Constitution, Intelligence, Wisdom, and...
+LILY: Rizz.
+BELLE: I hate that the official form says Rizz.
+
+SCENE: STAT ALLOCATION
+[Stat allocation screen: distribute 10 points across STR / DEX / CON / INT / WIS / RIZZ. You can only confirm when 0 points remain.]
+BELLE: Okay. That is...not good, but it is data.
+YOU: Do I pass?
+LUCY: Nobody passes Hell. They merely become actionable.
+
+SCENE: H-PHONE
+LUCY: We need to get our little anomaly settled before the Celestial Bureaucracy Administration gets a whiff of this.
+YOU: The what?
+SAM: The CBA. Heaven auditors. Merciless. Humorless. Armed with clipboards capable of severing immortal essence.
+BELLE: If they discover an unprocessed mortal in the Ninth Circle, they could relocate all of us.
+MOLLY: And not fun relocate. Clipboard relocate.
+LILY: Which is tragic, because I have outfits that deserve better lighting than a compliance hearing.
+LUCY: For now, you are a VIP guest of Hell LLC.
+YOU: That sounds expensive.
+BELLE: Technically, your soul is collateral.
+YOU: That sounds expensive.
+SAM: You will need this.
+[Sam hands you a black glass phone. It is warm, heavy, and faintly screaming.]
+SAM: H-Phone. Obsidian glass. Recycled legion armor casing. Inferno OS.
+LILY: The screen is powered by tortured souls, but in a cute way.
+BELLE: The in-app purchases also drain your soul.
+YOU: Also in a cute way?
+BELLE: No.
+LUCY: Every night, you will receive invitations through Agenda-666. Choose one of us. We gather affinity data and stabilize your entropy.
+YOU: You are making dating sound like a tax audit.
+LUCY: Most intimacy is.
+
+SCENE: UNKNOWN MESSAGE
+[Drew, the three-headed hyena clerk, shoves you into your suite and growls something about complimentary suffering.]
+[The room is luxurious in the way a haunted casino is luxurious. Velvet sheets. Bone chandelier. A minibar labeled DO NOT MAKE EYE CONTACT.]
+YOU: Okay. Dead. Hell. Hot demons. Government problem. Phone made of screaming.
+YOU: *BUZZ*
+UNKNOWN: Ah, there you are.
+YOU: Who is this?
+UNKNOWN: Someone with a vested interest in your continued instability.
+YOU: That is an insane way to introduce yourself.
+UNKNOWN: You are not here by accident. You are also not here by ordinary damnation. The reason you are not burning will become clear.
+UNKNOWN: For now, let Hell finest try to stabilize you. It will be funny.
+YOU: Is this a threat?
+UNKNOWN: Think of it as paternal encouragement from a stranger.
+[The message deletes itself.]
+YOU: I hate that paternal was the worst word in there.
+
+SCENE: DAY LOOP — MORNING
+[Morning arrives in Hell without sunlight. Instead, the sky turns from black-red to slightly more judgmental red.]
+YOU: I slept maybe forty minutes and dreamed about my W-2 biting me.
+H-PHONE: AGENDA-666 NOTICE: Entropy Stabilization Activities Available.
+H-PHONE: You have 3 daytime blocks. Training, work, and hangouts spend time. Phone and shopping are free.
+LUCY: Do at least one productive thing today. If the CBA asks, I want to say we made an effort.
+SAM: Train. Weakness is just failure before it gets honest.
+LILY: Or come relax. Stress is terrible for the skin, and yours still technically has mortal warranty.
+BELLE: The Archives are open if you want answers. Or dust inhalation. Usually both.
+MOLLY: HEY. WANNA DO SOMETHING STUPID?
+[You have 3 daytime blocks. Each activity costs 1 block. Checking the H-Phone is free. Activities you have already done drop off the list. When your blocks run out, night falls.]
+CHOICE: "Train with Sam (STR)" -> Day activity: Gym with Sam
+CHOICE: "Obstacle course with Lucy (DEX)" -> Day activity: Parkour with Lucy
+CHOICE: "Infernal endurance trial (CON)" -> Day activity: Pool trial
+CHOICE: "Archives with Belle (INT)" -> Day activity: Library with Belle
+CHOICE: "Meditation with Molly (WIS)" -> Day activity: Meditation with Molly
+CHOICE: "Social club with Lily (RIZZ)" -> Day activity: Social club with Lily
+CHOICE: "Earn souls at Hell temp work" -> Day activity: Temp work (+5 souls)
+CHOICE: "Check H-Phone" -> H-Phone menu (free, no block spent)
+
+SCENE: DAY ACTIVITY — TEMP WORK
+[A Hell temp agency makes you alphabetize screams by urgency.]
+YOU: Earned 5 souls and one new stress twitch.
+[H-Phone: +5 souls.]
+[Costs 1 daytime block.]
+
+SCENE: DAY ACTIVITY — GYM WITH SAM
+SAM: Spot me, recruit. If the weights scream, scream louder.
+[A barbell chained in silver rattles on the rack. Every plate has a tiny face and every tiny face looks judgmental.]
+SAM: Lift clean. Breathe correctly. Do not flirt with spinal injury.
+YOU: That was my whole plan.
+[Stat check: STRENGTH vs 5.]
+-- If the check passes --
+[You get the bar up. The screaming weights go briefly silent, like they are embarrassed on your behalf.]
+SAM: Adequate. Disturbingly adequate.
+YOU: Was that a compliment?
+SAM: It was a tactical observation. Treasure it quietly.
+[Result: +1 STR, +1 Sam affection.]
+-- If the check fails --
+[The barbell rises three inches, makes direct eye contact, and returns to the rack with legal authority.]
+SAM: You survived. That is the lowest possible form of victory.
+YOU: I will put it on my resume.
+SAM: Do not. I will check.
+[Result: +1 STR.]
+[Costs 1 daytime block.]
+
+SCENE: DAY ACTIVITY — PARKOUR WITH LUCY
+LUCY: The obstacle course is legally distinct from a murder maze.
+[The course unfolds across rooftops, swinging chains, tax forms, and one rotating saw labeled TEAM BUILDING.]
+LUCY: Fast is useful. Controlled is rare. Try to be both, or at least entertaining.
+[Stat check: DEXTERITY vs 5.]
+-- If the check passes --
+[You clear the last gap, land badly, recover worse, and somehow make it look intentional.]
+LUCY: Efficient. I may put that in a memo.
+YOU: Please title it: Mortal Briefly Useful.
+LUCY: Already drafted.
+[Result: +1 DEX, +1 Lucy affection.]
+-- If the check fails --
+[You miss a platform and are caught by a safety net made of disappointed hands.]
+LUCY: You fell with memorable commitment.
+YOU: That sounds almost positive.
+LUCY: It is not. But it is memorable.
+[Result: +1 DEX.]
+[Costs 1 daytime block.]
+
+SCENE: DAY ACTIVITY — POOL TRIAL
+[The Infernal Wellness Annex offers a free endurance assessment, which is suspicious because nothing in Hell is free except consequences.]
+[An imp in a visor points you toward a treadmill made of bone, brass, and obvious OSHA violations.]
+IMP ATTENDANT: Run until the machine respects you, collapses, or requests legal counsel.
+YOU: Which one usually happens first?
+IMP ATTENDANT: Depends how funny you are.
+[Stat check: CONSTITUTION vs 5.]
+-- If the check passes --
+[You keep running after the treadmill catches fire, which seems to impress the treadmill more than the staff.]
+IMP ATTENDANT: Congratulations. The machine has marked you as technically alive.
+YOU: That is the nicest thing a machine has ever said to me.
+[Result: +1 CON.]
+-- If the check fails --
+[You last almost a full minute before sliding off the treadmill with the grace of wet laundry.]
+IMP ATTENDANT: Do not worry. The floor signs the liability waiver for you.
+YOU: I hate premium wellness.
+[Result: +1 CON.]
+[Costs 1 daytime block.]
+
+SCENE: DAY ACTIVITY — LIBRARY WITH BELLE
+BELLE: Please do not breathe on the cursed indexes. They are sensitive.
+[Belle places three books in front of you. One whispers your name, one bites the table, and one has already filed a complaint.]
+BELLE: We are looking for a missing clause in your damnation record. If it screams, cite it properly.
+[Stat check: INTELLIGENCE vs 5.]
+-- If the check passes --
+[You spot a recursive footnote hiding inside another footnote like a coward.]
+BELLE: Oh. That was actually a very good observation.
+YOU: I understood half of it.
+BELLE: In Archives work, that is basically fluency.
+[Result: +1 INT, +1 Belle affection.]
+-- If the check fails --
+[You open a book upside down. The book takes this personally and turns your bookmark into ash.]
+BELLE: That answer is wrong, but in an educational direction.
+YOU: Is that better than regular wrong?
+BELLE: Marginally. Please cherish marginally.
+[Result: +1 INT.]
+[Costs 1 daytime block.]
+
+SCENE: DAY ACTIVITY — MEDITATION WITH MOLLY
+MOLLY: Meditation means sitting still until the urge to body-slam destiny passes.
+[The garden is quiet except for distant screams, wind chimes made of tiny ribs, and Molly cracking her knuckles at enlightenment.]
+MOLLY: Close your eyes. If you see your inner demon, suplex it with kindness.
+[Stat check: WISDOM vs 5.]
+-- If the check passes --
+[For one impossible moment, Hell goes quiet. Even Molly whispers.]
+MOLLY: Whoa. You got inner peace hands.
+YOU: I do not know what that means.
+MOLLY: Me neither, but I felt it in my punching soul.
+[Result: +1 WIS, +1 Molly affection.]
+-- If the check fails --
+[Your mind clears completely, then immediately fills with the phrase bone chandelier on repeat.]
+MOLLY: Your aura fell down the stairs, but it got back up.
+YOU: Inspirational?
+MOLLY: Injured, but inspirational.
+[Result: +1 WIS.]
+[Costs 1 daytime block.]
+
+SCENE: DAY ACTIVITY — SOCIAL CLUB WITH LILY
+LILY: Rizz is not about lines, sweetheart. It is about making bad ideas sound like destiny.
+[The social club is packed with demons exchanging gossip, drinks, and eye contact with dangerous financial terms.]
+LILY: Go charm someone. If they offer your soul a timeshare, smile and walk away.
+[Stat check: RIZZ vs 5.]
+-- If the check passes --
+[You work the room so well a duke of pestilence asks if you have representation.]
+LILY: Look at you. Charming without immediately requiring legal counsel.
+YOU: Is that rare?
+LILY: In Hell? That is basically marriage material. Do not panic.
+[Result: +1 RIZZ, +1 Lily affection.]
+-- If the check fails --
+[You deliver a compliment so awkward it somehow becomes a minor haunting.]
+LILY: Rough landing, but cute debris field.
+YOU: I died less dramatically than that sentence.
+LILY: Good. Then we can rebuild you with better lighting.
+[Result: +1 RIZZ.]
+[Costs 1 daytime block.]
+
+SCENE: H-PHONE MENU (DAYTIME)
+[The H-Phone opens to a glowing message thread list.]
+YOU: Money: {{money}} souls.
+CHOICE: "Browse Hell-Mazon" -> Hell-Mazon shop (see below)
+CHOICE: "Check Messages" -> Messages from Unknown (see below)
+CHOICE: "Put Phone Away" -> Back to the day loop
+-- Messages --
+UNKNOWN: Enjoying orientation?
+YOU: Absolutely not.
+UNKNOWN: Good. Honest answers are rare down here.
+-- Hell-Mazon shop --
+[Hell-Mazon loads a suspicious black market page. One item for sale per day. The purchase labels (HellMazon_Shop, BuyItem1/2) still live in the older prototype block of the code, not in the Day 1 rewrite — see the note at the end of this file.]
+[Note: the code also has a Socials option (HPhoneSocials: "Hell social media is just thirst traps and municipal warnings.") but it is not reachable from this menu.]
+
+SCENE: NIGHT TEXTING
+H-PHONE: AGENDA-666: Nightly Affinity Stabilization Required.
+LUCY: Translation: pick someone before your entropy turns into a class-action lawsuit.
+LILY: Pick someone fun.
+SAM: Pick someone competent.
+BELLE: Pick someone who has prepared a reasonable itinerary.
+MOLLY: PICK VIOLENCE. ROMANTIC VIOLENCE.
+CHOICE: "Lily - Hell Chilis" -> Date: Lily
+CHOICE: "Lucy - Office/Diner" -> Date: Lucy
+CHOICE: "Sam - Imp Bowling" -> Date: Sam
+CHOICE: "Belle - Abyssal Archives" -> Date: Belle
+CHOICE: "Molly - Axe Throwing" -> Date: Molly
+
+SCENE: DATE — LILY (HELL CHILIS)
+YOU: So this is where you wanted to meet?
+LILY: Obviously. Hell Chilis. Technically condemned, spiritually franchised, and emotionally unsafe after 9 PM.
+[You look up at the sign. It was clearly supposed to say Hell Chilis, but half the letters are burned out. It now reads: HEHIS.]
+YOU: It says Hehis.
+LILY: It says whatever you need it to say, babe.
+[Inside, the restaurant glows with red neon, fake leather booths, and the quiet despair of a thousand first dates pretending not to check their phones.]
+HELLBILLY SERVER: Welcome to Hehis. Our specials tonight are screaming fajitas, bottomless sin-chips, and molten chocolate regret cake.
+LILY: Two drinks. Something pink, dangerous, and financially irresponsible.
+LILY: So. Tell me something honest.
+CHOICE: "Admit this is overwhelming." -> Lily: Sincere opening
+CHOICE: "Flirt back and keep it light." -> Lily: Flirty opening
+
+-- Sincere opening --
+[Lily affection +2.]
+YOU: Honestly? This is overwhelming.
+LILY: Hell Chilis?
+YOU: Hell. Dying. You. The phone. The fact that my afterlife has scheduling software.
+LILY: Mm. Fair. Most people panic louder.
+LILY: Careful. Keep listening like that and I might develop standards.
+[Continues to: Dinner with Lily.]
+
+-- Flirty opening --
+[Lily affection +1.]
+YOU: Honestly? I think you brought me here because the lighting makes me look edible.
+LILY: It does. Tragically edible.
+LILY: I have a type. It usually ends badly.
+YOU: For them?
+LILY: For the furniture.
+LILY: To doomed chemistry.
+YOU: To whatever this is.
+[Continues to: Dinner with Lily.]
+
+-- Dinner with Lily --
+[The screaming fajitas arrive. They are, unfortunately, screaming.]
+YOU: What is screaming about the fajitas?
+HELLBILLY SERVER: The fajitas.
+LILY: Ignore it. Food gets dramatic here.
+YOU: I am supposed to say I want to get to know you.
+LILY: Terrible. Predictable. Four out of ten.
+YOU: But true.
+LILY: Careful.
+CHOICE: "Tell her you want her tonight." -> Lily: Hotel invite
+CHOICE: "Ask what she actually wants." -> Lily: The real question
+CHOICE: "Say you want to slow down." -> Lily: Goodnight
+
+-- The real question --
+[Lily affection +1.]
+YOU: I want to know what you actually want.
+LILY: Oh, gross. Emotional accuracy. In public. At a Hehis.
+YOU: You asked for honesty.
+LILY: I asked you for honesty. Do not weaponize mine.
+LILY: What I want is easy. It is supposed to be easy.
+LILY: I want to not think for a while. I want to be wanted without being investigated.
+YOU: I can do that.
+LILY: Come on, before I accidentally respect you in public.
+[Continues to: Hotel invite.]
+
+-- Goodnight (turning Lily down) --
+[Lily affection +2.]
+YOU: I think I should say goodnight.
+[Lily blinks.]
+LILY: Oh.
+YOU: I like you. And I want to remember tonight without wondering if I sprinted into it because everything else was insane.
+LILY: That was almost mature.
+YOU: I hated it too.
+[She steps closer and kisses your cheek. It is brief, warm, and almost careful.]
+LILY: For the record, I would have been amazing.
+YOU: I believe you.
+[H-Phone: Lily Affection +2.]
+[Continues to: Ending — BigD message.]
+
+-- Hotel invite --
+[The street outside Hehis is warm, smoky, and alive with distant sirens that sound less like emergencies and more like nightlife.]
+[Lily walks beside you, close enough that her fingers keep almost brushing yours.]
+LILY: You know this is a terrible idea, right?
+YOU: I have had a busy week for terrible ideas.
+LILY: I am not secretly wholesome, and I am not a prize you unlock by choosing the correct dialogue options.
+YOU: That one feels personally targeted.
+LILY: It is. You have protagonist disease.
+[The hotel rises ahead, all black glass and red light, like a luxury resort built by someone who hated sleep.]
+CHOICE: "Go upstairs with Lily." -> Lily: Upstairs
+CHOICE: "Slow down and say goodnight." -> Lily: Goodnight (above)
+
+-- Upstairs --
+[Sets the flag sleptWithLilyNight1. Lily affection +2.]
+YOU: Is the elevator music flirting with me?
+LILY: It flirts with everyone. Do not feel special.
+LILY: Still yes?
+YOU: Still yes.
+LILY: Good.
+[She kisses you.]
+[The kiss is not shy. Lily is not shy. But underneath the confidence, there is a strange precision to it, like effort is where the truth leaks in.]
+[Lily lies beside you, one arm over her eyes.]
+LILY: Congratulations. You survived me.
+YOU: Are you okay?
+LILY: Mhm.
+YOU: Lily.
+LILY: Do not do that.
+YOU: Do what?
+LILY: Say my name like there is a person attached.
+CHOICE: "Tell her you are not asking for forever." -> Lily: Aftercare — Stay
+CHOICE: "Tell her she does not have to joke." -> Lily: Aftercare — Honest
+
+-- Aftercare — Stay --
+[Lily affection +1.]
+YOU: I am not asking for forever.
+YOU: I am asking if you are still here.
+LILY: I am literally in the bed.
+LILY: I am here. For tonight.
+YOU: Tonight is enough.
+[Continues to: Morning after.]
+
+-- Aftercare — Honest --
+[Lily affection +2.]
+YOU: You do not have to joke right now.
+LILY: That is an incredibly rude thing to say to a woman in her own bed.
+LILY: Yes. Jokes are load-bearing.
+YOU: I noticed.
+LILY: Then what are you?
+YOU: Here.
+LILY: You are making this difficult.
+LILY: Leaving before anything matters.
+[Continues to: Morning after.]
+
+-- Morning after --
+[You wake before Hell's fake morning fully bleeds through the curtains.]
+[For one impossible second, you forget where you are.]
+[Lily is already awake, sitting at the edge of the bed with her back to you, posture too composed.]
+LILY: You snore.
+YOU: I died yesterday.
+LILY: Not an excuse.
+YOU: Lily.
+[She stops at the door.]
+LILY: Last night was fun.
+YOU: What is the unsafe part?
+[Her hand rests on the doorknob.]
+LILY: That I might want to see what happens if it is not only fun.
+LILY: Liar.
+[H-Phone: Lily Affection increased.]
+[H-Phone: Lily added a contact nickname for you: Bad Idea.]
+[Continues to: Ending — BigD message.]
+
+SCENE: DATE — LUCY (OFFICE / DINER)
+[Lucy's office looks less like a workplace and more like a cathedral built to worship deadlines.]
+LUCY: Come in. Do not touch anything that glows, bleeds, or has a tab labeled Q4 Suffering.
+YOU: Is this a date or a performance review?
+LUCY: Yes.
+YOU: That was not a choice.
+LUCY: You are learning.
+LUCY: The CBA monitors all entropy irregularities. You are an entropy irregularity. Therefore, we must make you look statistically boring.
+YOU: Good luck.
+LUCY: Do not flirt with disaster. Disaster reports to me.
+CHOICE: "Analyze the forms seriously." -> Lucy: Serious
+CHOICE: "Tease her about relaxing." -> Lucy: Tease
+
+-- Serious --
+[Lucy affection +2.]
+YOU: Show me what needs sorting.
+LUCY: Unexpectedly useful. Disturbing, but useful.
+[You help her mark forms: Still Screaming, Screaming But Productive, and Promotable Screaming.]
+[Continues to: The walk to Sinny's.]
+
+-- Tease --
+[Lucy affection +1.]
+YOU: You know most people do not schedule dates in compliance folders.
+LUCY: Most people are inefficient.
+YOU: Most people are happier.
+LUCY: Citation needed.
+[Continues to: The walk to Sinny's.]
+
+-- The walk to Sinny's --
+[Outside, Hell's evening traffic is a slow parade of burning buses and demons arguing about right-of-way.]
+LUCY: We are walking. The CBA does not reimburse teleportation for dates.
+YOU: Dates get reimbursed?
+LUCY: Dates get audited.
+YOU: Is that why you picked me? I am an audit risk?
+LUCY: You are an entropy irregularity with a pulse. I am containing you.
+YOU: Do you ever do anything that is not work?
+LUCY: I filed a request to find out. It was denied.
+YOU: By who?
+LUCY: By me.
+CHOICE: "Ask what she wanted to be before the CBA." -> Lucy: Before the CBA
+CHOICE: "Ask why she picked you for tonight." -> Lucy: Why you
+
+-- Before the CBA --
+[Lucy affection +1.]
+YOU: Before all of this. The forms, the monitoring. What did you want to be?
+LUCY: I wanted to be a lighthouse keeper.
+YOU: A lighthouse keeper.
+LUCY: Isolated. Predictable. One job: warn people before they crash.
+YOU: That is the most Lucy sentence I have ever heard.
+LUCY: Thank you. I rehearsed it for two centuries.
+[Continues to: Dinner at Sinny's.]
+
+-- Why you --
+[Lucy affection +2.]
+YOU: Of everyone in Hell, why did you pick me tonight?
+LUCY: Because you are new, and new things are either a threat or an opportunity, and I do not have time to wait and find out which.
+YOU: That is not flattering.
+LUCY: It is honest. Flattery is a rounding error.
+YOU: So I am an opportunity?
+LUCY: Pending review.
+[Continues to: Dinner at Sinny's.]
+-- Dinner at Sinny's --
+[Lucy's stomach growls. The sound is dignified, furious, and immediately denied.]
+LUCY: That was the building.
+YOU: The building wants fries?
+LUCY: We are going to Sinnys.
+[Do not let the kitschy exterior fool you. This place is an affront to culinary order.]
+YOU: Then why are we here?
+LUCY: Because their milkshakes are transcendent and I contain multitudes.
+[A blob of infernal chili splatters Lucy's blazer.]
+CHOICE: "Defuse the food fight." -> Lucy: Defuse
+CHOICE: "Escalate the food fight." -> Lucy: Escalate
+
+-- Defuse --
+[Lucy affection +1.]
+YOU: Everyone breathe. Nobody needs to die over chili.
+LUCY: This blazer is an Ayperor Autocure original.
+YOU: Nobody needs to die permanently over chili.
+LUCY: Acceptable revision.
+[Continues to: Leaving Sinny's.]
+
+-- Escalate --
+[Lucy affection +2.]
+YOU: Permission to become a problem?
+LUCY: Denied.
+YOU: Too late.
+[You fling a napkin dispenser. Lucy stares, horrified, then delighted against her will.]
+LUCY: You absolute agent of infinite chaos.
+[Continues to: Leaving Sinny's.]
+
+-- Leaving Sinny's --
+[By the time you escape Sinnys, the diner is smoking and Lucy is laughing so hard she has to brace one hand against the alley wall.]
+LUCY: I cannot remember the last time I lost control and the world did not end.
+YOU: Low bar, but I will take it.
+LUCY: Do not get sentimental. I am still evaluating you.
+[Her smile lingers after the words.]
+[Continues to: The walk home.]
+
+-- The walk home --
+[The alley behind Sinny's is quiet, except for a dumpster that is definitely digesting something.]
+LUCY: I cannot remember the last time I lost control and the world did not end.
+LUCY: I am saying it again. It bears repeating. In triplicate.
+LUCY: The CBA has a form for this. For what tonight was.
+YOU: A form for a date?
+LUCY: Form 88-C. Declaration of Unscheduled Enjoyment.
+YOU: Did you file one?
+LUCY: I am filing it mentally. The paperwork can wait until morning.
+YOU: That is the most reckless thing you have said all night.
+CHOICE: "Suggest something unplanned for tomorrow." -> Lucy: Unplanned
+CHOICE: "Ask if she wants to do this again, properly." -> Lucy: Again, properly
+
+-- Unplanned --
+[Lucy affection +2.]
+YOU: Tomorrow. No forms. No schedule. Just... whatever happens.
+LUCY: That is a terrible plan.
+YOU: Is that a no?
+LUCY: It is a yes with a footnote.
+YOU: What footnote?
+LUCY: I am bringing a clipboard anyway. For morale.
+[Continues to: Goodnight, Lucy.]
+
+-- Again, properly --
+[Lucy affection +1.]
+YOU: Same time next week? An actual date. With a reservation and everything.
+LUCY: A reservation is just a form you fill in with your mouth.
+YOU: Is that a yes?
+LUCY: It is a provisional yes. Subject to review.
+YOU: I will take it.
+[Continues to: Goodnight, Lucy.]
+
+-- Goodnight, Lucy --
+[At the corner, Lucy straightens her blazer, which is still faintly stained with infernal chili.]
+LUCY: For the record, this evening was statistically anomalous.
+YOU: In a good way?
+LUCY: In an unprecedented way.
+[She holds out her hand. You shake it. It is the most formal goodnight in the history of goodnights, and somehow it works.]
+LUCY: {{player.name}}.
+YOU: Yes?
+LUCY: Do not make me regret the paperwork.
+[H-Phone: Lucy Affection increased.]
+[H-Phone: Lucy sent you Form 88-C. It just says: APPROVED.]
+[Continues to: Ending — BigD message.]
+SCENE: DATE — SAM (IMP BOWLING)
+SAM: A date? You test the limits of my unholy patience.
+YOU: I am just calling it like I see it. So are we going bowling or not?
+SAM: Perhaps a brief military foray to assess battlefield conditions could prove educational.
+[The Imp Alehouse is a sports bar, bowling alley, and public health violation in one.]
+SAM: Repulsive. These imbeciles cannot even handle the fundamentals.
+[An imp gets its fingers stuck in a bowling ball and waddles down the lane screaming.]
+YOU: I think that one is inventing a new technique.
+SAM: That one is inventing a court-martial.
+CERBERUS BOUNCER: Well butter my demonic biscuit, if it aint General Stick-Up-Her-Unholy-Crevice herself.
+[Sam goes rigid. Talons extend.]
+CHOICE: "Defuse with humor." -> Sam: Humor
+CHOICE: "Let Sam intimidate them." -> Sam: Intimidate
+
+-- Humor --
+[Sam affection +2.]
+YOU: Hey now, the General and I are just here for casual circle-burning mayhem.
+[Sam blinks, then exhales through her nose.]
+SAM: Poorly articulated. But acceptable.
+[Continues to: Bowling.]
+
+-- Intimidate --
+[Sam affection +1.]
+YOU: I am going to stand over here where I am less throwable.
+SAM: Wise.
+[The bouncer apologizes to every god it no longer believes in.]
+[Continues to: Bowling.]
+
+-- Bowling --
+[At the rental counter, Sam receives the Squintyblinker 9000: a black bowling ball covered in blinking eyes.]
+YOU: That ball needs a priest.
+SAM: That ball needs discipline.
+SAM: What shall be your first sacrifice to sacred pinsport? Full ritual challenge, or a tactical handicap?
+CHOICE: "Accept the full challenge." -> Sam: Full challenge
+CHOICE: "Ask for rail-guides." -> Sam: Handicap
+
+-- Full challenge --
+[Sam affection +1.]
+YOU: No mercy. Unleash the ritual.
+SAM: Brave. Foolish. Efficient.
+[Continues to: The match.]
+
+-- Handicap --
+YOU: Maybe a slight tactical handicap for unit cohesion?
+SAM: Very well. Even elite soldiers begin with humiliating training wheels.
+[Continues to: The match.]
+
+-- The match --
+[The lanes smell like rental shoes and brimstone. Sam inspects her ball like a general inspecting a new recruit.]
+SAM: Rules of engagement. Ten frames. Loser buys the drinks. Winner gets bragging rights in perpetuity.
+YOU: And if I win?
+SAM: You will not.
+[Frame one. Sam's throw is a war crime. The pins do not fall, they surrender.]
+SAM: Your turn, civilian.
+CHOICE: "Play seriously." -> Sam: Serious game
+CHOICE: "Goof off to make her laugh." -> Sam: Goofing off
+
+-- Serious game --
+[Sam affection +1.]
+[You line up the shot like it matters. Because suddenly, to Sam, it does.]
+YOU: Lane's clear. Pins are doomed.
+SAM: Adequate form. Questionable follow-through.
+[You bowl a strike. Sam's eyebrow twitches. It is the closest she has come to smiling all night.]
+SAM: Luck.
+YOU: Skill.
+SAM: We will see.
+[Continues to: The final frame.]
+
+-- Goofing off --
+[Sam affection +2.]
+[You bowl backwards, between your legs, and somehow knock down seven pins.]
+SAM: What in the name of the Abyss was that?
+YOU: A tactical maneuver.
+SAM: That was not a maneuver. That was a cry for help.
+[She tries not to laugh. She fails. It is a short, sharp sound, like a gunshot that decided to be kind.]
+SAM: Do it again.
+YOU: Really?
+SAM: I said do it again, soldier.
+[Continues to: The final frame.]
+-- The final frame --
+[For an hour, Sam turns bowling into siege warfare. Pins explode. Imps flee. The snack counter catches fire twice.]
+[On the final frame, the Squintyblinker wobbles, blinks wrong, and misses one single pin.]
+SAM: ...
+[The silence is absolute.]
+SAM: This abysmal performance shall not be soon forgotten.
+YOU: It was the balls fault.
+[Sam looks at you. The rage does not vanish, but it changes shape.]
+SAM: Obviously.
+SAM: There will be a rematch.
+YOU: Looking forward to it, General.
+SAM: Do not make it sound pleasant.
+[Continues to: After the match.]
+
+-- After the match --
+[The snack counter is still smoking. Sam stands at the bar, two drinks in front of her, staring at the wreckage of the final frame like it personally betrayed her.]
+SAM: One pin. One. Single. Pin.
+YOU: It was the ball's fault.
+SAM: It was the ball's fault, and the lane's fault, and the pins' fault, and my fault for trusting a ball with eyes.
+YOU: That is a lot of fault to go around.
+SAM: I am a general. I distribute blame efficiently.
+SAM: You earned this. Do not make a ceremony of it.
+YOU: To the rematch?
+SAM: To the rematch. And to the fact that you did not run when I started yelling.
+CHOICE: "Ask about her past." -> Sam: Her past
+CHOICE: "Challenge her to the rematch right now." -> Sam: Rematch now
+
+-- Her past --
+[Sam affection +2.]
+YOU: How does someone become a general in Hell?
+SAM: You survive. Then you survive again. Then one day someone hands you a rank and you realize surviving was the easy part.
+YOU: And the hard part?
+SAM: Deciding what is worth surviving for.
+[She looks at you for a moment, like she is deciding whether you count.]
+SAM: Do not make me say it twice.
+YOU: Say what twice?
+SAM: Nothing. Drink your drink.
+[Continues to: Goodnight, General.]
+
+-- Rematch now --
+[Sam affection +1.]
+YOU: Same time next week. Loser buys dinner too.
+SAM: You are already planning your defeat.
+YOU: I am planning my victory lap.
+SAM: Bring your own ball next time. That one is clearly cursed.
+YOU: It has eyes, Sam.
+SAM: Exactly. It saw what it did.
+[Continues to: Goodnight, General.]
+
+-- Goodnight, General --
+[Outside, the Imp Alehouse glows behind you, and for once the night air does not smell like a health violation.]
+SAM: You fought well tonight, civilian.
+YOU: I bowled, Sam.
+SAM: Same thing.
+[She straightens, and for a second she looks less like a general and more like someone who forgot how to stand at ease.]
+SAM: If you tell anyone I enjoyed this, I will deny it under oath.
+YOU: Your secret is safe with me, General.
+SAM: {{player.name}}.
+YOU: Yes?
+SAM: Do not be late to the rematch.
+[H-Phone: Sam Affection increased.]
+[H-Phone: Sam sent you a calendar invite: REMATCH. Location: classified.]
+[Continues to: Ending — BigD message.]
+SCENE: DATE — BELLE (ABYSSAL ARCHIVES)
+BELLE: You came.
+YOU: You sound surprised.
+BELLE: Ghosting is very common in Hell. Usually literal. Still rude.
+[The Abyssal Archives rise around you: towers of books, impossible staircases, shelves stretching into a starless void.]
+YOU: What is this place?
+BELLE: Every sin ever recorded. Wrath is east wing, greed is lower stacks, lust has ventilation problems.
+YOU: And that giant chasm?
+BELLE: People who leave shopping carts in parking lots instead of returning them.
+YOU: Holy shit. That is the biggest section.
+BELLE: Yes.
+[She laughs nervously, then immediately looks like she regrets making sound.]
+BELLE: That is why I asked you here. I let it get out of hand.
+BELLE: This is a horrible first date. I dragged you into my work because I cannot relax until the work stops screaming.
+CHOICE: "Reassure her." -> Belle: Reassure
+CHOICE: "Joke about cart sinners." -> Belle: Joke
+
+-- Reassure --
+[Belle affection +2.]
+YOU: Hey. You asked for help. That is not horrible. That is honest.
+BELLE: Honest sounds less shameful when you say it.
+[Continues to: Sorting carts.]
+
+-- Joke --
+[Belle affection +1.]
+YOU: For what it is worth, these people deserve consequences.
+BELLE: Thank you. I have always said cart abandonment is civilizations quietest confession.
+[Continues to: Sorting carts.]
+
+-- Sorting carts --
+[You and Belle sort spectral carts into categories: Lazy, Raining, I Have Kids, and Just A Bad Person.]
+BELLE: Careful with that one. It still has a purse in it.
+YOU: Is the purse cursed?
+BELLE: Worse. It contains expired coupons.
+CHOICE: "Suggest a faster system." -> Belle: Faster system
+CHOICE: "Follow Belle's exact system." -> Belle: Patient
+
+-- Faster system --
+[Belle affection +1.]
+YOU: What if we sort by intent instead of cart size?
+BELLE: That...might work.
+BELLE: Please do not be smarter than me too quickly. I am fragile today.
+[Continues to: The strange record.]
+
+-- Patient --
+[Belle affection +2.]
+YOU: Show me your system. I will follow your lead.
+BELLE: You will?
+YOU: You are the archivist.
+BELLE: Right. Yes. I am. Sorry. Thank you.
+[Continues to: The strange record.]
+
+-- The strange record --
+[Halfway through the pile, you pull out a record that does not fit. It is warm to the touch, and the ink on it keeps rearranging itself.]
+BELLE: Oh. Oh no. That is a misfile.
+YOU: A misfile of what?
+BELLE: A good deed. Someone held a door open for a stranger in 1987, and it got filed under Wrath.
+YOU: A door?
+BELLE: A very heavy door. In the rain. It counts.
+CHOICE: "Read the record aloud." -> Belle: Read aloud
+CHOICE: "File it where it belongs." -> Belle: File it
+
+-- Read aloud --
+[Belle affection +1.]
+YOU: "On a rainy Tuesday, a tired man held a door open for a woman carrying groceries, and neither of them ever knew the other's name."
+BELLE: See? That is a whole story. In one sentence.
+YOU: It is a good sentence.
+BELLE: It is the best sentence in the building. I checked. I check every day.
+YOU: What else is in the good section?
+BELLE: A returned wallet. A compliment someone meant. A library book returned forty years late, with an apology note.
+YOU: Forty years?
+BELLE: Some people are slow. The Archives are patient.
+[Continues to: After the sorting.]
+
+-- File it --
+[Belle affection +2.]
+YOU: Then let us put it where it belongs.
+BELLE: It belongs in the good section. Which is one shelf. Behind the stairs. It is very dusty.
+YOU: Lead the way, Archivist.
+BELLE: You are the first person who has ever wanted to see the good shelf.
+YOU: Is that sad?
+BELLE: It is accurate. Which is worse.
+[Continues to: After the sorting.]
+-- After the sorting --
+[Hours later, the chasm is not fixed, but it is less actively menacing.]
+BELLE: I know this was not a normal date.
+YOU: I died on a banana peel yesterday. Normal is dead to me.
+BELLE: That is weirdly comforting.
+[She smiles, small and startled, like she found a flower growing in a filing cabinet.]
+BELLE: Maybe next time I can take you somewhere that does not involve the moral weight of retail negligence.
+YOU: I would like that.
+BELLE: You would?
+YOU: I would like anywhere, as long as you stop apologizing for it.
+BELLE: I will try. I am bad at it. I have filed a complaint about myself.
+[Belle notices a blank record with your name on it. It has no sin category. Only one initial in the ownership field: D.]
+BELLE: Oh. That is... yours.
+YOU: Mine?
+BELLE: Your record. It is blank. No sin category. Just the initial D in the ownership field.
+CHOICE: "Ask her to look into the D." -> Belle: Look into it
+CHOICE: "Tell her to leave it alone." -> Belle: Leave it
+
+-- Look into it --
+[Belle affection +2.]
+YOU: What does the D mean?
+BELLE: I do not know. That is the problem. Every record has an owner. Yours has a letter.
+YOU: Could it be a mistake?
+BELLE: The Archives do not make mistakes. They make threats.
+YOU: Comforting.
+BELLE: I will look into it. Quietly. Do not tell anyone I said that.
+YOU: I will not.
+BELLE: You are the first person whose record scared me. In a good way. Mostly.
+[Continues to: A real date.]
+
+-- Leave it --
+[Belle affection +1.]
+YOU: Then leave it. Whatever it is, it can wait until tomorrow.
+BELLE: You are very calm about a blank record with a mysterious initial.
+YOU: I died yesterday, Belle. My bar for alarming is extremely high.
+BELLE: Fair. Okay. Tomorrow. I will worry about it tomorrow. Probably. Definitely tomorrow.
+YOU: You are not worried?
+BELLE: I am worried about everything. This one can get in line.
+YOU: The line is very long, I bet.
+BELLE: It is. I checked.
+[Continues to: A real date.]
+
+-- A real date --
+[You walk Belle to the impossible staircase, where the shelves stretch up into the dark like a library that never learned how to end.]
+BELLE: I had fun tonight. That is a sentence I do not say often. I had to check the records to make sure I was allowed to.
+YOU: Are you allowed?
+BELLE: Pending review. By me. I approved it.
+[She reaches into her bag and pulls out a small, worn bookmark. It is shaped like a tiny ladder.]
+BELLE: Here. So you can find your way back. To the Archives. To... this.
+YOU: Thank you, Belle.
+BELLE: Next time, I will take you somewhere normal. I have heard of a place with no filing system at all. It sounds terrifying. I am very excited.
+YOU: I will hold you to that.
+BELLE: Please do. Nobody ever holds me to anything except deadlines.
+[H-Phone: Belle Affection increased.]
+[H-Phone: Belle sent you a photo of the good shelf. It is very dusty. It is very loved.]
+[Continues to: Ending — BigD message.]
+
+SCENE: DATE — MOLLY (AXE THROWING)
+MOLLY: Whats up, meatbag? It is your girl Molly, the one and only Demon Destroyer!
+YOU: Should I be wearing protective gear?
+MOLLY: Emotionally? Absolutely.
+MOLLY: Quit whimpering and tell me if you have what it takes to ride shotgun with the wildest hellion this side of the Abyss.
+CHOICE: "Agree enthusiastically." -> Molly: Agree
+CHOICE: "Ask if this is safe." -> Molly: Safe
+
+-- Agree --
+[Molly affection +2.]
+YOU: Lets do this crazy thing.
+MOLLY: OH YEAH! That is the energy! Welcome to the main event!
+[Continues to: Throwing axes.]
+
+-- Safe --
+[Molly affection +1.]
+YOU: Define safe.
+MOLLY: Nobody important dies twice.
+YOU: That did not help.
+[Continues to: Throwing axes.]
+
+-- Throwing axes --
+[The Infernal Axe Throwing Range smells like hot metal, sweat, and liability waivers.]
+MOLLY: They call me Demon Destroyer for a reason.
+YOU: Because you destroy demons?
+MOLLY: Because I destroy expectations. And sometimes demons. And once a buffet.
+[She grabs an axe, spins it once, and buries it dead center in the target without looking.]
+MOLLY: Your turn, meatbag. Show me what you got.
+CHOICE: "Take it seriously." -> Molly: Serious throw
+CHOICE: "Show off and miss on purpose." -> Molly: Show off
+
+-- Serious throw --
+[Molly affection +1.]
+[You take the axe, breathe, and throw. It sticks. Not dead center, but close enough that Molly raises an eyebrow.]
+MOLLY: Huh. Not bad. For a dead guy.
+YOU: I died yesterday. I am full of surprises.
+MOLLY: You are full of something.
+YOU: Thank you?
+MOLLY: You are welcome. Probably.
+YOU: Beginner's luck?
+MOLLY: Do not say luck. Luck is for people who cannot aim.
+YOU: I aimed.
+MOLLY: You aimed at the wrong lane and still scored. I hate that.
+[Continues to: The axe range.]
+
+-- Show off --
+[Molly affection +2.]
+[You wind up like a professional, spin once, and send the axe sailing straight into the ceiling.]
+MOLLY: OH. MY. HELL.
+YOU: I meant to do that.
+MOLLY: You absolutely did not.
+YOU: I absolutely did not.
+[She laughs so hard she has to lean on the wall. It is loud, ugly, and completely wonderful.]
+MOLLY: Okay. Okay. You are fun. I am keeping you.
+[Continues to: The axe range.]
+-- The axe range --
+[The floor explodes.]
+KEZAVALDRAAK: FOOLISH DEMONS! Your games have awakened Kezavaldraak from volcanic slumber!
+MOLLY: Well, well, if it is not my oldest frenemy.
+YOU: You know him?
+MOLLY: I owe him money. Or he owes me money. We disagree loudly.
+CHOICE: "Trash-talk Kezavaldraak." -> Molly: Trash-talk
+CHOICE: "Support Molly directly." -> Molly: Support
+
+-- Trash-talk --
+[Molly affection +1.]
+YOU: Hey, gecko-breath! Didnt your pit momma teach you not to make a scene on date night?
+MOLLY: That was disgusting. I loved every syllable.
+[Continues to: The fight.]
+
+-- Support --
+[Molly affection +2.]
+YOU: Mollys got this. I am just here to witness greatness and maybe hold her hair.
+MOLLY: Ohhh, sweet emotional support with a side of violence. My favorite combo meal.
+[Continues to: The fight.]
+
+-- The fight --
+[The fight becomes less a battle and more a wrestling pay-per-view with property damage.]
+MOLLY: Say my name, ugly!
+KEZAVALDRAAK: Demon...Destroyer...
+MOLLY: Thats right!
+[With one final impossible suplex, Molly sends Kezavaldraak crashing into the target wall. The axes spell out: DATE NIGHT.]
+[Molly stumbles, laughing, then nearly collapses into your arms.]
+YOU: I got you.
+MOLLY: Heh. Fancy meeting you in the smoldering ruins of our devastatingly romantic date night.
+[For once, her voice is quiet.]
+MOLLY: You do not think I am too much?
+YOU: Molly, we are in Hell. Too much is the dress code.
+MOLLY: Good. Because next time I am bringing fireworks.
+[Continues to: After the fight.]
+
+-- After the fight --
+[A demon with a clipboard waves you both toward the door, banned for a week, and Molly treats it like a trophy.]
+MOLLY: Best date ever.
+YOU: We got banned.
+MOLLY: We got banned TOGETHER. That is the romantic part.
+[Outside, the night air smells like smoke and burnt sugar. Molly buys two skewers from a food cart and hands you one without asking.]
+MOLLY: Eat. You fought a volcano demon. You earned the mystery meat.
+YOU: What is it?
+MOLLY: Mystery. Eat it.
+CHOICE: "Ask why she fights." -> Molly: Why she fights
+CHOICE: "Ask what she does when she is not fighting." -> Molly: Not fighting
+
+-- Why she fights --
+[Molly affection +2.]
+YOU: Why do you fight everything? Kezavaldraak, the buffet, the ceiling?
+MOLLY: Because if I am the loudest thing in the room, nobody notices I am scared.
+YOU: Scared of what?
+MOLLY: Of being boring. Of being the girl nobody picks. So I make sure they cannot look away.
+YOU: I am looking.
+MOLLY: Yeah. You are. Do not stop.
+[Continues to: Goodnight, Molly.]
+
+-- Not fighting --
+[Molly affection +1.]
+YOU: What do you do when you are not fighting or throwing axes?
+MOLLY: I collect stickers.
+YOU: Stickers.
+MOLLY: Do not laugh. They are extremely cool stickers.
+YOU: I was not laughing.
+MOLLY: Good. Because I will show you my collection next time, and you WILL be impressed.
+YOU: Can I see them?
+MOLLY: The stickers? Maybe. If you are good.
+YOU: I was good. I got banned with you.
+MOLLY: Fair. That counts as good.
+[Continues to: Goodnight, Molly.]
+
+-- Goodnight, Molly --
+[At the corner, Molly stops and looks at you, and for once she is not performing. She is just a girl who had a good night.]
+MOLLY: Hey. Meatbag.
+YOU: Yeah?
+MOLLY: Thanks for not flinching. Most people flinch.
+YOU: Most people have not been suplexed by proxy.
+MOLLY: Fair.
+[She punches your arm, gently, by Molly standards. It still stings.]
+MOLLY: Same time next week? I have got fireworks. And stickers. And a new frenemy to fight.
+YOU: I would not miss it.
+MOLLY: Good. Because I already told everyone you are my plus-one to everything now.
+[H-Phone: Molly Affection increased.]
+[H-Phone: Molly sent you a photo of the DATE NIGHT wall. Caption: "best date ever, banned for a week."]
+[Continues to: Ending — BigD message.]
+SCENE: ENDING — BIGD MESSAGE
+[By the time you get back to your room, Hell feels less impossible and more like a bad neighborhood you are somehow already learning to navigate.]
+YOU: Day one. Dead. Dating. Bureaucratically unstable.
+YOU: *BUZZ*
+UNKNOWN: You made an impression.
+YOU: Stop doing that.
+UNKNOWN: I would, but then who would encourage your worst instincts?
+YOU: What do you want?
+UNKNOWN: For now? Keep meeting them. Lucy, Lily, Sam, Belle, Molly. Each one thinks they are studying you.
+UNKNOWN: None of them realize what you are teaching them.
+YOU: And what am I?
+UNKNOWN: Potential.
+UNKNOWN: Goodnight, kid.
+[The message deletes itself.]
+YOU: Kid?
+[For one second, the room feels colder than Hell should be.]
+[Somewhere far below, or above, or behind the world, someone laughs.]
+[DAY 1 COMPLETE]
+
+---
+NOTES FOR THE TONIGHT SESSION (11 p.m.):
+- The Hell-Mazon shop purchase labels (HellMazon_Shop, BuyItem1, BuyItem2, ProcessPurchase) still live in the older prototype block of js/script.js, not in the Day 1 rewrite. Do not delete the prototype block without moving those labels first.
+- The H-Phone menu's Socials option (HPhoneSocials) exists in code but is not reachable from the menu.
+- This file is a reading copy only. Edits belong in js/script.js; keep this file in sync by hand if the script changes.
