@@ -801,6 +801,7 @@ YOU: A misfile of what?
 BELLE: A good deed. Someone held a door open for a stranger in 1987, and it got filed under Wrath.
 YOU: A door?
 BELLE: A very heavy door. In the rain. It counts.
+BELLE: I keep the ones nobody wants. Someone should.
 CHOICE: "Read the record aloud." -> Belle: Read aloud
 CHOICE: "File it where it belongs." -> Belle: File it
 
@@ -877,7 +878,6 @@ BELLE: Pending review. By me. I approved it.
 BELLE: Here. So you can find your way back. To the Archives. To... this.
 YOU: Thank you, Belle.
 BELLE: Next time, I will take you somewhere normal. I have heard of a place with no filing system at all. It sounds terrifying. I am very excited.
-BELLE: Somewhere with windows, maybe. I miss windows.
 YOU: I will hold you to that.
 BELLE: Please do. Nobody ever holds me to anything except deadlines.
 [H-Phone: Belle Affection increased.]
@@ -984,6 +984,7 @@ MOLLY: We got banned TOGETHER. That is the romantic part.
 MOLLY: Eat. You fought a volcano demon. You earned the mystery meat.
 YOU: What is it?
 MOLLY: Mystery. Eat it.
+MOLLY: I used to get offerings. Now I buy my own skewers.
 CHOICE: "Ask why she fights." -> Molly: Why she fights
 CHOICE: "Ask what she does when she is not fighting." -> Molly: Not fighting
 
@@ -1004,7 +1005,6 @@ YOU: What do you do when you are not fighting or throwing axes?
 MOLLY: I collect stickers.
 YOU: Stickers.
 MOLLY: Do not laugh. They are extremely cool stickers.
-MOLLY: The shiny ones are my favorite. I like things that catch the light.
 YOU: I was not laughing.
 MOLLY: Good. Because I will show you my collection next time, and you WILL be impressed.
 YOU: Can I see them?
