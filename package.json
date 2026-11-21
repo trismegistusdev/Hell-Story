@@ -1,14 +1,14 @@
 {
-  "name": "my-game",
-  "productName": "My Game",
+  "name": "hell-story",
+  "productName": "Hell Story",
   "version": "0.1.0",
   "main": "engine/electron/index.js",
-  "description": "A description of your game",
+  "description": "A dating sim where you die and go to hell.",
   "author": "Your Name",
   "license": "MIT",
   "homepage": "https://example.com",
   "build": {
-    "appId": "com.example.mygame",
+    "appId": "com.trismegistus.hellstory",
     "win": {
       "target": [
         "nsis"

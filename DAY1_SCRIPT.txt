@@ -1058,6 +1058,6 @@ THE BEAST: They call me the Beast. It is a joke. I failed to start the apocalyps
 ---
 NOTES FOR THE TONIGHT SESSION (11 p.m.):
 - The Hell-Mazon shop purchase labels (HellMazon_Shop, BuyItem1, BuyItem2, ProcessPurchase) still live in the older prototype block of js/script.js, not in the Day 1 rewrite. Do not delete the prototype block without moving those labels first.
-- The H-Phone menu's Socials option (HPhoneSocials) exists in code but is not reachable from the menu.
+- The H-Phone menu's Socials option (HPhoneSocials) is reachable from the H-Phone menu (Nov 20 night work) and shows the phone in 'socials' mode.
 - Ronald Reagan gag lines in the Ending — BigD message scene (THE BEAST) are intentional, added Nov 20 — do not remove.
 - This file is a reading copy only. Edits belong in js/script.js; keep this file in sync by hand if the script changes.
