@@ -17,7 +17,7 @@ monogatari.settings({
 	// The name of your game, this will be used to store all the data so once
 	// you've released a game using one name, it shouldn't change. Please use the
 	// Version Setting to indicate a new release of your game!
-	'Name': 'My Visual Novel',
+	'Name': 'Hell Story',
 
 	// The version of your game in semantic versioning (https://semver.org/).
 	'Version': '0.1.0',
@@ -93,7 +93,7 @@ monogatari.settings({
 	// If this value is set to 0, no skipping will be allowed but if it's set
 	// to a higher number, skipping will be allowed and that value will be taken
 	// as the speed in milliseconds with which the game will skip through the script
-	'Skip': 0,
+	'Skip': 100,
 
 	// Define the directories where the assets are located. The root directory is
 	// the holder for the other asset specific directories, this directories are
@@ -115,7 +115,7 @@ monogatari.settings({
 	// Name of the Splash Screen Label. If a name is given and a label with that
 	// name exists on the game's script, it will be used to show a splash screen
 	// right after the loading screen.
-	'SplashScreenLabel': '_SplashScreen',
+	'SplashScreenLabel': '',
 
 	// Define what storage engine should be used to save the game data. *
 	// Adapters Available:
